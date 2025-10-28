@@ -5,8 +5,7 @@ import com.seibel.basicspring.common.enums.ActiveEnum;
 import com.seibel.basicspring.database.database.db.entity.CompanyDb;
 import com.seibel.basicspring.database.database.db.mapper.CompanyMapper;
 import com.seibel.basicspring.database.database.db.repository.CompanyRepository;
-import com.seibel.basicspring.database.database.exceptions.DatabaseFailureException;
-import com.seibel.basicspring.database.database.exceptions.DatabaseRetrievalFailureException;
+import com.seibel.basicspring.database.database.exceptions.DatabaseException;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -28,9 +27,7 @@ public class CompanyDbService extends BaseDbService {
         this.mapper = mapper;
     }
 
-    public Company create(@NonNull String code, @NonNull String name, @NonNull String description)
-            throws DatabaseFailureException, DatabaseRetrievalFailureException {
-
+    public Company create(@NonNull String code, @NonNull String name, @NonNull String description) {
         String extid = UUID.randomUUID().toString();
         LocalDateTime now = LocalDateTime.now();
 
@@ -49,16 +46,14 @@ public class CompanyDbService extends BaseDbService {
             return mapper.toModel(saved);
 
         } catch (Exception e) {
-            handleException("create", extid, e);
-            return null; // unreachable
+            log.error("Failed to create company: {}", extid, e);
+            throw new DatabaseException("Failed to create company", e);
         }
     }
 
-    public Company update(@NonNull String extid, String code, String name, String description)
-            throws DatabaseFailureException, DatabaseRetrievalFailureException {
-
+    public Company update(@NonNull String extid, String code, String name, String description) {
         CompanyDb record = repository.findByExtid(extid)
-                .orElseThrow(() -> new DatabaseRetrievalFailureException(getFoundFailureMessage(extid)));
+                .orElseThrow(() -> new DatabaseException(getFoundFailureMessage(extid)));
 
         try {
             record.setCode(code);
@@ -71,16 +66,14 @@ public class CompanyDbService extends BaseDbService {
             return mapper.toModel(saved);
 
         } catch (Exception e) {
-            handleException("update", extid, e);
-            return null;
+            log.error("Failed to update company: {}", extid, e);
+            throw new DatabaseException("Failed to update company", e);
         }
     }
 
-    public boolean delete(@NonNull String extid)
-            throws DatabaseFailureException, DatabaseRetrievalFailureException {
-
+    public boolean delete(@NonNull String extid) {
         CompanyDb record = repository.findByExtid(extid)
-                .orElseThrow(() -> new DatabaseRetrievalFailureException(getFoundFailureMessage(extid)));
+                .orElseThrow(() -> new DatabaseException(getFoundFailureMessage(extid)));
 
         try {
             record.setDeletedAt(LocalDateTime.now());
@@ -91,14 +84,14 @@ public class CompanyDbService extends BaseDbService {
             return true;
 
         } catch (Exception e) {
-            handleException("delete", extid, e);
-            return false; // unreachable
+            log.error("Failed to delete company: {}", extid, e);
+            throw new DatabaseException("Failed to delete company", e);
         }
     }
 
-    public Company findByExtid(@NonNull String extid) throws DatabaseRetrievalFailureException {
+    public Company findByExtid(@NonNull String extid) {
         CompanyDb record = repository.findByExtid(extid)
-                .orElseThrow(() -> new DatabaseRetrievalFailureException(getFoundFailureMessage(extid)));
+                .orElseThrow(() -> new DatabaseException(getFoundFailureMessage(extid)));
         log.info(getFoundMessage(extid));
         return mapper.toModel(record);
     }

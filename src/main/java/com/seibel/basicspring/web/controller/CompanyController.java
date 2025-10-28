@@ -1,43 +1,38 @@
 package com.seibel.basicspring.web.controller;
 
 import com.seibel.basicspring.common.domain.Company;
-import com.seibel.basicspring.database.database.exceptions.DatabaseRetrievalFailureException;
+import com.seibel.basicspring.common.exceptions.ValidationException;
+import com.seibel.basicspring.service.CompanyService;
 import com.seibel.basicspring.web.request.RequestCompanyCreate;
 import com.seibel.basicspring.web.request.RequestCompanyUpdate;
 import com.seibel.basicspring.web.response.ResponseCompany;
-import com.seibel.basicspring.web.service.CompanyWebService;
 import jakarta.validation.Valid;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/company")
-@Validated  // Enable method-level validation
+@Validated
 public class CompanyController {
 
-    private final CompanyWebService companyWebService;
+    private final CompanyService companyService;
 
-    public CompanyController(CompanyWebService companyWebService) {
-        this.companyWebService = companyWebService;
+    public CompanyController(CompanyService companyService) {
+        this.companyService = companyService;
     }
 
     @GetMapping
-    public List<ResponseCompany> getAll() throws DatabaseRetrievalFailureException {
-        List<Company> result = companyWebService.getAll();
+    public List<ResponseCompany> getAll() {
+        List<Company> result = companyService.findAll();
         return toResponse(result);
     }
 
     @GetMapping("/{extid}")
     public ResponseCompany getByExtid(@PathVariable String extid) {
-        Company item = companyWebService.getByExtid(extid);
-        if (item == null) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Company not found.");
-        }
+        Company item = companyService.findByExtid(extid);
         return toResponse(item);
     }
 
@@ -48,7 +43,7 @@ public class CompanyController {
                 .name(request.getName())
                 .description(request.getDescription())
                 .build();
-        Company result = companyWebService.create(item);
+        Company result = companyService.create(item);
         return toResponse(result);
     }
 
@@ -61,17 +56,17 @@ public class CompanyController {
                 .name(request.getName())
                 .description(request.getDescription())
                 .build();
-        Company result = companyWebService.update(extid, item);
+        Company result = companyService.update(extid, item);
         return toResponse(result);
     }
 
     @DeleteMapping("/{extid}")
     public ResponseEntity<Void> delete(@PathVariable String extid) {
-        boolean deleted = companyWebService.delete(extid);
+        boolean deleted = companyService.delete(extid);
         if (deleted) {
             return ResponseEntity.noContent().build();
         } else {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Company not found or already deleted.");
+            return ResponseEntity.notFound().build();
         }
     }
 
@@ -92,7 +87,7 @@ public class CompanyController {
         if (request.getCode() == null &&
                 request.getName() == null &&
                 request.getDescription() == null) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "At least one field must be provided for update.");
+            throw new ValidationException("At least one field must be provided for update.");
         }
     }
 }

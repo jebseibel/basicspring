@@ -1,7 +1,5 @@
 package com.seibel.basicspring.database.database.db.service;
 
-import com.seibel.basicspring.database.database.exceptions.DatabaseFailureException;
-import com.seibel.basicspring.database.database.exceptions.DatabaseRetrievalFailureException;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -40,27 +38,6 @@ public abstract class BaseDbService {
     protected String getOperationFailureMessage(String operation, String extid) {
         return String.format("%s operation failed for %s with extid=%s",
                 capitalize(operation), entityName, extid);
-    }
-
-    /**
-     * Handles exceptions from repository calls and maps them to your standardized exceptions.
-     * @param operation The CRUD operation name ("create", "update", "delete", "retrieve")
-     * @param extid The entity external ID (optional for bulk ops)
-     * @param e The original exception
-     * @throws DatabaseFailureException for create/update/delete
-     * @throws DatabaseRetrievalFailureException for retrieve
-     */
-    protected void handleException(String operation, String extid, Exception e)
-            throws DatabaseFailureException, DatabaseRetrievalFailureException {
-
-        String message = getOperationFailureMessage(operation, extid);
-        log.error("{} - cause: {}", message, e.getMessage(), e);
-
-        if ("retrieve".equalsIgnoreCase(operation)) {
-            throw new DatabaseRetrievalFailureException(message);
-        } else {
-            throw new DatabaseFailureException(message, e);
-        }
     }
 
     private String capitalize(String str) {

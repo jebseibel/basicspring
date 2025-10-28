@@ -5,8 +5,7 @@ import com.seibel.basicspring.common.enums.ActiveEnum;
 import com.seibel.basicspring.database.database.db.entity.ProfileDb;
 import com.seibel.basicspring.database.database.db.mapper.ProfileMapper;
 import com.seibel.basicspring.database.database.db.repository.ProfileRepository;
-import com.seibel.basicspring.database.database.exceptions.DatabaseFailureException;
-import com.seibel.basicspring.database.database.exceptions.DatabaseRetrievalFailureException;
+import com.seibel.basicspring.database.database.exceptions.DatabaseException;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -28,9 +27,7 @@ public class ProfileDbService extends BaseDbService {
         this.mapper = mapper;
     }
 
-    public Profile create(@NonNull String nickname, @NonNull String fullname)
-            throws DatabaseFailureException, DatabaseRetrievalFailureException {
-
+    public Profile create(@NonNull String nickname, @NonNull String fullname) {
         String extid = UUID.randomUUID().toString();
         LocalDateTime now = LocalDateTime.now();
 
@@ -48,16 +45,14 @@ public class ProfileDbService extends BaseDbService {
             return mapper.toModel(saved);
 
         } catch (Exception e) {
-            handleException("create", extid, e);
-            return null; // unreachable
+            log.error("Failed to create profile: {}", extid, e);
+            throw new DatabaseException("Failed to create profile", e);
         }
     }
 
-    public Profile update(@NonNull String extid, String nickname, String fullname)
-            throws DatabaseFailureException, DatabaseRetrievalFailureException {
-
+    public Profile update(@NonNull String extid, String nickname, String fullname) {
         ProfileDb record = repository.findByExtid(extid)
-                .orElseThrow(() -> new DatabaseRetrievalFailureException(getFoundFailureMessage(extid)));
+                .orElseThrow(() -> new DatabaseException(getFoundFailureMessage(extid)));
 
         try {
             record.setNickname(nickname);
@@ -69,16 +64,14 @@ public class ProfileDbService extends BaseDbService {
             return mapper.toModel(saved);
 
         } catch (Exception e) {
-            handleException("update", extid, e);
-            return null;
+            log.error("Failed to update profile: {}", extid, e);
+            throw new DatabaseException("Failed to update profile", e);
         }
     }
 
-    public boolean delete(@NonNull String extid)
-            throws DatabaseFailureException, DatabaseRetrievalFailureException {
-
+    public boolean delete(@NonNull String extid) {
         ProfileDb record = repository.findByExtid(extid)
-                .orElseThrow(() -> new DatabaseRetrievalFailureException(getFoundFailureMessage(extid)));
+                .orElseThrow(() -> new DatabaseException(getFoundFailureMessage(extid)));
 
         try {
             record.setDeletedAt(LocalDateTime.now());
@@ -89,14 +82,14 @@ public class ProfileDbService extends BaseDbService {
             return true;
 
         } catch (Exception e) {
-            handleException("delete", extid, e);
-            return false; // unreachable
+            log.error("Failed to delete profile: {}", extid, e);
+            throw new DatabaseException("Failed to delete profile", e);
         }
     }
 
-    public Profile findByExtid(@NonNull String extid) throws DatabaseRetrievalFailureException {
+    public Profile findByExtid(@NonNull String extid) {
         ProfileDb record = repository.findByExtid(extid)
-                .orElseThrow(() -> new DatabaseRetrievalFailureException(getFoundFailureMessage(extid)));
+                .orElseThrow(() -> new DatabaseException(getFoundFailureMessage(extid)));
         log.info(getFoundMessage(extid));
         return mapper.toModel(record);
     }

@@ -1,17 +1,15 @@
 package com.seibel.basicspring.web.controller;
 
 import com.seibel.basicspring.common.domain.Profile;
-import com.seibel.basicspring.database.database.exceptions.DatabaseRetrievalFailureException;
+import com.seibel.basicspring.common.exceptions.ValidationException;
+import com.seibel.basicspring.service.ProfileService;
 import com.seibel.basicspring.web.request.RequestProfileCreate;
 import com.seibel.basicspring.web.request.RequestProfileUpdate;
 import com.seibel.basicspring.web.response.ResponseProfile;
-import com.seibel.basicspring.web.service.ProfileWebService;
 import jakarta.validation.Valid;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -20,24 +18,21 @@ import java.util.List;
 @Validated
 public class ProfileController {
 
-    private final ProfileWebService profileWebService;
+    private final ProfileService profileService;
 
-    public ProfileController(ProfileWebService profileWebService) {
-        this.profileWebService = profileWebService;
+    public ProfileController(ProfileService profileService) {
+        this.profileService = profileService;
     }
 
     @GetMapping
-    public List<ResponseProfile> getAll() throws DatabaseRetrievalFailureException {
-        List<Profile> result = profileWebService.getAll();
+    public List<ResponseProfile> getAll() {
+        List<Profile> result = profileService.findAll();
         return toResponse(result);
     }
 
     @GetMapping("/{extid}")
     public ResponseProfile getByExtid(@PathVariable String extid) {
-        Profile item = profileWebService.getByExtid(extid);
-        if (item == null) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Profile not found.");
-        }
+        Profile item = profileService.findByExtid(extid);
         return toResponse(item);
     }
 
@@ -47,7 +42,7 @@ public class ProfileController {
                 .nickname(request.getNickname())
                 .fullname(request.getFullname())
                 .build();
-        Profile result = profileWebService.create(item);
+        Profile result = profileService.create(item);
         return toResponse(result);
     }
 
@@ -59,17 +54,17 @@ public class ProfileController {
                 .nickname(request.getNickname())
                 .fullname(request.getFullname())
                 .build();
-        Profile result = profileWebService.update(extid, item);
+        Profile result = profileService.update(extid, item);
         return toResponse(result);
     }
 
     @DeleteMapping("/{extid}")
     public ResponseEntity<Void> delete(@PathVariable String extid) {
-        boolean deleted = profileWebService.delete(extid);
+        boolean deleted = profileService.delete(extid);
         if (deleted) {
             return ResponseEntity.noContent().build();
         } else {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Profile not found or already deleted.");
+            return ResponseEntity.notFound().build();
         }
     }
 
@@ -88,7 +83,7 @@ public class ProfileController {
     private void validateUpdateRequest(RequestProfileUpdate request) {
         if (request.getNickname() == null &&
                 request.getFullname() == null) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "At least one field must be provided for update.");
+            throw new ValidationException("At least one field must be provided for update.");
         }
     }
 }
