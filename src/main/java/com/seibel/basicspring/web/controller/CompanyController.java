@@ -16,7 +16,7 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/accounts")
+@RequestMapping("/api/company")
 @Validated  // Enable method-level validation
 public class CompanyController {
 
