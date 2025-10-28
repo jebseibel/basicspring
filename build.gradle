@@ -14,6 +14,14 @@ java {
     }
 }
 
+ext {
+    liquibaseVersion = '4.29.2'
+    modelMapperVersion = '3.2.0'
+    threetenbpVersion = '1.6.8'
+    jakartaAnnotationVersion = '3.0.0'
+    lombokVersion = '1.18.34'
+}
+
 configurations {
     compileOnly {
         extendsFrom annotationProcessor
@@ -25,9 +33,34 @@ repositories {
 }
 
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter'
-    compileOnly 'org.projectlombok:lombok'
-    annotationProcessor 'org.projectlombok:lombok'
+    // --- Spring Boot Starters ---
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+
+    // --- Database ---
+    implementation "org.liquibase:liquibase-core:${liquibaseVersion}"
+    runtimeOnly 'com.mysql:mysql-connector-j'
+
+    // --- Environment & Config ---
+    implementation "me.paulschwarz:spring-dotenv:4.0.0"
+    implementation 'org.yaml:snakeyaml:2.2'
+
+    // --- Utilities ---
+    implementation "org.modelmapper:modelmapper:${modelMapperVersion}"
+    implementation "org.threeten:threetenbp:${threetenbpVersion}"
+    implementation "jakarta.annotation:jakarta.annotation-api:${jakartaAnnotationVersion}"
+
+    // --- Development Tools ---
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+
+    // --- Lombok ---
+    compileOnly "org.projectlombok:lombok:${lombokVersion}"
+    annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
+
+    // --- Testing ---
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }

@@ -1,0 +1,24 @@
+spring:
+  application:
+    name: basicspring-database-test
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/viro
+    username: ${BASICSPRING_USERNAME:default_user}
+    password: ${BASICSPRING_PASSWORD:default_pass}
+    hikari:
+      initialization-fail-timeout: 0
+      connection-timeout: 3000
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: none
+  main:
+    allow-bean-definition-overriding: true
+  liquibase:
+    enabled: true
+    change-log: classpath:db/changelog/db.changelog-master.yaml
+
+logging:
+  level:
+    org.hibernate.SQL: WARN
