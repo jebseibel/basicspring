@@ -5,7 +5,7 @@ import com.seibel.basicspring.common.enums.ActiveEnum;
 import com.seibel.basicspring.database.database.db.entity.CompanyDb;
 import com.seibel.basicspring.database.database.db.mapper.CompanyMapper;
 import com.seibel.basicspring.database.database.db.repository.CompanyRepository;
-import com.seibel.basicspring.database.database.exceptions.DatabaseException;
+import com.seibel.basicspring.database.database.exception.DatabaseException;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
