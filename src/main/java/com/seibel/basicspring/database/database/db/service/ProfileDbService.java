@@ -8,6 +8,8 @@ import com.seibel.basicspring.database.database.db.repository.ProfileRepository;
 import com.seibel.basicspring.database.database.exception.DatabaseException;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -51,9 +53,11 @@ public class ProfileDbService extends BaseDbService {
     }
 
     public Profile update(@NonNull String extid, String nickname, String fullname) {
-        ProfileDb record = repository.findByExtid(extid)
-                .orElseThrow(() -> new DatabaseException(getFoundFailureMessage(extid)));
-
+        ProfileDb record = repository.findByExtid(extid).orElse(null);
+        if (record == null) {
+            log.warn(getFoundFailureMessage(extid));
+            return null;
+        }
         try {
             record.setNickname(nickname);
             record.setFullname(fullname);
@@ -70,9 +74,11 @@ public class ProfileDbService extends BaseDbService {
     }
 
     public boolean delete(@NonNull String extid) {
-        ProfileDb record = repository.findByExtid(extid)
-                .orElseThrow(() -> new DatabaseException(getFoundFailureMessage(extid)));
-
+        ProfileDb record = repository.findByExtid(extid).orElse(null);
+        if (record == null) {
+            log.warn(getFoundFailureMessage(extid));
+            return false;
+        }
         try {
             record.setDeletedAt(LocalDateTime.now());
             record.setActive(ActiveEnum.INACTIVE);
@@ -88,8 +94,11 @@ public class ProfileDbService extends BaseDbService {
     }
 
     public Profile findByExtid(@NonNull String extid) {
-        ProfileDb record = repository.findByExtid(extid)
-                .orElseThrow(() -> new DatabaseException(getFoundFailureMessage(extid)));
+        ProfileDb record = repository.findByExtid(extid).orElse(null);
+        if (record == null) {
+            log.warn(getFoundFailureMessage(extid));
+            return null;
+        }
         log.info(getFoundMessage(extid));
         return mapper.toModel(record);
     }
@@ -98,8 +107,22 @@ public class ProfileDbService extends BaseDbService {
         return findAndLog(repository.findAll(), "findAll");
     }
 
+    public Page<Profile> findAll(Pageable pageable) {
+        Page<ProfileDb> page = repository.findAll(pageable);
+        log.info(getFoundMessageByType("findAll(pageable)", (int) page.getTotalElements()));
+        return page.map(mapper::toModel);
+    }
+
     public List<Profile> findByActive(@NonNull ActiveEnum activeEnum) {
-        return findAndLog(repository.findByActive(activeEnum), String.format("active (%s)", activeEnum));
+        Page<ProfileDb> page = repository.findByActive(activeEnum, Pageable.unpaged());
+        log.info(getFoundMessageByType(String.format("active (%s)", activeEnum), (int) page.getTotalElements()));
+        return mapper.toModelList(page.getContent());
+    }
+
+    public Page<Profile> findByActive(@NonNull ActiveEnum activeEnum, Pageable pageable) {
+        Page<ProfileDb> page = repository.findByActive(activeEnum, pageable);
+        log.info(getFoundMessageByType(String.format("active (%s) pageable", activeEnum), (int) page.getTotalElements()));
+        return page.map(mapper::toModel);
     }
 
     private List<Profile> findAndLog(List<ProfileDb> records, String type) {

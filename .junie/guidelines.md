@@ -1,115 +1,110 @@
-### Project Development Guidelines (basicspring)
+### Basicspring — Project-Specific Development Guidelines
 
-#### Build and Configuration
-- Java toolchain: Java 21 (configured via Gradle toolchains).
-- Build system: Gradle Wrapper (Spring Boot 3.5.7).
-- Primary commands:
-  - Build (without running tests):
+This document captures repo-specific knowledge for advanced contributors. It focuses on configuration, testing, and practical development patterns observed in this codebase.
+
+#### Build and Runtime Configuration
+- Java: 21 via Gradle Toolchains (`build.gradle`). No local JDK juggling required; wrapper manages it.
+- Build system: Gradle Wrapper + Spring Boot 3.5.7.
+- Key dependencies: Liquibase (DB migrations), Spring Data JPA, ModelMapper, SpringDoc OpenAPI, Lombok.
+- Commands:
+  - Clean build without tests (useful when local DB is down):
     ```bash
     ./gradlew clean build -x test
     ```
-  - Run the application in dev:
+  - Run the app (dev):
     ```bash
     ./gradlew bootRun
     ```
-- Environment variables and .env:
-  - The project uses `spring-dotenv` so a `.env` file in project root is read automatically in dev.
-  - Example `.env` (see `developer-documents/setup-env-and-database.md` for full context):
-    ```env
-    DB_USERNAME=basicspring_username
-    DB_PASSWORD=your_password
-    DB_NAME=basicspring
-    ```
-  - `src/main/resources/application.yml` uses `${DB_*}` placeholders.
-- Database & migrations:
-  - DB: MySQL (driver `com.mysql.cj.jdbc.Driver`).
-  - Migrations: Liquibase (`src/main/resources/db/changelog/db.changelog-master.yaml`).
-  - On app start, Liquibase will apply changelogs. For clean local DB, create the database and user as documented in `developer-documents/setup-env-and-database.md`.
+- Database and migrations:
+  - MySQL with driver `com.mysql.cj.jdbc.Driver`.
+  - Liquibase changelog: `src/main/resources/db/changelog/db.changelog-master.yaml` (includes initial dataset under `changes/sql/`).
+  - Liquibase is enabled for both app and the `test-database` profile.
+- Configuration sources used by the app:
+  - Main config: `src/main/resources/application.yml`.
+    - Uses env vars: `BASICSPRING_USERNAME` and `BASICSPRING_PASSWORD` (defaults are `default_user` / `default_pass`).
+    - JDBC URL: `jdbc:mysql://localhost:3306/basicspring`.
+  - Note: `developer-documents/setup-env-and-database.md` mentions `DB_USERNAME/DB_PASSWORD`; the running app and tests actually use `BASICSPRING_USERNAME/BASICSPRING_PASSWORD`. Prefer the `BASICSPRING_*` names to avoid confusion.
+  - The repo includes `me.paulschwarz:spring-dotenv`, so variables can be provided via a `.env` file at project root or via OS environment.
 
-#### Testing
-- Framework: JUnit 5, Spring Boot Test.
-- Gradle config forces JUnit Platform: see `build.gradle` (`tasks.named('test') { useJUnitPlatform() }`).
+#### Testing — How It Works Here
+- Framework: JUnit 5; Gradle uses JUnit Platform (`tasks.test.useJUnitPlatform()` in `build.gradle`).
+- Two styles of tests exist:
+  1) Pure unit tests (no Spring, no DB) — e.g., `src/test/java/com/seibel/basicspring/sample/SamplePureUnitTest.java`.
+  2) Spring Boot tests that touch the database — e.g., `database/connection/*` tests.
 - Test profiles and config:
-  - Spring profile `test-database` is used by DB-related tests via `@ActiveProfiles("test-database")`.
-  - Profile-specific properties: `src/test/resources/application-test-database.yml`.
-    - Points to `jdbc:mysql://localhost:3306/basicspring`.
-    - Liquibase is enabled for tests in this profile.
-    - Datasource credentials are read from environment variables with defaults:
-      - `BASICSPRING_USERNAME` (default `default_user`)
-      - `BASICSPRING_PASSWORD` (default `default_pass`)
-
-- Running tests (selectively vs full suite):
-  - Run the entire test suite (requires the project to compile; DB tests will need a running MySQL):
-    ```bash
-    ./gradlew test
-    ```
-  - Run a single test class (useful to avoid DB requirements):
+  - DB tests use `@ActiveProfiles("test-database")` and pick up `src/test/resources/application-test-database.yml`.
+  - That profile enables Liquibase and reads credentials from env with the same names as the app: `BASICSPRING_USERNAME` / `BASICSPRING_PASSWORD`.
+- Typical commands (verified):
+  - Run a single pure unit test (no DB needed):
     ```bash
     ./gradlew test --tests 'com.seibel.basicspring.sample.SamplePureUnitTest'
     ```
-    This is a pure unit test that does not start Spring or require a database.
-  - Run tests matching a pattern:
+  - Run by simple pattern:
     ```bash
     ./gradlew test --tests '*Sample*'
     ```
-  - Run a specific DB integration test (requires MySQL and credentials):
+  - Run a specific DB connection test (requires local MySQL and credentials exported):
     ```bash
     export BASICSPRING_USERNAME=basicspring_username
     export BASICSPRING_PASSWORD=your_password
-    # Ensure MySQL has database `basicspring` created and accessible
-    ./gradlew test --tests 'com.seibel.basicspring.database.connection.DbConnectionTest' -Dspring.profiles.active=test-database
+    ./gradlew test --tests 'com.seibel.basicspring.database.connection.DbConnectionTest'
+    # `@ActiveProfiles("test-database")` is already on the test; no need to pass -Dspring.profiles.active
     ```
-
-- Verifying example tests:
-  - The command below was executed and passed on this codebase during guideline preparation:
+  - Run full test suite:
     ```bash
-    ./gradlew test --tests 'com.seibel.basicspring.sample.SamplePureUnitTest'
+    ./gradlew test
     ```
 
-- Adding new tests:
-  - Unit tests: place under `src/test/java/...` and avoid Spring annotations if you do not need the context. Keep them pure (no network/DB), fast, and deterministic.
-  - Spring tests: use `@SpringBootTest` and optionally `@ActiveProfiles("test-database")` when hitting the database. Prefer repository/service-level tests that rely on Liquibase-managed schema. Keep external requirements explicit (document env vars, required running services).
-  - Tips:
-    - If a test requires DB, assert that a connection can be obtained early, and fail fast with a clear message if not.
-    - When troubleshooting test configs, temporarily raise logging: set `logging.level.org.hibernate.SQL=DEBUG` in the relevant `application-*.yml`.
+#### Adding New Tests
+- Prefer pure unit tests: keep them deterministic and fast; avoid bringing up the Spring context unless necessary.
+- For DB/Spring tests:
+  - Annotate with `@ActiveProfiles("test-database")`.
+  - Assume Liquibase manages schema; add changesets rather than ad-hoc SQL in tests.
+  - Expect credentials in env: `BASICSPRING_USERNAME` / `BASICSPRING_PASSWORD`.
+- Minimal pure unit test template (this pattern was validated locally by running existing tests):
+  ```java
+  package com.seibel.basicspring.sample;
 
-#### Development/Debugging Notes
-- Exceptions:
-  - Domain/service layer wraps persistence exceptions in `ServiceException`; database layer throws `DatabaseException` (`com.seibel.basicspring.database.database.exception`). Ensure imports reference the `exception` package (not `exceptions`).
-- Lombok:
-  - The project uses Lombok. Annotation processing must be enabled in your IDE. Gradle config includes Lombok for compileOnly and annotationProcessor.
-- Mapping:
-  - Uses ModelMapper (`org.modelmapper:modelmapper`). See mappers in `.../database/db/mapper/`.
-- Entities and status:
-  - Entities typically extend base types and include `ActiveEnum` for logical delete/activation. Deletions set `deletedAt` and mark inactive, not hard-delete.
-- Liquibase changelogs:
-  - Seed SQL files live in `src/main/resources/db/changelog/changes/sql/` and are referenced by YAML changesets.
-- Bootstrapping hints:
-  - If you need to run the app or DB tests quickly without editing OS env, use a `.env` file with `spring-dotenv` (dev runtime), or export `BASICSPRING_USERNAME/PASSWORD` for test profile.
-  - If you need to build while DB is down or MySQL isn’t available, skip tests: `./gradlew build -x test`.
+  import org.junit.jupiter.api.Test;
+  import static org.junit.jupiter.api.Assertions.*;
 
-#### Quick MySQL Setup Recap
-- Create DB and user (see also `developer-documents/setup-env-and-database.md`):
-  ```sql
-  CREATE DATABASE basicspring;
-  CREATE USER 'basicspring_username'@'localhost' IDENTIFIED BY 'your_password';
-  GRANT ALL PRIVILEGES ON basicspring.* TO 'basicspring_username'@'localhost';
-  FLUSH PRIVILEGES;
+  class ExampleUnitTest {
+      @Test
+      void computesSum() {
+          assertEquals(5, 2 + 3);
+      }
+  }
   ```
-- Then export test credentials:
+  Run it selectively:
   ```bash
-  export BASICSPRING_USERNAME=basicspring_username
-  export BASICSPRING_PASSWORD=your_password
+  ./gradlew test --tests 'com.seibel.basicspring.sample.ExampleUnitTest'
   ```
 
-#### Known Integration Test Pre-requisites
-- DB-related tests under `src/test/java/com/seibel/basicspring/database/connection/` require:
-  - A running local MySQL on `localhost:3306`.
-  - Database `basicspring` exists and is reachable.
-  - Environment variables `BASICSPRING_USERNAME` and `BASICSPRING_PASSWORD` set to a valid user.
-  - Run with profile `test-database` (tests already annotate with `@ActiveProfiles("test-database")`).
+#### Additional Development Notes (Codebase-Specific)
+- Exception layering:
+  - DB layer exceptions live in `com.seibel.basicspring.database.database.exception`.
+  - Service layer exceptions live under `com.seibel.basicspring.common.exceptions` and `ServiceException` wrappers. Keep this separation intact and import from the correct package.
+- Persistence model:
+  - Entities implement base types (`BaseDb`, `BaseTypeDb`) and track activity state via `ActiveEnum` and `deletedAt`. Avoid hard deletes in services; set inactive + timestamp instead.
+- Mapping:
+  - ModelMapper is used (`...database/db/mapper/*`). Mirror existing mapping patterns when adding DTOs/entities.
+- Lombok:
+  - Present as `compileOnly` + `annotationProcessor`. Ensure IDE annotation processing is enabled to avoid phantom errors.
+- OpenAPI:
+  - SpringDoc starter is present. Swagger UI typically at `/swagger-ui.html` or `/swagger-ui/index.html` when the app is running.
+- When DB is unavailable but you need a build:
+  - Use `./gradlew build -x test` to skip DB-bound tests.
 
-#### Notes on Running the App vs Tests
-- App runtime pulls credentials from `.env` via `DB_USERNAME/DB_PASSWORD/DB_NAME` placeholders in `application.yml`.
-- Test runtime for DB tests uses `BASICSPRING_USERNAME/BASICSPRING_PASSWORD` from the environment and `application-test-database.yml`.
-- Liquibase is enabled in tests; first run will create schema and apply seed data.
+#### Verified During Preparation
+- Confirmed Gradle config and JUnit platform setup from `build.gradle`.
+- Successfully ran an existing pure unit test:
+  ```bash
+  ./gradlew test --tests 'com.seibel.basicspring.sample.SamplePureUnitTest'
+  ```
+- DB tests require a reachable local MySQL and the `BASICSPRING_*` env vars.
+
+#### Quick Reference
+- Build (skip tests): `./gradlew clean build -x test`
+- Run app: `./gradlew bootRun`
+- Run pure unit test: `./gradlew test --tests 'com.seibel.basicspring.sample.SamplePureUnitTest'`
+- Run DB test (with env): `./gradlew test --tests 'com.seibel.basicspring.database.connection.DbConnectionTest'`

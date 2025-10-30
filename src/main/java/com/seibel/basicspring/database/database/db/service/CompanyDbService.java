@@ -8,6 +8,9 @@ import com.seibel.basicspring.database.database.db.repository.CompanyRepository;
 import com.seibel.basicspring.database.database.exception.DatabaseException;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -52,9 +55,11 @@ public class CompanyDbService extends BaseDbService {
     }
 
     public Company update(@NonNull String extid, String code, String name, String description) {
-        CompanyDb record = repository.findByExtid(extid)
-                .orElseThrow(() -> new DatabaseException(getFoundFailureMessage(extid)));
-
+        CompanyDb record = repository.findByExtid(extid).orElse(null);
+        if (record == null) {
+            log.warn(getFoundFailureMessage(extid));
+            return null;
+        }
         try {
             record.setCode(code);
             record.setName(name);
@@ -72,9 +77,11 @@ public class CompanyDbService extends BaseDbService {
     }
 
     public boolean delete(@NonNull String extid) {
-        CompanyDb record = repository.findByExtid(extid)
-                .orElseThrow(() -> new DatabaseException(getFoundFailureMessage(extid)));
-
+        CompanyDb record = repository.findByExtid(extid).orElse(null);
+        if (record == null) {
+            log.warn(getFoundFailureMessage(extid));
+            return false;
+        }
         try {
             record.setDeletedAt(LocalDateTime.now());
             record.setActive(ActiveEnum.INACTIVE);
@@ -90,8 +97,11 @@ public class CompanyDbService extends BaseDbService {
     }
 
     public Company findByExtid(@NonNull String extid) {
-        CompanyDb record = repository.findByExtid(extid)
-                .orElseThrow(() -> new DatabaseException(getFoundFailureMessage(extid)));
+        CompanyDb record = repository.findByExtid(extid).orElse(null);
+        if (record == null) {
+            log.warn(getFoundFailureMessage(extid));
+            return null;
+        }
         log.info(getFoundMessage(extid));
         return mapper.toModel(record);
     }
@@ -100,9 +110,23 @@ public class CompanyDbService extends BaseDbService {
         return findAndLog(repository.findAll(), "findAll");
     }
 
+    public Page<Company> findAll(Pageable pageable) {
+        Page<CompanyDb> page = repository.findAll(pageable);
+        log.info(getFoundMessageByType("findAll(pageable)", (int) page.getTotalElements()));
+        return page.map(mapper::toModel);
+    }
+
     public List<Company> findByActive(@NonNull ActiveEnum activeEnum) {
-        return findAndLog(repository.findByActive(activeEnum),
-                String.format("active (%s)", activeEnum));
+        // Use paged method with unpaged to keep backward compatibility
+        Page<CompanyDb> page = repository.findByActive(activeEnum, Pageable.unpaged());
+        log.info(getFoundMessageByType(String.format("active (%s)", activeEnum), (int) page.getTotalElements()));
+        return mapper.toModelList(page.getContent());
+    }
+
+    public Page<Company> findByActive(@NonNull ActiveEnum activeEnum, Pageable pageable) {
+        Page<CompanyDb> page = repository.findByActive(activeEnum, pageable);
+        log.info(getFoundMessageByType(String.format("active (%s) pageable", activeEnum), (int) page.getTotalElements()));
+        return page.map(mapper::toModel);
     }
 
     private List<Company> findAndLog(List<CompanyDb> records, String type) {

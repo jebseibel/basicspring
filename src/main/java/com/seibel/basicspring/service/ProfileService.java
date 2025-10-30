@@ -7,13 +7,23 @@ import com.seibel.basicspring.common.exceptions.ServiceException;
 import com.seibel.basicspring.database.database.db.service.ProfileDbService;
 import com.seibel.basicspring.database.database.exception.DatabaseException;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Set;
 
 @Slf4j
 @Service
+@Transactional(readOnly = true)
 public class ProfileService extends BaseService {
+
+    private static final int MAX_PAGE_SIZE = 100;
+    private static final Set<String> ALLOWED_SORT_FIELDS = Set.of("nickname", "fullname", "createdAt", "updatedAt");
 
     private final ProfileDbService profileDbService;
 
@@ -22,6 +32,7 @@ public class ProfileService extends BaseService {
         this.thisName = "Profile";
     }
 
+    @Transactional
     public Profile create(Profile item) {
         requireNonNull(item, "Profile");
         log.info("create(): {}", item);
@@ -34,19 +45,25 @@ public class ProfileService extends BaseService {
         }
     }
 
+    @Transactional
     public Profile update(String extid, Profile item) {
         requireNonBlank(extid, "extid");
         requireNonNull(item, "Profile");
         log.info("update(): extid={}, origin={}, {}", extid, item);
 
         try {
-            return profileDbService.update(extid, item.getNickname(), item.getFullname());
+            Profile updated = profileDbService.update(extid, item.getNickname(), item.getFullname());
+            if (updated == null) {
+                throw new ResourceNotFoundException("Profile", extid);
+            }
+            return updated;
         } catch (DatabaseException e) {
             log.error("Failed to update profile: {}", extid, e);
             throw new ServiceException("Unable to update profile", e);
         }
     }
 
+    @Transactional
     public boolean delete(String extid) {
         requireNonBlank(extid, "extid");
         log.info("delete(): extid={}", extid);
@@ -86,6 +103,20 @@ public class ProfileService extends BaseService {
         }
     }
 
+    public Page<Profile> findAll(Pageable pageable, ActiveEnum activeEnum) {
+        Pageable safe = enforceCapsAndWhitelist(pageable);
+        log.info("findAll(pageable): page={}, size={}, sort={}", safe.getPageNumber(), safe.getPageSize(), safe.getSort());
+        try {
+            if (activeEnum == null) {
+                return profileDbService.findAll(safe);
+            }
+            return profileDbService.findByActive(activeEnum, safe);
+        } catch (DatabaseException e) {
+            log.error("Failed to retrieve profiles (paged)", e);
+            throw new ServiceException("Unable to retrieve profiles", e);
+        }
+    }
+
     public List<Profile> findByActive(ActiveEnum activeEnum) {
         requireNonNull(activeEnum, "activeEnum");
         log.info("findByActive(): activeEnum={}", activeEnum);
@@ -96,5 +127,20 @@ public class ProfileService extends BaseService {
             log.error("Failed to retrieve profiles by active status: {}", activeEnum, e);
             throw new ServiceException("Unable to retrieve profiles", e);
         }
+    }
+
+    private Pageable enforceCapsAndWhitelist(Pageable pageable) {
+        int size = Math.min(pageable.getPageSize(), MAX_PAGE_SIZE);
+        Sort safeSort = pageable.getSort().isUnsorted() ? Sort.unsorted() :
+                pageable.getSort().stream()
+                        .filter(order -> ALLOWED_SORT_FIELDS.contains(order.getProperty()))
+                        .collect(() -> Sort.unsorted(),
+                                (acc, order) -> acc.and(Sort.by(order.getDirection(), order.getProperty())),
+                                Sort::and);
+        if (safeSort.isUnsorted() && pageable.getSort().isSorted()) {
+            // If client requested only invalid fields, fall back to nickname ASC
+            safeSort = Sort.by(Sort.Order.asc("nickname"));
+        }
+        return PageRequest.of(pageable.getPageNumber(), size, safeSort);
     }
 }
