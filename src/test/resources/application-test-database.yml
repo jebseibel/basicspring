@@ -3,7 +3,7 @@ spring:
     name: basicspring-database-test
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/viro
+    url: jdbc:mysql://localhost:3306/basicspring
     username: ${BASICSPRING_USERNAME:default_user}
     password: ${BASICSPRING_PASSWORD:default_pass}
     hikari:

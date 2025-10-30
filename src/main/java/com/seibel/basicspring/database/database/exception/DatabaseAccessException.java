@@ -1,4 +1,4 @@
-package com.seibel.basicspring.database.database.exceptions;
+package com.seibel.basicspring.database.database.exception;
 
 public class DatabaseAccessException extends DatabaseException {
 

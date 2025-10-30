@@ -2,7 +2,7 @@ databaseChangeLog:
   - changeSet:
       id: init
       author: jeb
-      labels: create_database
+      labels: create_company_profile_tables
       changes:
 
         # Company Table

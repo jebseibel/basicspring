@@ -3,7 +3,6 @@
 ## 1️⃣ Create a .env File
 
 Create a file named `.env` in your project root (same folder as `build.gradle`).
-
 ```env
 # .env
 DB_USERNAME=myuser
@@ -14,7 +13,6 @@ DB_NAME=basicspring
 ⚠️ **Never commit .env files to GitHub** — add it to `.gitignore`.
 
 ## 2️⃣ Update application.yml
-
 ```yaml
 spring:
   datasource:
@@ -33,31 +31,68 @@ spring:
 ## 3️⃣ Create the Database (MySQL)
 
 Open a terminal or MySQL shell:
-
 ```bash
 mysql -u root -p
 ```
 
 Then inside MySQL:
 
+### Generic Instructions
+
+**To create the database:**
 ```sql
-CREATE DATABASE basicspring;
-CREATE USER 'myuser'@'localhost' IDENTIFIED BY 'mypass';
-GRANT ALL PRIVILEGES ON basicspring.* TO 'myuser'@'localhost';
-FLUSH PRIVILEGES;
-EXIT;
+CREATE DATABASE xxxx;
 ```
 
-## 4️⃣ Verify Connection
+**Look to see if the user is there:**
+```sql
+SELECT user, host FROM mysql.user;
+```
 
-Run:
+**Drop the user if you need to:**
+```sql
+DROP USER 'xxxx_username'@'localhost';
+FLUSH PRIVILEGES;
+```
 
+**Create a user if you need to:**
+```sql
+CREATE USER 'xxxx_username'@'localhost' IDENTIFIED BY '[password]';
+GRANT ALL PRIVILEGES ON xxxx.* TO 'xxxx_username'@'localhost';
+FLUSH PRIVILEGES;
+```
+
+### For our Project
+
+**To create the database:**
+```sql
+CREATE DATABASE basicspring;
+```
+
+**Look to see if the user is there:**
+```sql
+SELECT user, host FROM mysql.user;
+```
+
+**Drop the user if you need to:**
+```sql
+DROP USER 'basicspring_username'@'localhost';
+FLUSH PRIVILEGES;
+```
+
+**Create a user if you need to:**
+```sql
+CREATE USER 'basicspring_username'@'localhost' IDENTIFIED BY '[password]';
+GRANT ALL PRIVILEGES ON basicspring.* TO 'basicspring_username'@'localhost';
+FLUSH PRIVILEGES;
+```
+
+## 4️⃣ Run the Application
 ```bash
 ./gradlew bootRun
 ```
 
 You should see a line like:
-
 ```
 Connected to MySQL Database: basicspring
 ```
