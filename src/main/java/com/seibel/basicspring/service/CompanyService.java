@@ -5,7 +5,7 @@ import com.seibel.basicspring.common.enums.ActiveEnum;
 import com.seibel.basicspring.common.exceptions.ResourceNotFoundException;
 import com.seibel.basicspring.common.exceptions.ServiceException;
 import com.seibel.basicspring.database.db.service.CompanyDbService;
-import com.seibel.basicspring.database.db.exception.DatabaseFailureException;
+import com.seibel.basicspring.database.db.exceptions.DatabaseFailureException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;

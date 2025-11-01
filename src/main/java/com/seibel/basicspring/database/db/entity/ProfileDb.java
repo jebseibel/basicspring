@@ -11,7 +11,8 @@ import lombok.EqualsAndHashCode;
 @Entity
 @Table(name = "profile")
 public class ProfileDb extends BaseDb {
-    private static final long serialVersionUID = 1821459872338103655L;
+
+    private static final long serialVersionUID = 2564419308159034781L;
 
     @Column(name = "nickname", length = 64, nullable = false)
     private String nickname;

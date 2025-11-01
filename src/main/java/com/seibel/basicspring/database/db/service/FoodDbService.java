@@ -3,7 +3,7 @@ package com.seibel.basicspring.database.db.service;
 import com.seibel.basicspring.common.domain.Food;
 import com.seibel.basicspring.common.enums.ActiveEnum;
 import com.seibel.basicspring.database.db.entity.FoodDb;
-import com.seibel.basicspring.database.db.exception.DatabaseFailureException;
+import com.seibel.basicspring.database.db.exceptions.DatabaseFailureException;
 import com.seibel.basicspring.database.db.mapper.FoodMapper;
 import com.seibel.basicspring.database.db.repository.FoodRepository;
 
@@ -28,7 +28,6 @@ public class FoodDbService extends BaseDbService {
     }
 
     public Food create(Food item) throws DatabaseFailureException {
-
         String extid = UUID.randomUUID().toString();
         LocalDateTime now = LocalDateTime.now();
 
@@ -38,16 +37,19 @@ public class FoodDbService extends BaseDbService {
             entity.setCreatedAt(now);
             entity.setUpdatedAt(now);
             entity.setActive(ActiveEnum.ACTIVE);
-            return mapper.toModel(repository.save(entity));
+            FoodDb saved = repository.save(entity);
+            log.info(createdMessage(extid));
+            return mapper.toModel(saved);
         } catch (Exception e) {
-            log.error("Failed to create food: {}", extid, e);
-            throw new DatabaseFailureException("Failed to create food", e);
+            log.error(failedOperationMessage("create", extid), e);
+            throw new DatabaseFailureException(failedOperationMessage("create"), e);
         }
     }
 
     public Food update(String extid, Food item) throws DatabaseFailureException {
         FoodDb existing = repository.findByExtid(extid)
-                .orElseThrow(() -> new DatabaseFailureException("Food not found: " + extid));
+                .orElseThrow(() -> new DatabaseFailureException(notFoundMessage(extid)));
+
         existing.setUpdatedAt(LocalDateTime.now());
         existing.setName(item.getName());
         existing.setCategory(item.getCategory());
@@ -60,29 +62,37 @@ public class FoodDbService extends BaseDbService {
         existing.setPunch(item.getPunch());
         existing.setSweet(item.getSweet());
         existing.setSavory(item.getSavory());
-        return mapper.toModel(repository.save(existing));
+
+        FoodDb saved = repository.save(existing);
+        log.info(updatedMessage(extid));
+        return mapper.toModel(saved);
     }
 
     public boolean delete(String extid) throws DatabaseFailureException {
         FoodDb existing = repository.findByExtid(extid)
-                .orElseThrow(() -> new DatabaseFailureException("Food not found: " + extid));
+                .orElseThrow(() -> new DatabaseFailureException(notFoundMessage(extid)));
+
         existing.setDeletedAt(LocalDateTime.now());
         existing.setActive(ActiveEnum.INACTIVE);
         repository.save(existing);
+        log.info(deletedMessage(extid));
         return true;
     }
 
     public Food findByExtid(String extid) throws DatabaseFailureException {
         return mapper.toModel(repository.findByExtid(extid)
-                .orElseThrow(() -> new DatabaseFailureException("Food not found: " + extid)));
+                .orElseThrow(() -> new DatabaseFailureException(notFoundMessage(extid))));
     }
 
     public List<Food> findAll() {
-        return mapper.toModelList(repository.findAll());
+        List<Food> results = mapper.toModelList(repository.findAll());
+        log.info(foundByActiveMessage("all", results.size()));
+        return results;
     }
 
     public List<Food> findByActive(ActiveEnum active) {
-        return mapper.toModelList(repository.findByActive(active));
+        List<Food> results = mapper.toModelList(repository.findByActive(active));
+        log.info(foundByActiveMessage(active.toString(), results.size()));
+        return results;
     }
 }
-

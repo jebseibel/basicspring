@@ -1,11 +1,10 @@
 package com.seibel.basicspring.database.db.service;
 
-
 import com.seibel.basicspring.common.domain.Flavor;
 import com.seibel.basicspring.common.enums.ActiveEnum;
 import com.seibel.basicspring.database.db.entity.FlavorDb;
-import com.seibel.basicspring.database.db.exception.DatabaseAccessException;
-import com.seibel.basicspring.database.db.exception.DatabaseFailureException;
+import com.seibel.basicspring.database.db.exceptions.DatabaseAccessException;
+import com.seibel.basicspring.database.db.exceptions.DatabaseFailureException;
 import com.seibel.basicspring.database.db.mapper.FlavorMapper;
 import com.seibel.basicspring.database.db.repository.FlavorRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -38,16 +37,18 @@ public class FlavorDbService extends BaseDbService {
             entity.setCreatedAt(now);
             entity.setUpdatedAt(now);
             entity.setActive(ActiveEnum.ACTIVE);
-            return mapper.toModel(repository.save(entity));
+            FlavorDb saved = repository.save(entity);
+            log.info(createdMessage(extid));
+            return mapper.toModel(saved);
         } catch (Exception e) {
-            log.error("Failed to create flavor: {}", extid, e);
-            throw new DatabaseFailureException("Failed to create flavor", e);
+            log.error(failedOperationMessage("create", extid), e);
+            throw new DatabaseFailureException(failedOperationMessage("create"), e);
         }
     }
 
     public Flavor update(String extid, Flavor item) throws DatabaseAccessException {
         FlavorDb existing = repository.findByExtid(extid)
-                .orElseThrow(() -> new DatabaseAccessException("Flavor not found: " + extid));
+                .orElseThrow(() -> new DatabaseAccessException(notFoundMessage(extid)));
 
         existing.setUpdatedAt(LocalDateTime.now());
         existing.setName(item.getName());
@@ -56,28 +57,36 @@ public class FlavorDbService extends BaseDbService {
         existing.setDescription(item.getDescription());
         existing.setUsage(item.getUsage());
 
-        return mapper.toModel(repository.save(existing));
+        FlavorDb saved = repository.save(existing);
+        log.info(updatedMessage(extid));
+        return mapper.toModel(saved);
     }
 
     public boolean delete(String extid) throws DatabaseAccessException {
         FlavorDb existing = repository.findByExtid(extid)
-                .orElseThrow(() -> new DatabaseAccessException("Flavor not found: " + extid));
+                .orElseThrow(() -> new DatabaseAccessException(notFoundMessage(extid)));
+
         existing.setDeletedAt(LocalDateTime.now());
         existing.setActive(ActiveEnum.INACTIVE);
         repository.save(existing);
+        log.info(deletedMessage(extid));
         return true;
     }
 
     public Flavor findByExtid(String extid) throws DatabaseAccessException {
         return mapper.toModel(repository.findByExtid(extid)
-                .orElseThrow(() -> new DatabaseAccessException("Flavor not found: " + extid)));
+                .orElseThrow(() -> new DatabaseAccessException(notFoundMessage(extid))));
     }
 
     public List<Flavor> findAll() {
-        return mapper.toModelList(repository.findAll());
+        List<Flavor> results = mapper.toModelList(repository.findAll());
+        log.info(foundByActiveMessage("all", results.size()));
+        return results;
     }
 
     public List<Flavor> findByActive(ActiveEnum active) {
-        return mapper.toModelList(repository.findByActive(active));
+        List<Flavor> results = mapper.toModelList(repository.findByActive(active));
+        log.info(foundByActiveMessage(active.toString(), results.size()));
+        return results;
     }
 }

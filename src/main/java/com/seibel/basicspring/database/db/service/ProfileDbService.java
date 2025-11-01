@@ -5,7 +5,7 @@ import com.seibel.basicspring.common.enums.ActiveEnum;
 import com.seibel.basicspring.database.db.entity.ProfileDb;
 import com.seibel.basicspring.database.db.mapper.ProfileMapper;
 import com.seibel.basicspring.database.db.repository.ProfileRepository;
-import com.seibel.basicspring.database.db.exception.DatabaseFailureException;
+import com.seibel.basicspring.database.db.exceptions.DatabaseFailureException;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -43,19 +43,19 @@ public class ProfileDbService extends BaseDbService {
             record.setActive(ActiveEnum.ACTIVE);
 
             ProfileDb saved = repository.save(record);
-            log.info(getCreatedMessage(extid));
+            log.info(createdMessage(extid));
             return mapper.toModel(saved);
 
         } catch (Exception e) {
-            log.error("Failed to create profile: {}", extid, e);
-            throw new DatabaseFailureException("Failed to create profile", e);
+            log.error(failedOperationMessage("create", extid), e);
+            throw new DatabaseFailureException(failedOperationMessage("create"), e);
         }
     }
 
     public Profile update(@NonNull String extid, String nickname, String fullname) {
         ProfileDb record = repository.findByExtid(extid).orElse(null);
         if (record == null) {
-            log.warn(getFoundFailureMessage(extid));
+            log.warn(notFoundMessage(extid));
             return null;
         }
         try {
@@ -64,19 +64,19 @@ public class ProfileDbService extends BaseDbService {
             record.setUpdatedAt(LocalDateTime.now());
 
             ProfileDb saved = repository.save(record);
-            log.info(getUpdatedMessage(extid));
+            log.info(updatedMessage(extid));
             return mapper.toModel(saved);
 
         } catch (Exception e) {
-            log.error("Failed to update profile: {}", extid, e);
-            throw new DatabaseFailureException("Failed to update profile", e);
+            log.error(failedOperationMessage("update", extid), e);
+            throw new DatabaseFailureException(failedOperationMessage("update"), e);
         }
     }
 
     public boolean delete(@NonNull String extid) {
         ProfileDb record = repository.findByExtid(extid).orElse(null);
         if (record == null) {
-            log.warn(getFoundFailureMessage(extid));
+            log.warn(notFoundMessage(extid));
             return false;
         }
         try {
@@ -84,49 +84,48 @@ public class ProfileDbService extends BaseDbService {
             record.setActive(ActiveEnum.INACTIVE);
 
             repository.save(record);
-            log.info(getDeletedMessage(extid));
+            log.info(deletedMessage(extid));
             return true;
 
         } catch (Exception e) {
-            log.error("Failed to delete profile: {}", extid, e);
-            throw new DatabaseFailureException("Failed to delete profile", e);
+            log.error(failedOperationMessage("delete", extid), e);
+            throw new DatabaseFailureException(failedOperationMessage("delete"), e);
         }
     }
 
     public Profile findByExtid(@NonNull String extid) {
         ProfileDb record = repository.findByExtid(extid).orElse(null);
         if (record == null) {
-            log.warn(getFoundFailureMessage(extid));
+            log.warn(notFoundMessage(extid));
             return null;
         }
-        log.info(getFoundMessage(extid));
         return mapper.toModel(record);
     }
 
     public List<Profile> findAll() {
-        return findAndLog(repository.findAll(), "findAll");
+        return findAndLog(repository.findAll(), "all");
     }
 
     public Page<Profile> findAll(Pageable pageable) {
         Page<ProfileDb> page = repository.findAll(pageable);
-        log.info(getFoundMessageByType("findAll(pageable)", (int) page.getTotalElements()));
+        log.info(foundByActiveMessage("all (pageable)", (int) page.getTotalElements()));
         return page.map(mapper::toModel);
     }
 
     public List<Profile> findByActive(@NonNull ActiveEnum activeEnum) {
         Page<ProfileDb> page = repository.findByActive(activeEnum, Pageable.unpaged());
-        log.info(getFoundMessageByType(String.format("active (%s)", activeEnum), (int) page.getTotalElements()));
+        log.info(foundByActiveMessage(activeEnum.toString(), (int) page.getTotalElements()));
         return mapper.toModelList(page.getContent());
     }
 
     public Page<Profile> findByActive(@NonNull ActiveEnum activeEnum, Pageable pageable) {
         Page<ProfileDb> page = repository.findByActive(activeEnum, pageable);
-        log.info(getFoundMessageByType(String.format("active (%s) pageable", activeEnum), (int) page.getTotalElements()));
+        log.info(foundByActiveMessage(activeEnum.toString() + " (pageable)", (int) page.getTotalElements()));
         return page.map(mapper::toModel);
     }
 
     private List<Profile> findAndLog(List<ProfileDb> records, String type) {
-        log.info(getFoundMessageByType(type, records.size()));
+        log.info(foundByActiveMessage(type, records.size()));
         return mapper.toModelList(records);
     }
 }

@@ -9,10 +9,10 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Entity
-@Table(name = "flavor")
-public class FlavorDb extends BaseDb {
+@Table(name = "serving")
+public class ServingDb extends BaseDb {
 
-    private static final long serialVersionUID = 8204156391023478112L;
+    private static final long serialVersionUID = 9057732190046815234L;
 
     @Column(name = "code", length = 8, nullable = false, unique = true)
     private String code;
@@ -29,7 +29,19 @@ public class FlavorDb extends BaseDb {
     @Column(name = "description", length = 255)
     private String description;
 
-    @Column(name = "usage", length = 16)
-    private String usage;
+    @Column(name = "cup")
+    private Integer cup;
+
+    @Column(name = "quarter")
+    private Integer quarter;
+
+    @Column(name = "tablespoon")
+    private Integer tablespoon;
+
+    @Column(name = "teaspoon")
+    private Integer teaspoon;
+
+    @Column(name = "gram")
+    private Integer gram;
 }
 

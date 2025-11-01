@@ -14,7 +14,7 @@ import lombok.EqualsAndHashCode;
 @Table(name = "food")
 public class FoodDb extends BaseDb {
 
-    private static final long serialVersionUID = 330515747211210728L;
+    private static final long serialVersionUID = 4913572206441095325L;
 
     @Column(name = "code", length = 8, nullable = false, unique = true)
     private String code;

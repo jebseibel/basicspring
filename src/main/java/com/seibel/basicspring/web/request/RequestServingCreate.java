@@ -1,0 +1,35 @@
+package com.seibel.basicspring.web.request;
+
+import jakarta.validation.constraints.*;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+
+@Data
+@EqualsAndHashCode(callSuper = true)
+public class RequestServingCreate extends BaseRequest {
+
+    @NotEmpty(message = "The code is required.")
+    @Size(max = 8)
+    private String code;
+
+    @NotEmpty(message = "The name is required.")
+    @Size(max = 32)
+    private String name;
+
+    @NotEmpty(message = "The category is required.")
+    @Size(max = 32)
+    private String category;
+
+    @NotEmpty(message = "The subcategory is required.")
+    @Size(max = 32)
+    private String subcategory;
+
+    @Size(max = 255)
+    private String description;
+
+    private Integer cup;
+    private Integer quarter;
+    private Integer tablespoon;
+    private Integer teaspoon;
+    private Integer gram;
+}

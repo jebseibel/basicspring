@@ -3,8 +3,8 @@ package com.seibel.basicspring.service;
 
 import com.seibel.basicspring.common.domain.Flavor;
 import com.seibel.basicspring.common.enums.ActiveEnum;
-import com.seibel.basicspring.database.db.exception.DatabaseAccessException;
-import com.seibel.basicspring.database.db.exception.DatabaseFailureException;
+import com.seibel.basicspring.database.db.exceptions.DatabaseAccessException;
+import com.seibel.basicspring.database.db.exceptions.DatabaseFailureException;
 import com.seibel.basicspring.database.db.service.FlavorDbService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

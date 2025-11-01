@@ -1,6 +1,6 @@
 databaseChangeLog:
   - include:
-      file: db/changelog/001-init.yaml
+      file: db/changelog/001-company.yaml
   - include:
       file: db/changelog/changes/sql/001_load_companies.sql
   - include:
