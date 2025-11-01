@@ -7,7 +7,7 @@ I am writing lots and lots of the same kind of code in my Java, Spring, Gradle p
 
 ## Generation Scope
 - **Input**: Single Java Domain object (simple POJO extending BaseDomain)
-- **Output**: Complete layered architecture (10 files + 3 test files per entity + builder methods added to shared class)
+- **Output**: Complete layered architecture (9 files + 3 test files per entity + builder methods added to shared class)
 - **Mode**: One entity at a time
 
 ## Generated Artifacts (per entity)
@@ -92,6 +92,20 @@ I am writing lots and lots of the same kind of code in my Java, Spring, Gradle p
         - `findByActive()` - filtered by active status
     - All methods use `handleException()` for error handling
     - Uses `BaseDbService` logging message helpers
+    - ### Error Handling Pattern (Updated)
+    Each method uses explicit try/catch blocks instead of `handleException()`.
+    
+    **Rules:**
+    - Always log contextual error details: entity name, operation type, and `extid` (if available).
+      - Rethrow a typed exception (`DatabaseFailureException` or `DatabaseAccessException`) with a clear message.
+      - Avoid leaking low-level exception details to upper layers.
+    
+    **Example:**
+    ```java
+    } catch (Exception e) {
+            log.error("Failed to create {}: {}", thisName, item.getExtid(), e);
+            throw new DatabaseFailureException("Failed to create " + thisName, e);
+    }
 
 ### 8. **Business Service** (`com.seibel.basicspring.service`)
 - `{Entity}Service.java` - Business logic layer
@@ -112,39 +126,49 @@ I am writing lots and lots of the same kind of code in my Java, Spring, Gradle p
         - `findByActive(ActiveEnum activeEnum)` - validates enum
     - Propagates database exceptions
 
-### 9. **Web Service** (`com.seibel.basicspring.web.service`)
-- `{Entity}WebService.java` - Web-specific business logic wrapper
-    - Uses `@Slf4j`, `@Service`
-    - Constructor-injected business service and mapper
-    - Wraps all business service methods with:
-        - Logging (info for calls, error for exceptions)
-        - Try-catch blocks that return null/false on errors
-    - Returns Domain objects (not DTOs)
-    - Acts as exception boundary between web and service layers
+### 9. **Controller & Converter** (`com.seibel.basicspring.web.controller`)
+- `{Entity}Controller.java` - REST API endpoints and DTO conversion (both classes in same file)
 
-### 10. **Controller** (`com.seibel.basicspring.web.controller`)
-- `{Entity}Controller.java` - REST API endpoints
+#### Public Controller Class
+- `{Entity}Controller` - REST API endpoints
     - Uses `@RestController`, `@RequestMapping("/api/{entity_lowercase}")`, `@Validated`
-    - Constructor-injected web service
+    - Constructor-injected business service and converter
     - **Endpoints:**
         - `GET /` - getAll() → List<Response{Entity}>
-        - `GET /{extid}` - getByExtid() → Response{Entity}
-        - `POST /` - create(@Valid @RequestBody Request{Entity}Create) → Response{Entity}
-        - `PUT /{extid}` - update(@PathVariable, @Valid @RequestBody Request{Entity}Update) → Response{Entity}
+        - `GET /{extid}` - getByExtid() → Response{Entity}>
+        - `POST /` - create(@Valid @RequestBody Request{Entity}Create) → Response{Entity}>
+        - `PUT /{extid}` - update(@PathVariable, @Valid @RequestBody Request{Entity}Update) → Response{Entity}>
         - `DELETE /{extid}` - delete(@PathVariable) → ResponseEntity<Void>
-    - **Manual DTO mapping:**
-        - Private `toResponse(Domain)` method for single object
-        - Private `toResponse(List<Domain>)` method for list
-        - Manual builder pattern in create/update endpoints
+    - **Delegates all DTO conversions to Converter:**
+        - Uses converter for Request→Domain conversions
+        - Uses converter for Domain→Response conversions
     - **Validation:**
-        - `validateUpdateRequest()` ensures at least one field provided
+        - Calls `converter.validateUpdateRequest()` to ensure at least one field provided
     - **Error handling:**
         - Throws `ResponseStatusException` for NOT_FOUND scenarios
         - Returns proper HTTP status codes
+        - Wraps service calls in try-catch blocks for exception handling
+
+#### Package-Private Converter Class
+- `{Entity}Converter` - DTO conversion logic
+    - Package-private class (no public modifier)
+    - Uses `@Component`
+    - Constructor: no dependencies (stateless)
+    - **Conversion methods:**
+        - `toResponse({Entity} domain)` - single Domain → Response DTO
+        - `toResponse(List<{Entity}> domains)` - list Domain → Response DTOs
+        - `toDomain(Request{Entity}Create request)` - Create Request → Domain
+        - `toDomain(String extid, Request{Entity}Update request)` - Update Request → Domain (includes extid)
+    - **Manual builder-based mapping:**
+        - Uses builder pattern to construct Domain objects from Request DTOs
+        - Uses builder pattern to construct Response DTOs from Domain objects
+        - All field mappings done explicitly (no ModelMapper)
+    - **Validation:**
+        - `validateUpdateRequest(Request{Entity}Update request)` - ensures at least one field provided in update requests
 
 ## Test Files (per entity)
 
-### 11. **Mapper Tests** (`test/.../database.database.db.mapper`)
+### 10. **Mapper Tests** (`test/.../database.database.db.mapper`)
 - `{Entity}MapperTest.java` - Unit tests for mapper conversions
     - Uses JUnit 5 (`@Test`, `@BeforeEach`)
     - Tests all four methods: `toModel()`, `toDb()`, `toModelList()`, `toDbList()`
@@ -157,7 +181,7 @@ I am writing lots and lots of the same kind of code in my Java, Spring, Gradle p
         - List conversions work correctly
     - **Uses DomainBuilderDatabase helper to create test objects**
 
-### 12. **Repository Tests** (`test/.../database.database.db.repository`)
+### 11. **Repository Tests** (`test/.../database.database.db.repository`)
 - `{Entity}RepositoryTest.java` - Integration tests for repository
     - Uses `@DataJpaTest` for JPA testing
     - Uses `@AutoConfigureTestDatabase(replace = Replace.NONE)` for real database testing
@@ -172,7 +196,7 @@ I am writing lots and lots of the same kind of code in my Java, Spring, Gradle p
     - Verifies query correctness and results
     - **Uses DomainBuilderDatabase helper to create test objects**
 
-### 13. **Database Service Tests** (`test/.../database.database.db.service`)
+### 12. **Database Service Tests** (`test/.../database.database.db.service`)
 - `{Entity}DbServiceTest.java` - Unit tests for database service
     - Uses JUnit 5 with Mockito (`@ExtendWith(MockitoExtension.class)`)
     - Uses `@Mock` for repository and mapper dependencies
@@ -185,7 +209,6 @@ I am writing lots and lots of the same kind of code in my Java, Spring, Gradle p
         - **FindAll:** List conversion
         - **FindByActive:** Filtering by active status
     - Verifies exception handling:
-        - `DatabaseRetrievalFailureException` when record not found
         - `DatabaseFailureException` for other errors
     - Uses `verify()` to ensure repository methods called correctly
     - Uses `assertThrows()` for exception testing
@@ -265,7 +288,7 @@ public abstract class DomainBuilderBase extends DomainBuilderUtils {
 - Sets active status to ACTIVE
 - Ensures deletedAt is null (for non-deleted test entities)
 
-### 14. **DomainBuilderDatabase** (`test/.../testutils`)
+### 13. **DomainBuilderDatabase** (`test/.../testutils`)
 - `DomainBuilderDatabase.java` - Entity-specific test object builder methods
 - **Generated with methods for each entity**
 - Extends `DomainBuilderBase`
@@ -349,11 +372,7 @@ public static CompanyDb getCompanyDb(String code, String name, String descriptio
 
 ### Exceptions
 All extend `Exception` with simple constructors:
-- `DatabaseFailureException` - General database errors (has multiple constructors including cause)
-- `DatabaseRetrievalFailureException` - Retrieval failures
-- `DatabaseCreateFailureException` - Create failures
-- `DatabaseUpdateFailureException` - Update failures
-- `DatabaseDeleteFailureException` - Delete failures
+- `DatabaseFailureException` - General database error
 - `DatabaseAccessException` - Access errors
 
 ### Dependencies
@@ -381,7 +400,7 @@ All extend `Exception` with simple constructors:
 - ✅ Audit timestamps (createdAt, updatedAt, deletedAt) on all entities
 - ✅ Validation annotations on Request DTOs (different for Create vs Update)
 - ✅ ModelMapper for entity/domain conversions
-- ✅ Manual builder-based mapping in controllers
+- ✅ Manual builder-based mapping in controllers via package-private Converter
 - ✅ Comprehensive logging at all layers
 - ✅ Standardized exception handling with custom exceptions
 - ✅ ActiveEnum for soft delete status tracking
@@ -390,6 +409,8 @@ All extend `Exception` with simple constructors:
 - ✅ Validation helper methods in base classes
 - ✅ **Unit and integration tests for Mapper, Repository, and DbService**
 - ✅ **Test utility classes for consistent test data generation**
+- ✅ **Direct Controller-to-Service communication (no intermediate web service layer)**
+- ✅ **Separation of concerns: Controller (REST) + Converter (DTO mapping) in same file**
 - ⚠️  Simple entities only (no relationships initially)
 - ⚠️  Database constraints defined in JPA annotations
 
@@ -414,7 +435,7 @@ All extend `Exception` with simple constructors:
     - JPA constraints (length, nullable, unique)
 
 ### Output Generation
-For each Domain class input, generate all 13 files plus builder methods:
+For each Domain class input, generate all 12 files plus builder methods:
 1. Domain class (already exists - this is input)
 2. Request DTOs (Create and Update variants)
 3. Response DTO
@@ -423,12 +444,11 @@ For each Domain class input, generate all 13 files plus builder methods:
 6. Repository interface
 7. Database Service class
 8. Business Service class
-9. Web Service class
-10. Controller class
-11. Mapper Test class
-12. Repository Test class
-13. Database Service Test class
-14. **DomainBuilderDatabase methods** (append to existing shared class)
+9. Controller class (with package-private Converter in same file)
+10. Mapper Test class
+11. Repository Test class
+12. Database Service Test class
+13. **DomainBuilderDatabase methods** (append to existing shared class)
 
 ### Configuration Requirements
 - Package base path: `com.seibel.basicspring`
@@ -445,7 +465,7 @@ For each Domain class input, generate all 13 files plus builder methods:
 2. Define input format (Domain object structure) - **IN PROGRESS**
 3. Choose template engine (FreeMarker, Velocity, or custom)
 4. Implement field metadata extraction
-5. Create templates for each of the 13 file types + builder methods
+5. Create templates for each of the 12 file types + builder methods
 6. Implement Gradle task/plugin
 7. Add configuration options
 8. Test with sample entities

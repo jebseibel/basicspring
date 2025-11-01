@@ -1,7 +1,7 @@
-package com.seibel.basicspring.database.database.db.repository;
+package com.seibel.basicspring.database.db.repository;
 
 import com.seibel.basicspring.common.enums.ActiveEnum;
-import com.seibel.basicspring.database.database.db.entity.CompanyDb;
+import com.seibel.basicspring.database.db.entity.CompanyDb;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

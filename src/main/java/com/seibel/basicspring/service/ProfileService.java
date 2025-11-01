@@ -4,8 +4,8 @@ import com.seibel.basicspring.common.domain.Profile;
 import com.seibel.basicspring.common.enums.ActiveEnum;
 import com.seibel.basicspring.common.exceptions.ResourceNotFoundException;
 import com.seibel.basicspring.common.exceptions.ServiceException;
-import com.seibel.basicspring.database.database.db.service.ProfileDbService;
-import com.seibel.basicspring.database.database.exception.DatabaseException;
+import com.seibel.basicspring.database.db.service.ProfileDbService;
+import com.seibel.basicspring.database.db.exception.DatabaseFailureException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -39,7 +39,7 @@ public class ProfileService extends BaseService {
 
         try {
             return profileDbService.create(item.getNickname(), item.getFullname());
-        } catch (DatabaseException e) {
+        } catch (DatabaseFailureException e) {
             log.error("Failed to create profile: {}", item.getNickname(), e);
             throw new ServiceException("Unable to create profile", e);
         }
@@ -57,7 +57,7 @@ public class ProfileService extends BaseService {
                 throw new ResourceNotFoundException("Profile", extid);
             }
             return updated;
-        } catch (DatabaseException e) {
+        } catch (DatabaseFailureException e) {
             log.error("Failed to update profile: {}", extid, e);
             throw new ServiceException("Unable to update profile", e);
         }
@@ -70,7 +70,7 @@ public class ProfileService extends BaseService {
 
         try {
             return profileDbService.delete(extid);
-        } catch (DatabaseException e) {
+        } catch (DatabaseFailureException e) {
             log.error("Failed to delete profile: {}", extid, e);
             throw new ServiceException("Unable to delete profile", e);
         }
@@ -86,7 +86,7 @@ public class ProfileService extends BaseService {
                 throw new ResourceNotFoundException("Profile", extid);
             }
             return profile;
-        } catch (DatabaseException e) {
+        } catch (DatabaseFailureException e) {
             log.error("Failed to retrieve profile: {}", extid, e);
             throw new ServiceException("Unable to retrieve profile", e);
         }
@@ -97,7 +97,7 @@ public class ProfileService extends BaseService {
 
         try {
             return profileDbService.findAll();
-        } catch (DatabaseException e) {
+        } catch (DatabaseFailureException e) {
             log.error("Failed to retrieve all profiles", e);
             throw new ServiceException("Unable to retrieve profiles", e);
         }
@@ -111,7 +111,7 @@ public class ProfileService extends BaseService {
                 return profileDbService.findAll(safe);
             }
             return profileDbService.findByActive(activeEnum, safe);
-        } catch (DatabaseException e) {
+        } catch (DatabaseFailureException e) {
             log.error("Failed to retrieve profiles (paged)", e);
             throw new ServiceException("Unable to retrieve profiles", e);
         }
@@ -123,7 +123,7 @@ public class ProfileService extends BaseService {
 
         try {
             return profileDbService.findByActive(activeEnum);
-        } catch (DatabaseException e) {
+        } catch (DatabaseFailureException e) {
             log.error("Failed to retrieve profiles by active status: {}", activeEnum, e);
             throw new ServiceException("Unable to retrieve profiles", e);
         }

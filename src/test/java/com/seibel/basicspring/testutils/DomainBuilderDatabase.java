@@ -1,8 +1,8 @@
 package com.seibel.basicspring.testutils;
 
 import com.seibel.basicspring.common.domain.Company;
-import com.seibel.basicspring.database.database.db.entity.CompanyDb;
-import com.seibel.basicspring.database.database.db.mapper.CompanyMapper;
+import com.seibel.basicspring.database.db.entity.CompanyDb;
+import com.seibel.basicspring.database.db.mapper.CompanyMapper;
 
 import java.util.UUID;
 

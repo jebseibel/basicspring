@@ -1,7 +1,7 @@
-package com.seibel.basicspring.database.database.db.mapper;
+package com.seibel.basicspring.database.db.mapper;
 
 import com.seibel.basicspring.common.domain.Company;
-import com.seibel.basicspring.database.database.db.entity.CompanyDb;
+import com.seibel.basicspring.database.db.entity.CompanyDb;
 import lombok.NoArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;

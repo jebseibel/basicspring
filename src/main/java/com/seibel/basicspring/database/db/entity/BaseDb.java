@@ -1,7 +1,7 @@
-package com.seibel.basicspring.database.database.db.entity;
+package com.seibel.basicspring.database.db.entity;
 
 import com.seibel.basicspring.common.enums.ActiveEnum;
-import com.seibel.basicspring.database.database.db.converter.ActiveEnumConverter;
+import com.seibel.basicspring.database.db.converter.ActiveEnumConverter;
 import jakarta.persistence.*;
 import lombok.Data;
 

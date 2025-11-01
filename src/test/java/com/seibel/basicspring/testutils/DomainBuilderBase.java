@@ -1,7 +1,7 @@
 package com.seibel.basicspring.testutils;
 
 import com.seibel.basicspring.common.enums.ActiveEnum;
-import com.seibel.basicspring.database.database.db.entity.BaseDb;
+import com.seibel.basicspring.database.db.entity.BaseDb;
 
 import java.time.LocalDateTime;
 

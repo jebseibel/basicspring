@@ -4,8 +4,8 @@ import com.seibel.basicspring.common.domain.Company;
 import com.seibel.basicspring.common.enums.ActiveEnum;
 import com.seibel.basicspring.common.exceptions.ResourceNotFoundException;
 import com.seibel.basicspring.common.exceptions.ServiceException;
-import com.seibel.basicspring.database.database.db.service.CompanyDbService;
-import com.seibel.basicspring.database.database.exception.DatabaseException;
+import com.seibel.basicspring.database.db.service.CompanyDbService;
+import com.seibel.basicspring.database.db.exception.DatabaseFailureException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -39,7 +39,7 @@ public class CompanyService extends BaseService {
 
         try {
             return companyDbService.create(item.getCode(), item.getName(), item.getDescription());
-        } catch (DatabaseException e) {
+        } catch (DatabaseFailureException e) {
             log.error("Failed to create company: {}", item.getCode(), e);
             throw new ServiceException("Unable to create company", e);
         }
@@ -57,7 +57,7 @@ public class CompanyService extends BaseService {
                 throw new ResourceNotFoundException("Company", extid);
             }
             return updated;
-        } catch (DatabaseException e) {
+        } catch (DatabaseFailureException e) {
             log.error("Failed to update company: {}", extid, e);
             throw new ServiceException("Unable to update company", e);
         }
@@ -70,7 +70,7 @@ public class CompanyService extends BaseService {
 
         try {
             return companyDbService.delete(extid);
-        } catch (DatabaseException e) {
+        } catch (DatabaseFailureException e) {
             log.error("Failed to delete company: {}", extid, e);
             throw new ServiceException("Unable to delete company", e);
         }
@@ -86,7 +86,7 @@ public class CompanyService extends BaseService {
                 throw new ResourceNotFoundException("Company", extid);
             }
             return company;
-        } catch (DatabaseException e) {
+        } catch (DatabaseFailureException e) {
             log.error("Failed to retrieve company: {}", extid, e);
             throw new ServiceException("Unable to retrieve company", e);
         }
@@ -97,7 +97,7 @@ public class CompanyService extends BaseService {
 
         try {
             return companyDbService.findAll();
-        } catch (DatabaseException e) {
+        } catch (DatabaseFailureException e) {
             log.error("Failed to retrieve all companies", e);
             throw new ServiceException("Unable to retrieve companies", e);
         }
@@ -111,7 +111,7 @@ public class CompanyService extends BaseService {
                 return companyDbService.findAll(safe);
             }
             return companyDbService.findByActive(activeEnum, safe);
-        } catch (DatabaseException e) {
+        } catch (DatabaseFailureException e) {
             log.error("Failed to retrieve companies (paged)", e);
             throw new ServiceException("Unable to retrieve companies", e);
         }
@@ -123,7 +123,7 @@ public class CompanyService extends BaseService {
 
         try {
             return companyDbService.findByActive(activeEnum);
-        } catch (DatabaseException e) {
+        } catch (DatabaseFailureException e) {
             log.error("Failed to retrieve companies by active status: {}", activeEnum, e);
             throw new ServiceException("Unable to retrieve companies", e);
         }

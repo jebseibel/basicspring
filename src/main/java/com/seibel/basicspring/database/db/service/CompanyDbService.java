@@ -1,16 +1,15 @@
-package com.seibel.basicspring.database.database.db.service;
+package com.seibel.basicspring.database.db.service;
 
 import com.seibel.basicspring.common.domain.Company;
 import com.seibel.basicspring.common.enums.ActiveEnum;
-import com.seibel.basicspring.database.database.db.entity.CompanyDb;
-import com.seibel.basicspring.database.database.db.mapper.CompanyMapper;
-import com.seibel.basicspring.database.database.db.repository.CompanyRepository;
-import com.seibel.basicspring.database.database.exception.DatabaseException;
+import com.seibel.basicspring.database.db.entity.CompanyDb;
+import com.seibel.basicspring.database.db.mapper.CompanyMapper;
+import com.seibel.basicspring.database.db.repository.CompanyRepository;
+import com.seibel.basicspring.database.db.exception.DatabaseFailureException;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -50,7 +49,7 @@ public class CompanyDbService extends BaseDbService {
 
         } catch (Exception e) {
             log.error("Failed to create company: {}", extid, e);
-            throw new DatabaseException("Failed to create company", e);
+            throw new DatabaseFailureException("Failed to create company", e);
         }
     }
 
@@ -72,7 +71,7 @@ public class CompanyDbService extends BaseDbService {
 
         } catch (Exception e) {
             log.error("Failed to update company: {}", extid, e);
-            throw new DatabaseException("Failed to update company", e);
+            throw new DatabaseFailureException("Failed to update company", e);
         }
     }
 
@@ -92,7 +91,7 @@ public class CompanyDbService extends BaseDbService {
 
         } catch (Exception e) {
             log.error("Failed to delete company: {}", extid, e);
-            throw new DatabaseException("Failed to delete company", e);
+            throw new DatabaseFailureException("Failed to delete company", e);
         }
     }
 

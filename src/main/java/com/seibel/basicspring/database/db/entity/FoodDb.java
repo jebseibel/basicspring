@@ -1,4 +1,4 @@
-package com.seibel.basicspring.database.database.db.entity;
+package com.seibel.basicspring.database.db.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -22,11 +22,20 @@ public class FoodDb extends BaseDb {
     @Column(name = "name", length = 32, nullable = false, unique = true)
     private String name;
 
-    @Column(name = "description", length = 255, nullable = false)
+    @Column(name = "category", length = 32, nullable = false)
+    private String category;
+
+    @Column(name = "subcategory", length = 32, nullable = false)
+    private String subcategory;
+
+    @Column(name = "description", length = 255)
     private String description;
 
-    @Column(name = "serving_type", length = 16, nullable = false)
+    @Column(name = "serving_type", length = 16)
     private String servingType;
+
+    @Column(name = "nutrition", length = 512)
+    private String nutrition;
 
     // 📝 Optional extended notes or comments about the company
     @Column(name = "notes", length = 1000)

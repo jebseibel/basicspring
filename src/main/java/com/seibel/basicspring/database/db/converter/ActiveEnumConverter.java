@@ -1,4 +1,4 @@
-package com.seibel.basicspring.database.database.db.converter;
+package com.seibel.basicspring.database.db.converter;
 
 import com.seibel.basicspring.common.enums.ActiveEnum;
 import jakarta.persistence.AttributeConverter;

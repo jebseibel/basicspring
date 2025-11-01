@@ -1,18 +1,20 @@
-package com.seibel.basicspring.database.database.db.entity;
+package com.seibel.basicspring.database.db.entity;
 
 import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.MappedSuperclass;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
+/**
+ * Base JPA entity for tables populated via CSV import.
+ * Extends BaseDb with common CSV-related fields.
+ */
 @Data
+@NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-@Entity
-@Table(name = "company")
-public class CompanyDb extends BaseDb {
-
-    private static final long serialVersionUID = 330515747211210728L;
+@MappedSuperclass
+public abstract class BaseTypeDb extends BaseDb {
 
     @Column(name = "code", length = 8, nullable = false, unique = true)
     private String code;

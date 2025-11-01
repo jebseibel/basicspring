@@ -1,4 +1,4 @@
-package com.seibel.basicspring.database.database.db.service;
+package com.seibel.basicspring.database.db.service;
 
 import lombok.extern.slf4j.Slf4j;
 

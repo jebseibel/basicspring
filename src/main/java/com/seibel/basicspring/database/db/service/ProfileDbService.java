@@ -1,11 +1,11 @@
-package com.seibel.basicspring.database.database.db.service;
+package com.seibel.basicspring.database.db.service;
 
 import com.seibel.basicspring.common.domain.Profile;
 import com.seibel.basicspring.common.enums.ActiveEnum;
-import com.seibel.basicspring.database.database.db.entity.ProfileDb;
-import com.seibel.basicspring.database.database.db.mapper.ProfileMapper;
-import com.seibel.basicspring.database.database.db.repository.ProfileRepository;
-import com.seibel.basicspring.database.database.exception.DatabaseException;
+import com.seibel.basicspring.database.db.entity.ProfileDb;
+import com.seibel.basicspring.database.db.mapper.ProfileMapper;
+import com.seibel.basicspring.database.db.repository.ProfileRepository;
+import com.seibel.basicspring.database.db.exception.DatabaseFailureException;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -48,7 +48,7 @@ public class ProfileDbService extends BaseDbService {
 
         } catch (Exception e) {
             log.error("Failed to create profile: {}", extid, e);
-            throw new DatabaseException("Failed to create profile", e);
+            throw new DatabaseFailureException("Failed to create profile", e);
         }
     }
 
@@ -69,7 +69,7 @@ public class ProfileDbService extends BaseDbService {
 
         } catch (Exception e) {
             log.error("Failed to update profile: {}", extid, e);
-            throw new DatabaseException("Failed to update profile", e);
+            throw new DatabaseFailureException("Failed to update profile", e);
         }
     }
 
@@ -89,7 +89,7 @@ public class ProfileDbService extends BaseDbService {
 
         } catch (Exception e) {
             log.error("Failed to delete profile: {}", extid, e);
-            throw new DatabaseException("Failed to delete profile", e);
+            throw new DatabaseFailureException("Failed to delete profile", e);
         }
     }
 
