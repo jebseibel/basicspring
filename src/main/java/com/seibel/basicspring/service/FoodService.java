@@ -2,7 +2,6 @@ package com.seibel.basicspring.service;
 
 import com.seibel.basicspring.common.domain.Food;
 import com.seibel.basicspring.common.enums.ActiveEnum;
-
 import com.seibel.basicspring.database.db.exceptions.DatabaseFailureException;
 import com.seibel.basicspring.database.db.service.FoodDbService;
 import lombok.extern.slf4j.Slf4j;

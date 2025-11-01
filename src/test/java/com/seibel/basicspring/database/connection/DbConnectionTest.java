@@ -1,10 +1,10 @@
 package com.seibel.basicspring.database.connection;
 
 import com.seibel.basicspring.BasicspringApplicationTests;
-import org.springframework.core.env.Environment; // ✅ Correct import (not Hibernate's)
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.core.env.Environment;
 import org.springframework.test.context.ActiveProfiles;
 
 import javax.sql.DataSource;

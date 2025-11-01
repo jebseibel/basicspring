@@ -1,7 +1,7 @@
 package com.seibel.basicspring.database.db.repository;
 
-import com.seibel.basicspring.database.db.entity.ServingDb;
 import com.seibel.basicspring.common.enums.ActiveEnum;
+import com.seibel.basicspring.database.db.entity.ServingDb;
 import org.springframework.data.repository.ListCrudRepository;
 import org.springframework.stereotype.Repository;
 

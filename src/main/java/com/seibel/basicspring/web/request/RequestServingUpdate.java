@@ -1,6 +1,6 @@
 package com.seibel.basicspring.web.request;
 
-import jakarta.validation.constraints.*;
+import jakarta.validation.constraints.Size;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

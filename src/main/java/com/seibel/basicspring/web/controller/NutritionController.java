@@ -2,8 +2,9 @@ package com.seibel.basicspring.web.controller;
 
 import com.seibel.basicspring.common.domain.Nutrition;
 import com.seibel.basicspring.service.NutritionService;
-import com.seibel.basicspring.web.request.*;
-import com.seibel.basicspring.web.response.*;
+import com.seibel.basicspring.web.request.RequestNutritionCreate;
+import com.seibel.basicspring.web.request.RequestNutritionUpdate;
+import com.seibel.basicspring.web.response.ResponseNutrition;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

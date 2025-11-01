@@ -1,7 +1,8 @@
 package com.seibel.basicspring.sample;
 
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Self-contained unit test that does not start Spring or require any external services.

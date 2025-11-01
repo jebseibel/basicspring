@@ -7,7 +7,6 @@ import com.seibel.basicspring.database.db.exceptions.DatabaseAccessException;
 import com.seibel.basicspring.database.db.exceptions.DatabaseFailureException;
 import com.seibel.basicspring.database.db.mapper.NutritionMapper;
 import com.seibel.basicspring.database.db.repository.NutritionRepository;
-
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 

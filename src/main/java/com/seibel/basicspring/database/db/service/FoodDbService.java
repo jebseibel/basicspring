@@ -6,7 +6,6 @@ import com.seibel.basicspring.database.db.entity.FoodDb;
 import com.seibel.basicspring.database.db.exceptions.DatabaseFailureException;
 import com.seibel.basicspring.database.db.mapper.FoodMapper;
 import com.seibel.basicspring.database.db.repository.FoodRepository;
-
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
