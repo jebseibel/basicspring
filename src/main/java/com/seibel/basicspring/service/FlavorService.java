@@ -18,8 +18,8 @@ public class FlavorService extends BaseService {
     private final FlavorDbService dbService;
 
     public FlavorService(FlavorDbService dbService) {
+        super(Flavor.class.getSimpleName());
         this.dbService = dbService;
-        this.thisName = "Flavor";
     }
 
     public Flavor create(Flavor item) throws DatabaseFailureException {

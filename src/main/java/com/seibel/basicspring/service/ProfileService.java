@@ -25,11 +25,11 @@ public class ProfileService extends BaseService {
     private static final int MAX_PAGE_SIZE = 100;
     private static final Set<String> ALLOWED_SORT_FIELDS = Set.of("nickname", "fullname", "createdAt", "updatedAt");
 
-    private final ProfileDbService profileDbService;
+    private final ProfileDbService dbService;
 
-    public ProfileService(ProfileDbService profileDbService) {
-        this.profileDbService = profileDbService;
-        this.thisName = "Profile";
+    public ProfileService(ProfileDbService dbService) {
+        super(Profile.class.getSimpleName());
+        this.dbService = dbService;
     }
 
     @Transactional
@@ -38,7 +38,7 @@ public class ProfileService extends BaseService {
         log.info("create(): {}", item);
 
         try {
-            return profileDbService.create(item.getNickname(), item.getFullname());
+            return dbService.create(item.getNickname(), item.getFullname());
         } catch (DatabaseFailureException e) {
             log.error("Failed to create profile: {}", item.getNickname(), e);
             throw new ServiceException("Unable to create profile", e);
@@ -52,7 +52,7 @@ public class ProfileService extends BaseService {
         log.info("update(): extid={}, origin={}, {}", extid, item);
 
         try {
-            Profile updated = profileDbService.update(extid, item.getNickname(), item.getFullname());
+            Profile updated = dbService.update(extid, item.getNickname(), item.getFullname());
             if (updated == null) {
                 throw new ResourceNotFoundException("Profile", extid);
             }
@@ -69,7 +69,7 @@ public class ProfileService extends BaseService {
         log.info("delete(): extid={}", extid);
 
         try {
-            return profileDbService.delete(extid);
+            return dbService.delete(extid);
         } catch (DatabaseFailureException e) {
             log.error("Failed to delete profile: {}", extid, e);
             throw new ServiceException("Unable to delete profile", e);
@@ -81,7 +81,7 @@ public class ProfileService extends BaseService {
         log.info("findByExtid(): extid={}", extid);
 
         try {
-            Profile profile = profileDbService.findByExtid(extid);
+            Profile profile = dbService.findByExtid(extid);
             if (profile == null) {
                 throw new ResourceNotFoundException("Profile", extid);
             }
@@ -96,7 +96,7 @@ public class ProfileService extends BaseService {
         log.info("findAll()");
 
         try {
-            return profileDbService.findAll();
+            return dbService.findAll();
         } catch (DatabaseFailureException e) {
             log.error("Failed to retrieve all profiles", e);
             throw new ServiceException("Unable to retrieve profiles", e);
@@ -108,9 +108,9 @@ public class ProfileService extends BaseService {
         log.info("findAll(pageable): page={}, size={}, sort={}", safe.getPageNumber(), safe.getPageSize(), safe.getSort());
         try {
             if (activeEnum == null) {
-                return profileDbService.findAll(safe);
+                return dbService.findAll(safe);
             }
-            return profileDbService.findByActive(activeEnum, safe);
+            return dbService.findByActive(activeEnum, safe);
         } catch (DatabaseFailureException e) {
             log.error("Failed to retrieve profiles (paged)", e);
             throw new ServiceException("Unable to retrieve profiles", e);
@@ -122,7 +122,7 @@ public class ProfileService extends BaseService {
         log.info("findByActive(): activeEnum={}", activeEnum);
 
         try {
-            return profileDbService.findByActive(activeEnum);
+            return dbService.findByActive(activeEnum);
         } catch (DatabaseFailureException e) {
             log.error("Failed to retrieve profiles by active status: {}", activeEnum, e);
             throw new ServiceException("Unable to retrieve profiles", e);

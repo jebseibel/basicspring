@@ -4,6 +4,10 @@ public abstract class BaseService {
 
     protected String thisName;
 
+    public BaseService(String name) {
+        this.thisName = name;
+    }
+
     protected void requireNonNull(Object obj) {
         if (obj == null) {
             throw new IllegalArgumentException(thisName + " cannot be null");

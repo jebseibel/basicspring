@@ -1,6 +1,5 @@
 package com.seibel.basicspring.database.connection;
 
-import com.seibel.basicspring.BasicspringApplicationTests;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -10,7 +9,7 @@ import org.springframework.test.context.ActiveProfiles;
 import javax.sql.DataSource;
 import java.sql.Connection;
 
-@SpringBootTest(classes = BasicspringApplicationTests.class)
+@SpringBootTest()
 @ActiveProfiles("test-database")
 class DbConnectionTest {
 

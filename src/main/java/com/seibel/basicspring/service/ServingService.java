@@ -15,8 +15,8 @@ public class ServingService extends BaseService {
     private final ServingDbService dbService;
 
     public ServingService(ServingDbService dbService) {
+        super(Serving.class.getSimpleName());
         this.dbService = dbService;
-        this.thisName = "Serving";
     }
 
     public Serving create(Serving item) {

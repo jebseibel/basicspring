@@ -25,11 +25,11 @@ public class CompanyService extends BaseService {
     private static final int MAX_PAGE_SIZE = 100;
     private static final Set<String> ALLOWED_SORT_FIELDS = Set.of("name", "code", "createdAt", "updatedAt");
 
-    private final CompanyDbService companyDbService;
+    private final CompanyDbService dbService;
 
-    public CompanyService(CompanyDbService companyDbService) {
-        this.companyDbService = companyDbService;
-        this.thisName = "Company";
+    public CompanyService(CompanyDbService dbService) {
+        super(Company.class.getSimpleName());
+        this.dbService = dbService;
     }
 
     @Transactional
@@ -38,7 +38,7 @@ public class CompanyService extends BaseService {
         log.info("create(): {}", item);
 
         try {
-            return companyDbService.create(item.getCode(), item.getName(), item.getDescription());
+            return dbService.create(item.getCode(), item.getName(), item.getDescription());
         } catch (DatabaseFailureException e) {
             log.error("Failed to create company: {}", item.getCode(), e);
             throw new ServiceException("Unable to create company", e);
@@ -52,7 +52,7 @@ public class CompanyService extends BaseService {
         log.info("update(): extid={}, {}", extid, item);
 
         try {
-            Company updated = companyDbService.update(extid, item.getCode(), item.getName(), item.getDescription());
+            Company updated = dbService.update(extid, item.getCode(), item.getName(), item.getDescription());
             if (updated == null) {
                 throw new ResourceNotFoundException("Company", extid);
             }
@@ -69,7 +69,7 @@ public class CompanyService extends BaseService {
         log.info("delete(): extid={}", extid);
 
         try {
-            return companyDbService.delete(extid);
+            return dbService.delete(extid);
         } catch (DatabaseFailureException e) {
             log.error("Failed to delete company: {}", extid, e);
             throw new ServiceException("Unable to delete company", e);
@@ -81,7 +81,7 @@ public class CompanyService extends BaseService {
         log.info("findByExtid(): extid={}", extid);
 
         try {
-            Company company = companyDbService.findByExtid(extid);
+            Company company = dbService.findByExtid(extid);
             if (company == null) {
                 throw new ResourceNotFoundException("Company", extid);
             }
@@ -96,7 +96,7 @@ public class CompanyService extends BaseService {
         log.info("findAll()");
 
         try {
-            return companyDbService.findAll();
+            return dbService.findAll();
         } catch (DatabaseFailureException e) {
             log.error("Failed to retrieve all companies", e);
             throw new ServiceException("Unable to retrieve companies", e);
@@ -108,9 +108,9 @@ public class CompanyService extends BaseService {
         log.info("findAll(pageable): page={}, size={}, sort={}", safe.getPageNumber(), safe.getPageSize(), safe.getSort());
         try {
             if (activeEnum == null) {
-                return companyDbService.findAll(safe);
+                return dbService.findAll(safe);
             }
-            return companyDbService.findByActive(activeEnum, safe);
+            return dbService.findByActive(activeEnum, safe);
         } catch (DatabaseFailureException e) {
             log.error("Failed to retrieve companies (paged)", e);
             throw new ServiceException("Unable to retrieve companies", e);
@@ -122,7 +122,7 @@ public class CompanyService extends BaseService {
         log.info("findByActive(): activeEnum={}", activeEnum);
 
         try {
-            return companyDbService.findByActive(activeEnum);
+            return dbService.findByActive(activeEnum);
         } catch (DatabaseFailureException e) {
             log.error("Failed to retrieve companies by active status: {}", activeEnum, e);
             throw new ServiceException("Unable to retrieve companies", e);

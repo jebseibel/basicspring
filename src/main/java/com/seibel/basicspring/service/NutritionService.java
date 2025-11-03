@@ -13,10 +13,11 @@ import java.util.List;
 public class NutritionService extends BaseService {
 
     private final NutritionDbService dbService;
+    private final String thisName = "Nutrition";
 
     public NutritionService(NutritionDbService dbService) {
+        super(Nutrition.class.getSimpleName());
         this.dbService = dbService;
-        this.thisName = "Nutrition";
     }
 
     public Nutrition create(Nutrition item) {

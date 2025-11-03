@@ -16,8 +16,8 @@ public class FoodService extends BaseService {
     private final FoodDbService dbService;
 
     public FoodService(FoodDbService dbService) {
+        super(Food.class.getSimpleName());
         this.dbService = dbService;
-        this.thisName = "Food";
     }
 
     public Food create(Food item) throws DatabaseFailureException {
