@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 @MappedSuperclass
-public abstract class BaseTypeDb extends BaseDb {
+public abstract class BaseFoodDb extends BaseDb {
 
     @Column(name = "code", length = 8, nullable = false, unique = true)
     private String code;
@@ -22,6 +22,15 @@ public abstract class BaseTypeDb extends BaseDb {
     @Column(name = "name", length = 32, nullable = false, unique = true)
     private String name;
 
-    @Column(name = "description", length = 255, nullable = false)
+    @Column(name = "category", length = 32, nullable = false)
+    private String category;
+
+    @Column(name = "subcategory", length = 32, nullable = false)
+    private String subcategory;
+
+    @Column(name = "description")
     private String description;
+
+    @Column(name = "notes")
+    private String notes;
 }

@@ -16,6 +16,7 @@ databaseChangeLog:
               - column: { name: category, type: varchar(32), constraints: { nullable: false } }
               - column: { name: subcategory, type: varchar(32), constraints: { nullable: false } }
               - column: { name: description, type: varchar(255) }
+              - column: { name: notes, type: varchar(1000) }
               - column: { name: carbohydrate, type: int, constraints: { nullable: false } }
               - column: { name: fat, type: int, constraints: { nullable: false } }
               - column: { name: protein, type: int, constraints: { nullable: false } }

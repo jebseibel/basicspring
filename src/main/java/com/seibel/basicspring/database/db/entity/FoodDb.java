@@ -8,39 +8,18 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name = "food")
-public class FoodDb extends BaseDb {
+public class FoodDb extends BaseFoodDb {
 
     private static final long serialVersionUID = 4913572206441095325L;
 
-    @Column(name = "code", length = 8, nullable = false, unique = true)
-    private String code;
+    @Column(name = "flavor", length = 32)
+    private String flavor;
 
-    @Column(name = "name", length = 32, nullable = false, unique = true)
-    private String name;
+    @Column(name = "nutrition", length = 32)
+    private String nutrition;
 
-    @Column(name = "category", length = 32, nullable = false)
-    private String category;
+    @Column(name = "serving", length = 32)
+    private String serving;
 
-    @Column(name = "subcategory", length = 32, nullable = false)
-    private String subcategory;
-
-    @Column(name = "description", length = 255)
-    private String description;
-
-    @Column(name = "notes", length = 1000)
-    private String notes;
-
-    // OneToOne relationships
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "flavor_id", referencedColumnName = "id")
-    private FlavorDb flavor;
-
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "nutrition_id", referencedColumnName = "id")
-    private NutritionDb nutrition;
-
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "serving_id", referencedColumnName = "id")
-    private ServingDb serving;
 }
 

@@ -66,9 +66,6 @@ public class FoodDbService extends BaseDbService {
         if (item.getSubcategory() != null) existing.setSubcategory(item.getSubcategory());
         if (item.getDescription() != null) existing.setDescription(item.getDescription());
         if (item.getNotes() != null) existing.setNotes(item.getNotes());
-        if (item.getFlavor() != null) existing.setFlavor(flavorMapper.toDb(item.getFlavor()));
-        if (item.getNutrition() != null) existing.setNutrition(nutritionMapper.toDb(item.getNutrition()));
-        if (item.getServing() != null) existing.setServing(servingMapper.toDb(item.getServing()));
 
         FoodDb saved = repository.save(existing);
         log.info(updatedMessage(extid));

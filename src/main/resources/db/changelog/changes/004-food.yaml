@@ -16,14 +16,12 @@ databaseChangeLog:
               - column: { name: category, type: varchar(32), constraints: { nullable: false } }
               - column: { name: subcategory, type: varchar(32), constraints: { nullable: false } }
               - column: { name: description, type: varchar(255) }
-              - column: { name: serving_type, type: varchar(16) }
-              - column: { name: nutrition, type: varchar(512) }
               - column: { name: notes, type: varchar(1000) }
-              - column: { name: crunch, type: tinyint, constraints: { nullable: false, checkConstraint: "CHECK (crunch BETWEEN 1 AND 5)" } }
-              - column: { name: punch, type: tinyint, constraints: { nullable: false, checkConstraint: "CHECK (punch BETWEEN 1 AND 5)" } }
-              - column: { name: sweet, type: tinyint, constraints: { nullable: false, checkConstraint: "CHECK (sweet BETWEEN 1 AND 5)" } }
-              - column: { name: savory, type: tinyint, constraints: { nullable: false, checkConstraint: "CHECK (savory BETWEEN 1 AND 5)" } }
+              - column: { name: flavor, type: varchar(32) }
+              - column: { name: nutrition, type: varchar(32) }
+              - column: { name: serving, type: varchar(32) }
               - column: { name: created_at, type: datetime, constraints: { nullable: false } }
               - column: { name: updated_at, type: datetime }
               - column: { name: deleted_at, type: datetime }
               - column: { name: active, type: int }
+

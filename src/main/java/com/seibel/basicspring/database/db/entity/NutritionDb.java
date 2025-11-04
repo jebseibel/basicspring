@@ -10,24 +10,9 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name = "nutrition")
-public class NutritionDb extends BaseDb {
+public class NutritionDb extends BaseFoodDb {
 
     private static final long serialVersionUID = 6732009184148857729L;
-
-    @Column(name = "code", length = 8, nullable = false, unique = true)
-    private String code;
-
-    @Column(name = "name", length = 32, nullable = false, unique = true)
-    private String name;
-
-    @Column(name = "category", length = 32, nullable = false)
-    private String category;
-
-    @Column(name = "subcategory", length = 32, nullable = false)
-    private String subcategory;
-
-    @Column(name = "description", length = 255)
-    private String description;
 
     @Column(name = "carbohydrate", nullable = false)
     private Integer carbohydrate;

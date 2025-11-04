@@ -168,9 +168,6 @@ public class DomainBuilderDatabase extends DomainBuilderBase {
         item.setCategory(category != null ? category : getNameRandom("Category_"));
         item.setSubcategory(subcategory != null ? subcategory : getNameRandom("SubCat_"));
         item.setDescription(description != null ? description : getDescriptionRandom("Food Description "));
-        item.setServing(serving != null ? serving : getServingDb());
-        item.setNutrition(nutrition != null ? nutrition : getNutritionDb());
-        item.setFlavor(flavor != null ? flavor : getFlavorDb());
         item.setNotes(notes != null ? notes : getDescriptionRandom("Food Notes "));
 
         setBaseSyncFields(item);

@@ -3,7 +3,7 @@
 ##  Nuts Section — Health Mix Foundations
 
 ### Flavor Subcategory
-| **Ingredient** | **Description** | **Notes** |
+| **Name** | **Description** | **Notes** |
 |---------------|-----------------|-----------|
 | **Almonds** | Crunchy, neutral flavor; perfect base for texture | none |
 | **Pistachios** | Bright, colorful, slightly sweet; great in salads or with fruit | none |
@@ -15,7 +15,7 @@
 ---
 
 ###  Mixture Subcategory
-| **Ingredient** | **Description** | **Notes** |
+| **Name** | **Description** | **Notes** |
 |---------------|-----------------|-----------|
 | **Walnuts** | Omega-3 fats, polyphenols | Great for heart and brain support mixes |
 | **Cashews** | Iron, zinc, creaminess | Adds body and smoothness to ground blends |
@@ -28,7 +28,7 @@
 ##  Dried Fruits Section — Health Mix Foundations
 
 ###  Core Dried Fruit List
-| **Ingredient** | **Description** | **Notes** |
+| **Name** | **Description** | **Notes** |
 |---------------|-----------------|-----------|
 | **Raisins (Regular)** | Natural sugars, iron, potassium, fiber | Deep flavor; firm texture; great in salads and trail-type mixes |
 | **Golden Raisins** | Natural sugars, antioxidants, moist texture | Lighter flavor and color; ideal for yogurt or breakfast blends |
@@ -44,7 +44,7 @@
 ### Functional Subcategories
 
 #### Mixture Fruits Subcategory
-| **Ingredient** | **Description** | **Notes** |
+| **Name** | **Description** | **Notes** |
 |---------------|-----------------|-----------|
 | **Golden Raisins** | Natural sugar + antioxidants | Adds light sweetness and moisture to dry mixes |
 | **Dried Blueberries** | Antioxidants + fiber | Excellent for antioxidant-focused blends |
@@ -54,7 +54,7 @@
 ---
 
 #### Flavor Fruits Subcategory
-| **Ingredient** | **Description** | **Notes** |
+| **Name** | **Description** | **Notes** |
 |---------------|-----------------|-----------|
 | **Raisins (Regular)** | Salads, hot cereals, baked grains | Pairs with pecans, walnuts, and brown rice |
 | **Dried Cranberries** | Salads, yogurt, granola | Complements tart flavors and soft greens |
@@ -67,8 +67,8 @@
 ##  Fresh Fruits Section — Health Mix Foundations
 
 
-### Ingredient Fruits Subcategory
-| **Ingredient** | **Description** | **Notes** |
+### Name Fruits Subcategory
+| **Name** | **Description** | **Notes** |
 |---------------|-----------------|-----------|
 | **Apple** | Crisp, mildly sweet | Peel and dice for salads or yogurt; adds crunch and freshness |
 | **Pear** | Soft, juicy, floral | Cube or slice thin for salads and grain bowls |
@@ -83,7 +83,7 @@
 ---
 
 ### Whole Fruits Subcategory
-| **Ingredient** | **Description** | **Notes** |
+| **Name** | **Description** | **Notes** |
 |---------------|-----------------|-----------|
 | **Apple** | Whole or sliced | Excellent post-meal fruit; pairs with nut toppings |
 | **Pear** | Whole or sliced | Serve chilled; light and aromatic |
@@ -101,7 +101,7 @@
 
 ### Single Vegetables Subcategory
 
-| **Ingredient** | **Description** | **Notes** |
+| **Name** | **Description** | **Notes** |
 |---------------|-----------------|-----------|
 | **Carrot** | Crunchy, sweet | Shred or slice thinly; adds color and sweetness |
 | **Cherry Tomato** | Juicy, tangy | Adds color and acidity; slice or halve |
@@ -113,7 +113,7 @@
 ---
 
 ### Chopped Vegetables Subcategory
-| **Ingredient** | **Description** | **Notes** |
+| **Name** | **Description** | **Notes** |
 |---------------|-----------------|-----------|
 | **Cucumber** | Juicy, crisp | Hydrating and refreshing; balances acidic dressings |
 | **Bell Pepper (Red, Yellow, Orange)** | Sweet, crisp | Adds brightness and vitamin C |
@@ -125,7 +125,7 @@
 
 ### Hard Cheeses Subcategory
 
-| **Ingredient** | **Description** | **Notes** |
+| **Name** | **Description** | **Notes** |
 |---------------|-----------------|-----------|
 | **Parmesan (Parmigiano-Reggiano)** | Hard, salty, nutty | Shave thinly or grate finely; strong flavor accent |
 | **Pecorino Romano** | Firm, sharp, salty | Made from sheep's milk; adds bold, tangy depth |
@@ -137,7 +137,7 @@
 ---
 
 ### Soft Cheeses Subcategory
-| **Ingredient** | **Description** | **Notes** |
+| **Name** | **Description** | **Notes** |
 |---------------|-----------------|-----------|
 | **Feta** | Crumbly, tangy, salty | Sprinkle lightly; pairs well with olives, tomatoes, and grains |
 | **Goat Cheese (Chevre)** | Soft, creamy, tangy | Adds smoothness and bright acidity to salads |
@@ -151,7 +151,7 @@
 ##  Dry Crunch Section — Health Mix Foundations
 
 ### Natural Crunch Subcategory
-| **Ingredient** | **Description** | **Notes** |
+| **Name** | **Description** | **Notes** |
 |---------------|-----------------|-----------|
 | **Toasted Nuts** | Crunchy, rich | Almonds, pecans, or walnuts; toast lightly for aroma |
 | **Seeds** | Crisp, nutty | Pumpkin, sunflower, or sesame seeds; sprinkle over salads |
@@ -163,7 +163,7 @@
 
 ---
 ### Processed Crunch Subcategory
-| **Ingredient** | **Description** | **Notes** |
+| **Name** | **Description** | **Notes** |
 |---------------|-----------------|-----------|
 | **Croutons** | Crisp, seasoned | Adds classic crunch; choose whole grain or baked varieties |
 | **Dried Onions** | Sweet, savory | Adds flavor burst; use sparingly to avoid overpowering |
