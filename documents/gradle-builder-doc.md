@@ -12,14 +12,14 @@ I am writing lots and lots of the same kind of code in my Java, Spring, Gradle p
 
 ## Generated Artifacts (per entity)
 
-### 1. **Domain Layer** (`com.seibel.basicspring.common.domain`)
+### 1. **Domain Layer** (`com.seibel.cpss.common.domain`)
 - `{Entity}.java` - Business domain object
     - Extends `BaseDomain` (inherits: id, extid, createdAt, updatedAt, deletedAt, active)
     - Uses `@Data`, `@SuperBuilder`, `@NoArgsConstructor`, `@AllArgsConstructor`, `@EqualsAndHashCode(callSuper = true)`
     - Contains only business-specific fields
     - **Input source for generation**
 
-### 2. **Web Layer - Request DTOs** (`com.seibel.basicspring.web.request`)
+### 2. **Web Layer - Request DTOs** (`com.seibel.cpss.web.request`)
 - `Request{Entity}Create.java` - Create operation DTO
     - Extends `BaseRequest`
     - Uses `@Data`, `@EqualsAndHashCode(callSuper = true)`
@@ -32,13 +32,13 @@ I am writing lots and lots of the same kind of code in my Java, Spring, Gradle p
     - All fields optional (nullable)
     - Only `@Size` validations (no `@NotEmpty`)
 
-### 3. **Web Layer - Response DTO** (`com.seibel.basicspring.web.response`)
+### 3. **Web Layer - Response DTO** (`com.seibel.cpss.web.response`)
 - `Response{Entity}.java` - Outgoing data
     - Uses `@Data`, `@Builder`
     - Contains `extid` plus all business fields
     - No validation annotations
 
-### 4. **Entity Layer** (`com.seibel.basicspring.database.database.db.entity`)
+### 4. **Entity Layer** (`com.seibel.cpss.database.database.db.entity`)
 - `{Entity}Db.java` - JPA entity
     - Extends `BaseDb` (inherits: id, extid, createdAt, updatedAt, deletedAt, active with JPA annotations)
     - Uses `@Data`, `@EqualsAndHashCode(callSuper = true)`, `@Entity`, `@Table(name = "{entity_lowercase}")`
@@ -49,14 +49,14 @@ I am writing lots and lots of the same kind of code in my Java, Spring, Gradle p
         - `nullable` flag
         - `unique` flag (where applicable)
 
-### 5. **Mapper** (`com.seibel.basicspring.database.database.db.mapper`)
+### 5. **Mapper** (`com.seibel.cpss.database.database.db.mapper`)
 - `{Entity}Mapper.java` - Object conversions
     - Uses `@Component`, `@NoArgsConstructor`
     - Contains private `ModelMapper` instance
     - Methods: `toModel()`, `toDb()`, `toModelList()`, `toDbList()`
     - Handles null checks in list methods
 
-### 6. **Repository** (`com.seibel.basicspring.database.database.db.repository`)
+### 6. **Repository** (`com.seibel.cpss.database.database.db.repository`)
 - `{Entity}Repository.java` - Data access interface
     - Uses `@Repository`
     - Extends `ListCrudRepository<{Entity}Db, Long>`
@@ -66,7 +66,7 @@ I am writing lots and lots of the same kind of code in my Java, Spring, Gradle p
         - `boolean existsByExtid(String extid)`
         - Additional `findBy{UniqueField}()` methods for unique business fields
 
-### 7. **Database Service** (`com.seibel.basicspring.database.database.db.service`)
+### 7. **Database Service** (`com.seibel.cpss.database.database.db.service`)
 - `{Entity}DbService.java` - Database operations layer
     - Uses `@Slf4j`, `@Service`
     - Extends `BaseDbService` (passes entity name "{Entity}Db" to constructor)
@@ -107,7 +107,7 @@ I am writing lots and lots of the same kind of code in my Java, Spring, Gradle p
             throw new DatabaseFailureException("Failed to create " + thisName, e);
     }
 
-### 8. **Business Service** (`com.seibel.basicspring.service`)
+### 8. **Business Service** (`com.seibel.cpss.service`)
 - `{Entity}Service.java` - Business logic layer
     - Uses `@Slf4j`, `@Service`
     - Extends `BaseService` (sets `thisName` to "{Entity}" in constructor)
@@ -126,7 +126,7 @@ I am writing lots and lots of the same kind of code in my Java, Spring, Gradle p
         - `findByActive(ActiveEnum activeEnum)` - validates enum
     - Propagates database exceptions
 
-### 9. **Controller & Converter** (`com.seibel.basicspring.web.controller`)
+### 9. **Controller & Converter** (`com.seibel.cpss.web.controller`)
 - `{Entity}Controller.java` - REST API endpoints and DTO conversion (both classes in same file)
 
 #### Public Controller Class
@@ -451,7 +451,7 @@ For each Domain class input, generate all 12 files plus builder methods:
 13. **DomainBuilderDatabase methods** (append to existing shared class)
 
 ### Configuration Requirements
-- Package base path: `com.seibel.basicspring`
+- Package base path: `com.seibel.cpss`
 - Entity naming convention
 - Field naming conventions (camelCase → snake_case)
 - Default field constraints (lengths, nullable, unique)
@@ -474,7 +474,7 @@ For each Domain class input, generate all 12 files plus builder methods:
 ## Example Domain Input
 
 ```java
-package com.seibel.basicspring.common.domain;
+package com.seibel.cpss.common.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -37,7 +37,7 @@ This document captures repo-specific knowledge for advanced contributors. It foc
 - Typical commands (verified):
   - Run a single pure unit test (no DB needed):
     ```bash
-    ./gradlew test --tests 'com.seibel.basicspring.sample.SamplePureUnitTest'
+    ./gradlew test --tests 'com.seibel.cpss.sample.SamplePureUnitTest'
     ```
   - Run by simple pattern:
     ```bash
@@ -47,7 +47,7 @@ This document captures repo-specific knowledge for advanced contributors. It foc
     ```bash
     export BASICSPRING_USERNAME=basicspring_username
     export BASICSPRING_PASSWORD=your_password
-    ./gradlew test --tests 'com.seibel.basicspring.database.connection.DbConnectionTest'
+    ./gradlew test --tests 'com.seibel.cpss.database.connection.DbConnectionTest'
     # `@ActiveProfiles("test-database")` is already on the test; no need to pass -Dspring.profiles.active
     ```
   - Run full test suite:
@@ -63,7 +63,7 @@ This document captures repo-specific knowledge for advanced contributors. It foc
   - Expect credentials in env: `BASICSPRING_USERNAME` / `BASICSPRING_PASSWORD`.
 - Minimal pure unit test template (this pattern was validated locally by running existing tests):
   ```java
-  package com.seibel.basicspring.sample;
+  package com.seibel.cpss.sample;
 
   import org.junit.jupiter.api.Test;
   import static org.junit.jupiter.api.Assertions.*;
@@ -77,13 +77,13 @@ This document captures repo-specific knowledge for advanced contributors. It foc
   ```
   Run it selectively:
   ```bash
-  ./gradlew test --tests 'com.seibel.basicspring.sample.ExampleUnitTest'
+  ./gradlew test --tests 'com.seibel.cpss.sample.ExampleUnitTest'
   ```
 
 #### Additional Development Notes (Codebase-Specific)
 - Exception layering:
-  - DB layer exceptions live in `com.seibel.basicspring.database.database.exception`.
-  - Service layer exceptions live under `com.seibel.basicspring.common.exceptions` and `ServiceException` wrappers. Keep this separation intact and import from the correct package.
+  - DB layer exceptions live in `com.seibel.cpss.database.database.exception`.
+  - Service layer exceptions live under `com.seibel.cpss.common.exceptions` and `ServiceException` wrappers. Keep this separation intact and import from the correct package.
 - Persistence model:
   - Entities implement base types (`BaseDb`, `BaseTypeDb`) and track activity state via `ActiveEnum` and `deletedAt`. Avoid hard deletes in services; set inactive + timestamp instead.
 - Mapping:
@@ -99,12 +99,12 @@ This document captures repo-specific knowledge for advanced contributors. It foc
 - Confirmed Gradle config and JUnit platform setup from `build.gradle`.
 - Successfully ran an existing pure unit test:
   ```bash
-  ./gradlew test --tests 'com.seibel.basicspring.sample.SamplePureUnitTest'
+  ./gradlew test --tests 'com.seibel.cpss.sample.SamplePureUnitTest'
   ```
 - DB tests require a reachable local MySQL and the `BASICSPRING_*` env vars.
 
 #### Quick Reference
 - Build (skip tests): `./gradlew clean build -x test`
 - Run app: `./gradlew bootRun`
-- Run pure unit test: `./gradlew test --tests 'com.seibel.basicspring.sample.SamplePureUnitTest'`
-- Run DB test (with env): `./gradlew test --tests 'com.seibel.basicspring.database.connection.DbConnectionTest'`
+- Run pure unit test: `./gradlew test --tests 'com.seibel.cpss.sample.SamplePureUnitTest'`
+- Run DB test (with env): `./gradlew test --tests 'com.seibel.cpss.database.connection.DbConnectionTest'`
