@@ -23,7 +23,7 @@ public class NutritionController {
     private final NutritionService service;
     private final NutritionConverter converter;
 
-    @GetMapping("/")
+    @GetMapping
     public List<ResponseNutrition> getAll() {
         return converter.toResponse(service.findAll());
     }
@@ -33,7 +33,7 @@ public class NutritionController {
         return converter.toResponse(service.findByExtid(extid));
     }
 
-    @PostMapping("/")
+    @PostMapping
     public ResponseNutrition create(@Valid @RequestBody RequestNutritionCreate request) {
         Nutrition created = service.create(converter.toDomain(request));
         return converter.toResponse(created);

@@ -1,90 +1,80 @@
 import axios from 'axios';
 import type {
-  Food,
-  FoodRequest,
-  Nutrition,
-  NutritionRequest,
-  Flavor,
-  FlavorRequest,
-  Serving,
-  ServingRequest,
-  Profile,
-  ProfileRequest,
-  Company,
-  CompanyRequest,
-  SaladRequest,
-  SaladResponse,
-  PageRequest,
-  PageResponse,
+    Food,
+    FoodRequest,
+    Nutrition,
+    NutritionRequest,
+    Flavor,
+    FlavorRequest,
+    Serving,
+    ServingRequest,
+    Profile,
+    ProfileRequest,
+    Company,
+    CompanyRequest,
+    SaladRequest,
+    SaladResponse,
 } from '../types/api';
 
-// Create axios instance with base configuration
-const api = axios.create({
-  baseURL: 'http://localhost:8080/api',
-  headers: {
-    'Content-Type': 'application/json',
-  },
+// API Configuration
+const API_BASE_URL = 'http://localhost:8080/api';
+
+const apiClient = axios.create({
+    baseURL: API_BASE_URL,
+    headers: {
+        'Content-Type': 'application/json',
+    },
 });
 
-// Food API
+// API Endpoints
 export const foodApi = {
-  getAll: () => api.get<Food[]>('/food'),
-  getById: (extid: string) => api.get<Food>(`/food/${extid}`),
-  create: (data: FoodRequest) => api.post<Food>('/food', data),
-  update: (extid: string, data: FoodRequest) => api.put<Food>(`/food/${extid}`, data),
-  delete: (extid: string) => api.delete(`/food/${extid}`),
+    getAll: () => apiClient.get<Food[]>('/food'),
+    getById: (extid: string) => apiClient.get<Food>(`/food/${extid}`),
+    create: (food: FoodRequest) => apiClient.post<Food>('/food', food),
+    update: (extid: string, food: FoodRequest) => apiClient.put<Food>(`/food/${extid}`, food),
+    delete: (extid: string) => apiClient.delete(`/food/${extid}`),
 };
 
-// Nutrition API
 export const nutritionApi = {
-  getAll: () => api.get<Nutrition[]>('/nutrition'),
-  getById: (extid: string) => api.get<Nutrition>(`/nutrition/${extid}`),
-  create: (data: NutritionRequest) => api.post<Nutrition>('/nutrition', data),
-  update: (extid: string, data: NutritionRequest) => api.put<Nutrition>(`/nutrition/${extid}`, data),
-  delete: (extid: string) => api.delete(`/nutrition/${extid}`),
+    getAll: () => apiClient.get<Nutrition[]>('/nutrition'),
+    getById: (extid: string) => apiClient.get<Nutrition>(`/nutrition/${extid}`),
+    create: (nutrition: NutritionRequest) => apiClient.post<Nutrition>('/nutrition', nutrition),
+    update: (extid: string, nutrition: NutritionRequest) => apiClient.put<Nutrition>(`/nutrition/${extid}`, nutrition),
+    delete: (extid: string) => apiClient.delete(`/nutrition/${extid}`),
 };
 
-// Flavor API
 export const flavorApi = {
-  getAll: () => api.get<Flavor[]>('/flavor'),
-  getById: (extid: string) => api.get<Flavor>(`/flavor/${extid}`),
-  create: (data: FlavorRequest) => api.post<Flavor>('/flavor', data),
-  update: (extid: string, data: FlavorRequest) => api.put<Flavor>(`/flavor/${extid}`, data),
-  delete: (extid: string) => api.delete(`/flavor/${extid}`),
+    getAll: () => apiClient.get<Flavor[]>('/flavor'),
+    getById: (extid: string) => apiClient.get<Flavor>(`/flavor/${extid}`),
+    create: (flavor: FlavorRequest) => apiClient.post<Flavor>('/flavor', flavor),
+    update: (extid: string, flavor: FlavorRequest) => apiClient.put<Flavor>(`/flavor/${extid}`, flavor),
+    delete: (extid: string) => apiClient.delete(`/flavor/${extid}`),
 };
 
-// Serving API
 export const servingApi = {
-  getAll: () => api.get<Serving[]>('/serving'),
-  getById: (extid: string) => api.get<Serving>(`/serving/${extid}`),
-  create: (data: ServingRequest) => api.post<Serving>('/serving', data),
-  update: (extid: string, data: ServingRequest) => api.put<Serving>(`/serving/${extid}`, data),
-  delete: (extid: string) => api.delete(`/serving/${extid}`),
+    getAll: () => apiClient.get<Serving[]>('/serving'),
+    getById: (extid: string) => apiClient.get<Serving>(`/serving/${extid}`),
+    create: (serving: ServingRequest) => apiClient.post<Serving>('/serving', serving),
+    update: (extid: string, serving: ServingRequest) => apiClient.put<Serving>(`/serving/${extid}`, serving),
+    delete: (extid: string) => apiClient.delete(`/serving/${extid}`),
 };
 
-// Profile API
 export const profileApi = {
-  getAll: (params?: PageRequest) => api.get<PageResponse<Profile>>('/profile', { params }),
-  getById: (extid: string) => api.get<Profile>(`/profile/${extid}`),
-  create: (data: ProfileRequest) => api.post<Profile>('/profile', data),
-  update: (extid: string, data: ProfileRequest) => api.put<Profile>(`/profile/${extid}`, data),
-  partialUpdate: (extid: string, data: Partial<ProfileRequest>) => api.patch<Profile>(`/profile/${extid}`, data),
-  delete: (extid: string) => api.delete(`/profile/${extid}`),
+    getAll: () => apiClient.get<Profile[]>('/profile'),
+    getById: (extid: string) => apiClient.get<Profile>(`/profile/${extid}`),
+    create: (profile: ProfileRequest) => apiClient.post<Profile>('/profile', profile),
+    update: (extid: string, profile: ProfileRequest) => apiClient.put<Profile>(`/profile/${extid}`, profile),
+    delete: (extid: string) => apiClient.delete(`/profile/${extid}`),
 };
 
-// Company API
 export const companyApi = {
-  getAll: (params?: PageRequest) => api.get<PageResponse<Company>>('/company', { params }),
-  getById: (extid: string) => api.get<Company>(`/company/${extid}`),
-  create: (data: CompanyRequest) => api.post<Company>('/company', data),
-  update: (extid: string, data: CompanyRequest) => api.put<Company>(`/company/${extid}`, data),
-  partialUpdate: (extid: string, data: Partial<CompanyRequest>) => api.patch<Company>(`/company/${extid}`, data),
-  delete: (extid: string) => api.delete(`/company/${extid}`),
+    getAll: () => apiClient.get<Company[]>('/company'),
+    getById: (extid: string) => apiClient.get<Company>(`/company/${extid}`),
+    create: (company: CompanyRequest) => apiClient.post<Company>('/company', company),
+    update: (extid: string, company: CompanyRequest) => apiClient.put<Company>(`/company/${extid}`, company),
+    delete: (extid: string) => apiClient.delete(`/company/${extid}`),
 };
 
-// Salad Builder API
 export const saladApi = {
-  build: (data: SaladRequest) => api.post<SaladResponse>('/salad/build', data),
+    buildSalad: (request: SaladRequest) => apiClient.post<SaladResponse>('/salad/build', request),
 };
-
-export default api;

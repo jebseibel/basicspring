@@ -23,7 +23,7 @@ public class ServingController {
     private final ServingService service;
     private final ServingConverter converter;
 
-    @GetMapping("/")
+    @GetMapping
     public List<ResponseServing> getAll() {
         return converter.toResponse(service.findAll());
     }
@@ -33,7 +33,7 @@ public class ServingController {
         return converter.toResponse(service.findByExtid(extid));
     }
 
-    @PostMapping("/")
+    @PostMapping
     public ResponseServing create(@Valid @RequestBody RequestServingCreate request) {
         Serving created = service.create(converter.toDomain(request));
         return converter.toResponse(created);

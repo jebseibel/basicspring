@@ -21,7 +21,7 @@ public class FlavorController {
     private final FlavorService flavorService;
     private final FlavorConverter converter;
 
-    @PostMapping("/")
+    @PostMapping
     public ResponseFlavor create(@RequestBody RequestFlavorCreate request) {
         Flavor created = flavorService.create(converter.toDomain(request));
         return converter.toResponse(created);
@@ -34,7 +34,7 @@ public class FlavorController {
         return converter.toResponse(updated);
     }
 
-    @GetMapping("/")
+    @GetMapping
     public List<ResponseFlavor> getAll() {
         return converter.toResponse(flavorService.findAll());
     }

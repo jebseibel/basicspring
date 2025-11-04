@@ -10,7 +10,7 @@ spring:
       initialization-fail-timeout: 0
       connection-timeout: 3000
   jpa:
-    show-sql: true
+    show-sql: false
     hibernate:
       ddl-auto: none
   main:
