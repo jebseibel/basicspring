@@ -7,7 +7,7 @@ Create a file named `.env` in your project root (same folder as `build.gradle`).
 # .env
 DB_USERNAME=myuser
 DB_PASSWORD=mypass
-DB_NAME=basicspring
+DB_NAME=cpss
 ```
 
 ⚠️ **Never commit .env files to GitHub** — add it to `.gitignore`.
@@ -66,7 +66,7 @@ FLUSH PRIVILEGES;
 
 **To create the database:**
 ```sql
-CREATE DATABASE basicspring;
+CREATE DATABASE cpss;
 ```
 
 **Look to see if the user is there:**
@@ -76,14 +76,14 @@ SELECT user, host FROM mysql.user;
 
 **Drop the user if you need to:**
 ```sql
-DROP USER 'basicspring_username'@'localhost';
+DROP USER 'cpss_username'@'localhost';
 FLUSH PRIVILEGES;
 ```
 
 **Create a user if you need to:**
 ```sql
-CREATE USER 'basicspring_username'@'localhost' IDENTIFIED BY '[password]';
-GRANT ALL PRIVILEGES ON basicspring.* TO 'basicspring_username'@'localhost';
+CREATE USER 'cpss_username'@'localhost' IDENTIFIED BY '[password]';
+GRANT ALL PRIVILEGES ON cpss.* TO 'cpss_username'@'localhost';
 FLUSH PRIVILEGES;
 ```
 
@@ -94,5 +94,5 @@ FLUSH PRIVILEGES;
 
 You should see a line like:
 ```
-Connected to MySQL Database: basicspring
+Connected to MySQL Database: cpss
 ```

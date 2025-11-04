@@ -6,7 +6,7 @@ plugins {
 
 group = 'com.seibel'
 version = '0.0.1-SNAPSHOT'
-description = 'basicspring'
+description = 'cpss'
 
 java {
     toolchain {

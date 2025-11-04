@@ -21,14 +21,14 @@ class DbConnectionTest {
 
     @Test
     void printSpringEnvValues() {
-        System.out.println("Spring property BASICSPRING_USERNAME = " + env.getProperty("BASICSPRING_USERNAME"));
-        System.out.println("Spring property BASICSPRING_PASSWORD = " + env.getProperty("BASICSPRING_PASSWORD"));
+        System.out.println("Spring property CPSS_USERNAME = " + env.getProperty("CPSS_USERNAME"));
+        System.out.println("Spring property CPSS_PASSWORD = " + env.getProperty("CPSS_PASSWORD"));
     }
 
     @Test
     void printEnvValues() {
-        System.out.println("System ENV username: " + System.getenv("BASICSPRING_USERNAME"));
-        System.out.println("System ENV password: " + System.getenv("BASICSPRING_PASSWORD"));
+        System.out.println("System ENV username: " + System.getenv("CPSS_USERNAME"));
+        System.out.println("System ENV password: " + System.getenv("CPSS_PASSWORD"));
     }
 
     @Test

@@ -21,19 +21,19 @@ This document captures repo-specific knowledge for advanced contributors. It foc
   - Liquibase is enabled for both app and the `test-database` profile.
 - Configuration sources used by the app:
   - Main config: `src/main/resources/application.yml`.
-    - Uses env vars: `BASICSPRING_USERNAME` and `BASICSPRING_PASSWORD` (defaults are `default_user` / `default_pass`).
-    - JDBC URL: `jdbc:mysql://localhost:3306/basicspring`.
-  - Note: `developer-documents/setup-env-and-database.md` mentions `DB_USERNAME/DB_PASSWORD`; the running app and tests actually use `BASICSPRING_USERNAME/BASICSPRING_PASSWORD`. Prefer the `BASICSPRING_*` names to avoid confusion.
+    - Uses env vars: `CPSS_USERNAME` and `CPSS_PASSWORD` (defaults are `default_user` / `default_pass`).
+    - JDBC URL: `jdbc:mysql://localhost:3306/cpss`.
+  - Note: `developer-documents/setup-env-and-database.md` mentions `DB_USERNAME/DB_PASSWORD`; the running app and tests actually use `CPSS_USERNAME/CPSS_PASSWORD`. Prefer the `CPSS_*` names to avoid confusion.
   - The repo includes `me.paulschwarz:spring-dotenv`, so variables can be provided via a `.env` file at project root or via OS environment.
 
 #### Testing — How It Works Here
 - Framework: JUnit 5; Gradle uses JUnit Platform (`tasks.test.useJUnitPlatform()` in `build.gradle`).
 - Two styles of tests exist:
-  1) Pure unit tests (no Spring, no DB) — e.g., `src/test/java/com/seibel/basicspring/sample/SamplePureUnitTest.java`.
+  1) Pure unit tests (no Spring, no DB) — e.g., `src/test/java/com/seibel/cpss/sample/SamplePureUnitTest.java`.
   2) Spring Boot tests that touch the database — e.g., `database/connection/*` tests.
 - Test profiles and config:
   - DB tests use `@ActiveProfiles("test-database")` and pick up `src/test/resources/application-test-database.yml`.
-  - That profile enables Liquibase and reads credentials from env with the same names as the app: `BASICSPRING_USERNAME` / `BASICSPRING_PASSWORD`.
+  - That profile enables Liquibase and reads credentials from env with the same names as the app: `CPSS_USERNAME` / `CPSS_PASSWORD`.
 - Typical commands (verified):
   - Run a single pure unit test (no DB needed):
     ```bash
@@ -45,8 +45,8 @@ This document captures repo-specific knowledge for advanced contributors. It foc
     ```
   - Run a specific DB connection test (requires local MySQL and credentials exported):
     ```bash
-    export BASICSPRING_USERNAME=basicspring_username
-    export BASICSPRING_PASSWORD=your_password
+    export CPSS_USERNAME=cpss_username
+    export CPSS_PASSWORD=your_password
     ./gradlew test --tests 'com.seibel.cpss.database.connection.DbConnectionTest'
     # `@ActiveProfiles("test-database")` is already on the test; no need to pass -Dspring.profiles.active
     ```
@@ -60,7 +60,7 @@ This document captures repo-specific knowledge for advanced contributors. It foc
 - For DB/Spring tests:
   - Annotate with `@ActiveProfiles("test-database")`.
   - Assume Liquibase manages schema; add changesets rather than ad-hoc SQL in tests.
-  - Expect credentials in env: `BASICSPRING_USERNAME` / `BASICSPRING_PASSWORD`.
+  - Expect credentials in env: `CPSS_USERNAME` / `CPSS_PASSWORD`.
 - Minimal pure unit test template (this pattern was validated locally by running existing tests):
   ```java
   package com.seibel.cpss.sample;
@@ -101,7 +101,7 @@ This document captures repo-specific knowledge for advanced contributors. It foc
   ```bash
   ./gradlew test --tests 'com.seibel.cpss.sample.SamplePureUnitTest'
   ```
-- DB tests require a reachable local MySQL and the `BASICSPRING_*` env vars.
+- DB tests require a reachable local MySQL and the `CPSS_*` env vars.
 
 #### Quick Reference
 - Build (skip tests): `./gradlew clean build -x test`

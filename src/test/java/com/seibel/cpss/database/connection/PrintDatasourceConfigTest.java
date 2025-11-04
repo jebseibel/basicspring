@@ -28,8 +28,8 @@ class PrintDatasourceConfigTest {
         System.out.println("Liquibase enabled: " + env.getProperty("spring.liquibase.enabled"));
 
         System.out.println("\n=== ENVIRONMENT VARIABLES ===");
-        System.out.println("BASICSPRING_USERNAME: " + System.getenv("BASICSPRING_USERNAME"));
-        System.out.println("BASICSPRING_PASSWORD: " + (System.getenv("BASICSPRING_PASSWORD") != null ? "***SET***" : "NULL"));
+        System.out.println("CPSS_USERNAME: " + System.getenv("CPSS_USERNAME"));
+        System.out.println("CPSS_PASSWORD: " + (System.getenv("CPSS_PASSWORD") != null ? "***SET***" : "NULL"));
 
         if (dataSource != null) {
             System.out.println("\n✅ DataSource bean created");

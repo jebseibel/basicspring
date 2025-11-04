@@ -11,8 +11,8 @@ import java.sql.Connection;
 @SpringBootTest()
 @ActiveProfiles("test-database")
 @TestPropertySource(properties = {
-        "BASICSPRING_USERNAME=[username]",
-        "BASICSPRING_PASSWORD=[password]"
+        "CPSS_USERNAME=[username]",
+        "CPSS_PASSWORD=[password]"
 })
 class DbConnectionWithValuesTest {
     @Autowired
