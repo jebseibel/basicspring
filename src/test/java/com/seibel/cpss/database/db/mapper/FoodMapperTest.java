@@ -1,8 +1,8 @@
 package com.seibel.cpss.database.db.mapper;
 
 import com.seibel.cpss.common.domain.Food;
-import com.seibel.cpss.database.db.entity.FoodDb;
 import com.seibel.cpss.database.db.entity.FlavorDb;
+import com.seibel.cpss.database.db.entity.FoodDb;
 import com.seibel.cpss.database.db.entity.NutritionDb;
 import com.seibel.cpss.database.db.entity.ServingDb;
 import com.seibel.cpss.database.db.repository.FlavorRepository;
@@ -19,9 +19,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class FoodMapperTest {

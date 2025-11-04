@@ -1,8 +1,8 @@
 package com.seibel.cpss.database.db.mapper;
 
 import com.seibel.cpss.common.domain.Food;
-import com.seibel.cpss.database.db.entity.FoodDb;
 import com.seibel.cpss.database.db.entity.FlavorDb;
+import com.seibel.cpss.database.db.entity.FoodDb;
 import com.seibel.cpss.database.db.entity.NutritionDb;
 import com.seibel.cpss.database.db.entity.ServingDb;
 import com.seibel.cpss.database.db.repository.FlavorRepository;

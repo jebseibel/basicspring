@@ -1,8 +1,8 @@
 package com.seibel.cpss.web.controller;
 
 import com.seibel.cpss.common.domain.Food;
-import com.seibel.cpss.service.FoodService;
 import com.seibel.cpss.service.FlavorService;
+import com.seibel.cpss.service.FoodService;
 import com.seibel.cpss.service.NutritionService;
 import com.seibel.cpss.service.ServingService;
 import com.seibel.cpss.web.request.RequestFoodCreate;
