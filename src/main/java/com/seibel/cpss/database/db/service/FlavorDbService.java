@@ -56,7 +56,7 @@ public class FlavorDbService extends BaseDbService {
         if (item.getSubcategory() != null) existing.setSubcategory(item.getSubcategory());
         if (item.getDescription() != null) existing.setDescription(item.getDescription());
         if (item.getNotes() != null) existing.setNotes(item.getNotes());
-        if (item.getUsage() != null) existing.setUsage(item.getUsage());
+        if (item.getHowtouse() != null) existing.setHowtouse(item.getHowtouse());
         if (item.getCrunch() != null) existing.setCrunch(item.getCrunch());
         if (item.getPunch() != null) existing.setPunch(item.getPunch());
         if (item.getSweet() != null) existing.setSweet(item.getSweet());

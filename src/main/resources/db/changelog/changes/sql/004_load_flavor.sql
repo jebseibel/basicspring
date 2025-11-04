@@ -3,7 +3,7 @@
 --changeset load_flavor:1
 INSERT INTO flavor (
     id, extid, code, name, category, subcategory, description, notes,
-    crunch, punch, sweet, savory, usage,
+    crunch, punch, sweet, savory, howtouse,
     created_at, updated_at, deleted_at, active
 ) VALUES
     -- Leafy Greens (crunch, punch, sweet, savory on 1-5 scale)

@@ -12,7 +12,7 @@ public class ResponseFlavor {
     private String category;
     private String subcategory;
     private String description;
-    private String usage;
+    private String howtouse;
     private Integer crunch;
     private Integer punch;
     private Integer sweet;

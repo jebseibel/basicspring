@@ -1,0 +1,303 @@
+{
+  "info": {
+    "_postman_id": "2f8b0c0c-6a8f-4f27-9f4e-77e9c5f6c0b1",
+    "name": "CPSS REST API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": "Postman collection for all CPSS REST API endpoints. Base URL is parameterized via {{baseUrl}}."
+  },
+  "item": [
+    {
+      "name": "Company",
+      "item": [
+        {
+          "name": "List Companies (paginated)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/company?page={{page}}&size={{size}}&sort=name,asc",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "company"
+              ],
+              "query": [
+                {"key": "page", "value": "{{page}}"},
+                {"key": "size", "value": "{{size}}"},
+                {"key": "sort", "value": "name,asc"},
+                {"key": "active", "value": "", "disabled": true }
+              ]
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200', function () { pm.response.to.have.status(200); });"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        },
+        {
+          "name": "Create Company",
+          "request": {
+            "method": "POST",
+            "header": [
+              {"key": "Content-Type", "value": "application/json"}
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"code\": \"COMP001\",\n  \"name\": \"Acme Corp\",\n  \"description\": \"Sample company\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/company",
+              "host": ["{{baseUrl}}"],
+              "path": ["api","company"]
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 201', function () { pm.response.to.have.status(201); });",
+                  "var json = pm.response.json(); if (json && json.extid) { pm.collectionVariables.set('companyExtid', json.extid); }"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        },
+        {
+          "name": "Get Company by Extid",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/company/{{companyExtid}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api","company","{{companyExtid}}"]
+            }
+          },
+          "event": [
+            {"listen": "test", "script": {"type": "text/javascript", "exec": [
+              "pm.test('Status code is 200', function () { pm.response.to.have.status(200); });"
+            ]}}
+          ]
+        },
+        {
+          "name": "Update Company (PUT)",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {"key": "Content-Type", "value": "application/json"}
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"code\": \"COMP001\",\n  \"name\": \"Acme Corporation\",\n  \"description\": \"Updated description\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/company/{{companyExtid}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api","company","{{companyExtid}}"]
+            }
+          },
+          "event": [
+            {"listen": "test", "script": {"type": "text/javascript", "exec": [
+              "pm.test('Status code is 200', function () { pm.response.to.have.status(200); });"
+            ]}}
+          ]
+        },
+        {
+          "name": "Patch Company (PATCH)",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {"key": "Content-Type", "value": "application/json"}
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"description\": \"Patched description\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/company/{{companyExtid}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api","company","{{companyExtid}}"]
+            }
+          },
+          "event": [
+            {"listen": "test", "script": {"type": "text/javascript", "exec": [
+              "pm.test('Status code is 200', function () { pm.response.to.have.status(200); });"
+            ]}}
+          ]
+        },
+        {
+          "name": "Delete Company",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{baseUrl}}/api/company/{{companyExtid}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api","company","{{companyExtid}}"]
+            }
+          },
+          "event": [
+            {"listen": "test", "script": {"type": "text/javascript", "exec": [
+              "pm.expect([204,200,404]).to.include(pm.response.code);"
+            ]}}
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Profile",
+      "item": [
+        {
+          "name": "List Profiles (paginated)",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/profile?page={{page}}&size={{size}}&sort=nickname,asc",
+              "host": ["{{baseUrl}}"],
+              "path": ["api","profile"],
+              "query": [
+                {"key":"page","value":"{{page}}"},
+                {"key":"size","value":"{{size}}"},
+                {"key":"sort","value":"nickname,asc"},
+                {"key":"active","value":"","disabled": true}
+              ]
+            }
+          },
+          "event": [{"listen":"test","script":{"type":"text/javascript","exec":["pm.response.to.have.status(200);"]}}]
+        },
+        {
+          "name": "Create Profile",
+          "request": {
+            "method": "POST",
+            "header": [{"key":"Content-Type","value":"application/json"}],
+            "body": {"mode":"raw","raw":"{\n  \"nickname\": \"jdoe\",\n  \"fullname\": \"John Doe\"\n}"},
+            "url": {"raw":"{{baseUrl}}/api/profile","host":["{{baseUrl}}"],"path":["api","profile"]}
+          },
+          "event": [{"listen":"test","script":{"type":"text/javascript","exec":[
+            "pm.response.to.have.status(201);",
+            "var json = pm.response.json(); if (json && json.extid) { pm.collectionVariables.set('profileExtid', json.extid); }"
+          ]}}]
+        },
+        {
+          "name": "Get Profile by Extid",
+          "request": {"method":"GET","url":{"raw":"{{baseUrl}}/api/profile/{{profileExtid}}","host":["{{baseUrl}}"],"path":["api","profile","{{profileExtid}}"]}},
+          "event": [{"listen":"test","script":{"type":"text/javascript","exec":["pm.response.to.have.status(200);"]}}]
+        },
+        {
+          "name": "Update Profile (PUT)",
+          "request": {"method":"PUT","header":[{"key":"Content-Type","value":"application/json"}],"body":{"mode":"raw","raw":"{\n  \"nickname\": \"johnny\",\n  \"fullname\": \"Johnathan Doe\"\n}"},"url":{"raw":"{{baseUrl}}/api/profile/{{profileExtid}}","host":["{{baseUrl}}"],"path":["api","profile","{{profileExtid}}"]}},
+          "event": [{"listen":"test","script":{"type":"text/javascript","exec":["pm.response.to.have.status(200);"]}}]
+        },
+        {
+          "name": "Patch Profile (PATCH)",
+          "request": {"method":"PATCH","header":[{"key":"Content-Type","value":"application/json"}],"body":{"mode":"raw","raw":"{\n  \"fullname\": \"Johnny D.\"\n}"},"url":{"raw":"{{baseUrl}}/api/profile/{{profileExtid}}","host":["{{baseUrl}}"],"path":["api","profile","{{profileExtid}}"]}},
+          "event": [{"listen":"test","script":{"type":"text/javascript","exec":["pm.response.to.have.status(200);"]}}]
+        },
+        {
+          "name": "Delete Profile",
+          "request": {"method":"DELETE","url":{"raw":"{{baseUrl}}/api/profile/{{profileExtid}}","host":["{{baseUrl}}"],"path":["api","profile","{{profileExtid}}"]}},
+          "event": [{"listen":"test","script":{"type":"text/javascript","exec":["pm.expect([204,200,404]).to.include(pm.response.code);"]}}]
+        }
+      ]
+    },
+    {
+      "name": "Flavor",
+      "item": [
+        {
+          "name": "List Flavors",
+          "request": {"method":"GET","url":{"raw":"{{baseUrl}}/api/flavor/","host":["{{baseUrl}}"],"path":["api","flavor","" ]}},
+          "event": [{"listen":"test","script":{"type":"text/javascript","exec":["pm.response.to.have.status(200);"]}}]
+        },
+        {
+          "name": "Create Flavor",
+          "request": {"method":"POST","header":[{"key":"Content-Type","value":"application/json"}],"body":{"mode":"raw","raw":"{\n  \"code\": \"FLA001\",\n  \"name\": \"Crunchy\",\n  \"category\": \"Texture\",\n  \"subcategory\": \"Crunch\",\n  \"description\": \"Crunch profile\",\n  \"howtouse\": \"sprinkle\",\n  \"crunch\": 8,\n  \"punch\": 5,\n  \"sweet\": 2,\n  \"savory\": 6\n}"},"url":{"raw":"{{baseUrl}}/api/flavor/","host":["{{baseUrl}}"],"path":["api","flavor",""]}},
+          "event": [{"listen":"test","script":{"type":"text/javascript","exec":[
+            "pm.expect([200,201]).to.include(pm.response.code);",
+            "var json = pm.response.json(); if (json && json.extid) { pm.collectionVariables.set('flavorExtid', json.extid); }"
+          ]}}]
+        },
+        {
+          "name": "Get Flavor by Extid",
+          "request": {"method":"GET","url":{"raw":"{{baseUrl}}/api/flavor/{{flavorExtid}}","host":["{{baseUrl}}"],"path":["api","flavor","{{flavorExtid}}"]}},
+          "event": [{"listen":"test","script":{"type":"text/javascript","exec":["pm.response.to.have.status(200);"]}}]
+        },
+        {
+          "name": "Update Flavor (PUT)",
+          "request": {"method":"PUT","header":[{"key":"Content-Type","value":"application/json"}],"body":{"mode":"raw","raw":"{\n  \"description\": \"Updated desc\",\n  \"crunch\": 9\n}"},"url":{"raw":"{{baseUrl}}/api/flavor/{{flavorExtid}}","host":["{{baseUrl}}"],"path":["api","flavor","{{flavorExtid}}"]}},
+          "event": [{"listen":"test","script":{"type":"text/javascript","exec":["pm.response.to.have.status(200);"]}}]
+        },
+        {
+          "name": "Delete Flavor",
+          "request": {"method":"DELETE","url":{"raw":"{{baseUrl}}/api/flavor/{{flavorExtid}}","host":["{{baseUrl}}"],"path":["api","flavor","{{flavorExtid}}"]}},
+          "event": [{"listen":"test","script":{"type":"text/javascript","exec":["pm.expect([204,200,404]).to.include(pm.response.code);"]}}]
+        }
+      ]
+    },
+    {
+      "name": "Nutrition",
+      "item": [
+        {"name":"List Nutrition","request":{"method":"GET","url":{"raw":"{{baseUrl}}/api/nutrition/","host":["{{baseUrl}}"],"path":["api","nutrition",""]}},"event":[{"listen":"test","script":{"type":"text/javascript","exec":["pm.response.to.have.status(200);"]}}]},
+        {"name":"Create Nutrition","request":{"method":"POST","header":[{"key":"Content-Type","value":"application/json"}],"body":{"mode":"raw","raw":"{\n  \"code\": \"NUT001\",\n  \"name\": \"Generic\",\n  \"category\": \"Macro\",\n  \"subcategory\": \"Base\",\n  \"description\": \"Nutrition profile\",\n  \"carbohydrate\": 10,\n  \"fat\": 5,\n  \"protein\": 7,\n  \"sugar\": 3\n}"},"url":{"raw":"{{baseUrl}}/api/nutrition/","host":["{{baseUrl}}"],"path":["api","nutrition",""]}},"event":[{"listen":"test","script":{"type":"text/javascript","exec":["pm.expect([200,201]).to.include(pm.response.code);","var json = pm.response.json(); if (json && json.extid) { pm.collectionVariables.set('nutritionExtid', json.extid); }"]}}]},
+        {"name":"Get Nutrition by Extid","request":{"method":"GET","url":{"raw":"{{baseUrl}}/api/nutrition/{{nutritionExtid}}","host":["{{baseUrl}}"],"path":["api","nutrition","{{nutritionExtid}}"]}},"event":[{"listen":"test","script":{"type":"text/javascript","exec":["pm.response.to.have.status(200);"]}}]},
+        {"name":"Update Nutrition (PUT)","request":{"method":"PUT","header":[{"key":"Content-Type","value":"application/json"}],"body":{"mode":"raw","raw":"{\n  \"description\": \"Updated nutrition\",\n  \"protein\": 8\n}"},"url":{"raw":"{{baseUrl}}/api/nutrition/{{nutritionExtid}}","host":["{{baseUrl}}"],"path":["api","nutrition","{{nutritionExtid}}"]}},"event":[{"listen":"test","script":{"type":"text/javascript","exec":["pm.response.to.have.status(200);"]}}]},
+        {"name":"Delete Nutrition","request":{"method":"DELETE","url":{"raw":"{{baseUrl}}/api/nutrition/{{nutritionExtid}}","host":["{{baseUrl}}"],"path":["api","nutrition","{{nutritionExtid}}"]}},"event":[{"listen":"test","script":{"type":"text/javascript","exec":["pm.expect([204,200,404]).to.include(pm.response.code);"]}}]}
+      ]
+    },
+    {
+      "name": "Serving",
+      "item": [
+        {"name":"List Serving","request":{"method":"GET","url":{"raw":"{{baseUrl}}/api/serving/","host":["{{baseUrl}}"],"path":["api","serving",""]}},"event":[{"listen":"test","script":{"type":"text/javascript","exec":["pm.response.to.have.status(200);"]}}]},
+        {"name":"Create Serving","request":{"method":"POST","header":[{"key":"Content-Type","value":"application/json"}],"body":{"mode":"raw","raw":"{\n  \"code\": \"SRV001\",\n  \"name\": \"Default\",\n  \"category\": \"Volume\",\n  \"subcategory\": \"US\",\n  \"description\": \"Serving sizes\",\n  \"cup\": 1,\n  \"quarter\": 1,\n  \"tablespoon\": 1,\n  \"teaspoon\": 1,\n  \"gram\": 100\n}"},"url":{"raw":"{{baseUrl}}/api/serving/","host":["{{baseUrl}}"],"path":["api","serving",""]}},"event":[{"listen":"test","script":{"type":"text/javascript","exec":["pm.expect([200,201]).to.include(pm.response.code);","var json = pm.response.json(); if (json && json.extid) { pm.collectionVariables.set('servingExtid', json.extid); }"]}}]},
+        {"name":"Get Serving by Extid","request":{"method":"GET","url":{"raw":"{{baseUrl}}/api/serving/{{servingExtid}}","host":["{{baseUrl}}"],"path":["api","serving","{{servingExtid}}"]}},"event":[{"listen":"test","script":{"type":"text/javascript","exec":["pm.response.to.have.status(200);"]}}]},
+        {"name":"Update Serving (PUT)","request":{"method":"PUT","header":[{"key":"Content-Type","value":"application/json"}],"body":{"mode":"raw","raw":"{\n  \"description\": \"Updated serving\",\n  \"gram\": 120\n}"},"url":{"raw":"{{baseUrl}}/api/serving/{{servingExtid}}","host":["{{baseUrl}}"],"path":["api","serving","{{servingExtid}}"]}},"event":[{"listen":"test","script":{"type":"text/javascript","exec":["pm.response.to.have.status(200);"]}}]},
+        {"name":"Delete Serving","request":{"method":"DELETE","url":{"raw":"{{baseUrl}}/api/serving/{{servingExtid}}","host":["{{baseUrl}}"],"path":["api","serving","{{servingExtid}}"]}},"event":[{"listen":"test","script":{"type":"text/javascript","exec":["pm.expect([204,200,404]).to.include(pm.response.code);"]}}]}
+      ]
+    },
+    {
+      "name": "Food",
+      "item": [
+        {"name":"List Food","request":{"method":"GET","url":{"raw":"{{baseUrl}}/api/food","host":["{{baseUrl}}"],"path":["api","food"]}},"event":[{"listen":"test","script":{"type":"text/javascript","exec":["pm.response.to.have.status(200);"]}}]},
+        {"name":"Create Food","request":{"method":"POST","header":[{"key":"Content-Type","value":"application/json"}],"body":{"mode":"raw","raw":"{\n  \"code\": \"FOO001\",\n  \"name\": \"Tomato\",\n  \"category\": \"Vegetable\",\n  \"subcategory\": \"Fruit-veg\",\n  \"description\": \"Fresh tomato\",\n  \"notes\": \"Seedless preferred\",\n  \"flavorExtid\": \"{{flavorExtid}}\",\n  \"nutritionExtid\": \"{{nutritionExtid}}\",\n  \"servingExtid\": \"{{servingExtid}}\"\n}"},"url":{"raw":"{{baseUrl}}/api/food","host":["{{baseUrl}}"],"path":["api","food"]}},"event":[{"listen":"test","script":{"type":"text/javascript","exec":["pm.expect([200,201]).to.include(pm.response.code);","var json = pm.response.json(); if (json && json.extid) { pm.collectionVariables.set('foodExtid', json.extid); }"]}}]},
+        {"name":"Get Food by Extid","request":{"method":"GET","url":{"raw":"{{baseUrl}}/api/food/{{foodExtid}}","host":["{{baseUrl}}"],"path":["api","food","{{foodExtid}}"]}},"event":[{"listen":"test","script":{"type":"text/javascript","exec":["pm.response.to.have.status(200);"]}}]},
+        {"name":"Update Food (PUT)","request":{"method":"PUT","header":[{"key":"Content-Type","value":"application/json"}],"body":{"mode":"raw","raw":"{\n  \"description\": \"Updated tomato\",\n  \"notes\": \"Ripe only\"\n}"},"url":{"raw":"{{baseUrl}}/api/food/{{foodExtid}}","host":["{{baseUrl}}"],"path":["api","food","{{foodExtid}}"]}},"event":[{"listen":"test","script":{"type":"text/javascript","exec":["pm.response.to.have.status(200);"]}}]},
+        {"name":"Delete Food","request":{"method":"DELETE","url":{"raw":"{{baseUrl}}/api/food/{{foodExtid}}","host":["{{baseUrl}}"],"path":["api","food","{{foodExtid}}"]}},"event":[{"listen":"test","script":{"type":"text/javascript","exec":["pm.expect([204,200,404]).to.include(pm.response.code);"]}}]}
+      ]
+    },
+    {
+      "name": "Salad",
+      "item": [
+        {"name":"Build Salad","request":{"method":"POST","header":[{"key":"Content-Type","value":"application/json"}],"body":{"mode":"raw","raw":"{\n  \"ingredients\": [\n    { \"foodExtid\": \"{{foodExtid}}\", \"quantity\": 1.0 }\n  ]\n}"},"url":{"raw":"{{baseUrl}}/api/salad/build","host":["{{baseUrl}}"],"path":["api","salad","build"]}},"event":[{"listen":"test","script":{"type":"text/javascript","exec":["pm.response.to.have.status(200);"]}}]}
+      ]
+    },
+    {
+      "name": "Docs",
+      "item": [
+        {"name":"Swagger UI","request":{"method":"GET","url":{"raw":"{{baseUrl}}/swagger-ui/index.html","host":["{{baseUrl}}"],"path":["swagger-ui","index.html"]}}},
+        {"name":"OpenAPI JSON","request":{"method":"GET","url":{"raw":"{{baseUrl}}/v3/api-docs","host":["{{baseUrl}}"],"path":["v3","api-docs"]}}}
+      ]
+    }
+  ],
+  "event": [],
+  "variable": [
+    {"key": "baseUrl", "value": "http://localhost:8080"},
+    {"key": "page", "value": "0"},
+    {"key": "size", "value": "20"},
+    {"key": "companyExtid", "value": ""},
+    {"key": "profileExtid", "value": ""},
+    {"key": "flavorExtid", "value": ""},
+    {"key": "nutritionExtid", "value": ""},
+    {"key": "servingExtid", "value": ""},
+    {"key": "foodExtid", "value": ""}
+  ]
+}

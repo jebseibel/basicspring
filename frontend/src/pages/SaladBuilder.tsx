@@ -181,48 +181,48 @@ export default function SaladBuilder() {
                   <div>
                     <div className="flex items-center justify-between text-sm mb-1">
                       <span className="text-gray-600">Crunch</span>
-                      <span className="font-medium">{saladResult.averageFlavor.crunch}/10</span>
+                      <span className="font-medium">{saladResult.averageFlavor.crunch}/5</span>
                     </div>
                     <div className="w-full bg-gray-200 rounded-full h-2">
                       <div
                         className="bg-orange-500 h-2 rounded-full"
-                        style={{ width: `${(saladResult.averageFlavor.crunch / 10) * 100}%` }}
+                        style={{ width: `${(saladResult.averageFlavor.crunch / 5) * 100}%` }}
                       />
                     </div>
                   </div>
                   <div>
                     <div className="flex items-center justify-between text-sm mb-1">
                       <span className="text-gray-600">Punch</span>
-                      <span className="font-medium">{saladResult.averageFlavor.punch}/10</span>
+                      <span className="font-medium">{saladResult.averageFlavor.punch}/5</span>
                     </div>
                     <div className="w-full bg-gray-200 rounded-full h-2">
                       <div
                         className="bg-red-500 h-2 rounded-full"
-                        style={{ width: `${(saladResult.averageFlavor.punch / 10) * 100}%` }}
+                        style={{ width: `${(saladResult.averageFlavor.punch / 5) * 100}%` }}
                       />
                     </div>
                   </div>
                   <div>
                     <div className="flex items-center justify-between text-sm mb-1">
                       <span className="text-gray-600">Sweet</span>
-                      <span className="font-medium">{saladResult.averageFlavor.sweet}/10</span>
+                      <span className="font-medium">{saladResult.averageFlavor.sweet}/5</span>
                     </div>
                     <div className="w-full bg-gray-200 rounded-full h-2">
                       <div
                         className="bg-pink-500 h-2 rounded-full"
-                        style={{ width: `${(saladResult.averageFlavor.sweet / 10) * 100}%` }}
+                        style={{ width: `${(saladResult.averageFlavor.sweet / 5) * 100}%` }}
                       />
                     </div>
                   </div>
                   <div>
                     <div className="flex items-center justify-between text-sm mb-1">
                       <span className="text-gray-600">Savory</span>
-                      <span className="font-medium">{saladResult.averageFlavor.savory}/10</span>
+                      <span className="font-medium">{saladResult.averageFlavor.savory}/5</span>
                     </div>
                     <div className="w-full bg-gray-200 rounded-full h-2">
                       <div
                         className="bg-amber-600 h-2 rounded-full"
-                        style={{ width: `${(saladResult.averageFlavor.savory / 10) * 100}%` }}
+                        style={{ width: `${(saladResult.averageFlavor.savory / 5) * 100}%` }}
                       />
                     </div>
                   </div>

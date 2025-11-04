@@ -3,7 +3,7 @@ spring:
     name: cpss
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/cpsss
+    url: jdbc:mysql://localhost:3306/cpss
     username: ${CPSS_USERNAME:default_user}
     password: ${CPSS_PASSWORD:default_pass}
     hikari:

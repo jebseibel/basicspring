@@ -16,8 +16,8 @@ public class FlavorDb extends BaseFoodDb {
 
     private static final long serialVersionUID = 8204156391023478112L;
 
-    @Column(name = "`usage`", length = 16)
-    private String usage;
+    @Column(name = "howtouse", length = 16)
+    private String howtouse;
 
     // Rating columns (1–5 range)
     @Min(1)

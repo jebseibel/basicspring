@@ -54,6 +54,8 @@ cpss/
 
    Backend will start on `http://localhost:8080`
 
+   **Note**: On first run, Liquibase will automatically create tables and load seed data with 20 food items!
+
 3. **API Documentation** available at:
    - Swagger UI: `http://localhost:8080/swagger-ui/index.html`
    - OpenAPI JSON: `http://localhost:8080/v3/api-docs`
@@ -81,6 +83,19 @@ cpss/
    ```
    http://localhost:5173
    ```
+
+## 🌱 Seed Data
+
+The application comes pre-loaded with **20 food items** including:
+- 4 Leafy Greens (Romaine, Spinach, Kale, Arugula)
+- 5 Vegetables (Tomatoes, Cucumber, Carrots, Bell Peppers, Red Onion)
+- 4 Proteins (Chicken, Eggs, Chickpeas, Feta)
+- 3 Nuts & Seeds (Almonds, Walnuts, Sunflower Seeds)
+- 4 Dressings (Balsamic, Ranch, Caesar, Olive Oil)
+
+Each food item includes complete nutritional data, flavor profiles, and serving sizes.
+
+See **[SEED_DATA.md](SEED_DATA.md)** for complete details and sample salad recipes!
 
 ## 🎯 Features
 

@@ -59,7 +59,7 @@ export interface Flavor {
   subcategory?: string;
   description?: string;
   notes?: string;
-  usage?: string;
+  howtouse?: string;
   crunch: number;
   punch: number;
   sweet: number;
@@ -73,7 +73,7 @@ export interface FlavorRequest {
   subcategory?: string;
   description?: string;
   notes?: string;
-  usage?: string;
+  howtouse?: string;
   crunch: number;
   punch: number;
   sweet: number;

@@ -27,7 +27,7 @@ public class FoodController {
     private final ServingService servingService;
     private final FoodConverter converter;
 
-    @PostMapping("/")
+    @PostMapping
     public ResponseFood create(@RequestBody RequestFoodCreate request) {
         Food created = foodService.create(converter.toDomain(request));
         return converter.toResponse(created);
@@ -40,7 +40,7 @@ public class FoodController {
         return converter.toResponse(updated);
     }
 
-    @GetMapping("/")
+    @GetMapping
     public List<ResponseFood> getAll() {
         return converter.toResponse(foodService.findAll());
     }

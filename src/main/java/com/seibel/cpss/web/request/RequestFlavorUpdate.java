@@ -24,7 +24,7 @@ public class RequestFlavorUpdate extends BaseRequest {
     private String description;
 
     @Size(max = 16)
-    private String usage;
+    private String howtouse;
 
     private Integer crunch;
     private Integer punch;

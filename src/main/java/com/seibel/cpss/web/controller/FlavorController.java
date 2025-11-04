@@ -61,7 +61,7 @@ class FlavorConverter {
                 .category(request.getCategory())
                 .subcategory(request.getSubcategory())
                 .description(request.getDescription())
-                .usage(request.getUsage())
+                .howtouse(request.getHowtouse())
                 .crunch(request.getCrunch())
                 .punch(request.getPunch())
                 .sweet(request.getSweet())
@@ -77,7 +77,7 @@ class FlavorConverter {
                 .category(request.getCategory())
                 .subcategory(request.getSubcategory())
                 .description(request.getDescription())
-                .usage(request.getUsage())
+                .howtouse(request.getHowtouse())
                 .crunch(request.getCrunch())
                 .punch(request.getPunch())
                 .sweet(request.getSweet())
@@ -93,7 +93,7 @@ class FlavorConverter {
                 .category(item.getCategory())
                 .subcategory(item.getSubcategory())
                 .description(item.getDescription())
-                .usage(item.getUsage())
+                .howtouse(item.getHowtouse())
                 .crunch(item.getCrunch())
                 .punch(item.getPunch())
                 .sweet(item.getSweet())
@@ -111,7 +111,7 @@ class FlavorConverter {
                 request.getCategory() == null &&
                 request.getSubcategory() == null &&
                 request.getDescription() == null &&
-                request.getUsage() == null &&
+                request.getHowtouse() == null &&
                 request.getCrunch() == null &&
                 request.getPunch() == null &&
                 request.getSweet() == null &&
