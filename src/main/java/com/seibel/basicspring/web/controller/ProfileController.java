@@ -10,6 +10,7 @@ import com.seibel.basicspring.web.response.ResponseProfile;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -25,13 +26,11 @@ import java.util.List;
 @RequestMapping("/api/profile")
 @Validated
 @Tag(name = "Profile", description = "Profile CRUD endpoints")
+@RequiredArgsConstructor
 public class ProfileController {
 
     private final ProfileService profileService;
-
-    public ProfileController(ProfileService profileService) {
-        this.profileService = profileService;
-    }
+    private final ProfileConverter converter = new ProfileConverter();
 
     @GetMapping
     @Operation(summary = "List profiles (paginated)")
@@ -39,39 +38,29 @@ public class ProfileController {
             @ParameterObject @PageableDefault(size = 20, sort = "nickname") Pageable pageable,
             @RequestParam(required = false) ActiveEnum active
     ) {
-        return profileService.findAll(pageable, active).map(this::toResponse);
+        return profileService.findAll(pageable, active).map(converter::toResponse);
     }
 
     @GetMapping("/{extid}")
     @Operation(summary = "Get profile by extid")
     public ResponseProfile getByExtid(@PathVariable String extid) {
-        Profile item = profileService.findByExtid(extid);
-        return toResponse(item);
+        return converter.toResponse(profileService.findByExtid(extid));
     }
 
     @PostMapping
     @Operation(summary = "Create profile")
     public ResponseEntity<ResponseProfile> create(@Valid @RequestBody RequestProfileCreate request) {
-        Profile item = Profile.builder()
-                .nickname(request.getNickname())
-                .fullname(request.getFullname())
-                .build();
-        Profile result = profileService.create(item);
-        URI location = URI.create("/api/profile/" + result.getExtid());
-        return ResponseEntity.created(location).body(toResponse(result));
+        Profile created = profileService.create(converter.toDomain(request));
+        URI location = URI.create("/api/profile/" + created.getExtid());
+        return ResponseEntity.created(location).body(converter.toResponse(created));
     }
 
     @PutMapping("/{extid}")
     @Operation(summary = "Update profile (full or partial)")
     public ResponseProfile update(@PathVariable String extid, @Valid @RequestBody RequestProfileUpdate request) {
-        validateUpdateRequest(request);
-
-        Profile item = Profile.builder()
-                .nickname(request.getNickname())
-                .fullname(request.getFullname())
-                .build();
-        Profile result = profileService.update(extid, item);
-        return toResponse(result);
+        converter.validateUpdateRequest(request);
+        Profile updated = profileService.update(extid, converter.toDomain(request));
+        return converter.toResponse(updated);
     }
 
     @PatchMapping("/{extid}")
@@ -90,20 +79,37 @@ public class ProfileController {
             return ResponseEntity.notFound().build();
         }
     }
+}
 
-    private ResponseProfile toResponse(Profile itemDb) {
-        return ResponseProfile.builder()
-                .extid(itemDb.getExtid())
-                .nickname(itemDb.getNickname())
-                .fullname(itemDb.getFullname())
+class ProfileConverter {
+
+    Profile toDomain(RequestProfileCreate request) {
+        return Profile.builder()
+                .nickname(request.getNickname())
+                .fullname(request.getFullname())
                 .build();
     }
 
-    private List<ResponseProfile> toResponse(List<Profile> items) {
+    Profile toDomain(RequestProfileUpdate request) {
+        return Profile.builder()
+                .nickname(request.getNickname())
+                .fullname(request.getFullname())
+                .build();
+    }
+
+    ResponseProfile toResponse(Profile item) {
+        return ResponseProfile.builder()
+                .extid(item.getExtid())
+                .nickname(item.getNickname())
+                .fullname(item.getFullname())
+                .build();
+    }
+
+    List<ResponseProfile> toResponse(List<Profile> items) {
         return items.stream().map(this::toResponse).toList();
     }
 
-    private void validateUpdateRequest(RequestProfileUpdate request) {
+    void validateUpdateRequest(RequestProfileUpdate request) {
         if (request.getNickname() == null &&
                 request.getFullname() == null) {
             throw new ValidationException("At least one field must be provided for update.");

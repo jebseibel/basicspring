@@ -31,15 +31,15 @@ public class FoodDb extends BaseDb {
     private String notes;
 
     // OneToOne relationships
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "flavor_id", referencedColumnName = "id")
     private FlavorDb flavor;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "nutrition_id", referencedColumnName = "id")
     private NutritionDb nutrition;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "serving_id", referencedColumnName = "id")
     private ServingDb serving;
 }

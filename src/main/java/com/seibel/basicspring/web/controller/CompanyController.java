@@ -10,6 +10,7 @@ import com.seibel.basicspring.web.response.ResponseCompany;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -25,13 +26,11 @@ import java.util.List;
 @RequestMapping("/api/company")
 @Validated
 @Tag(name = "Company", description = "Company CRUD endpoints")
+@RequiredArgsConstructor
 public class CompanyController {
 
     private final CompanyService companyService;
-
-    public CompanyController(CompanyService companyService) {
-        this.companyService = companyService;
-    }
+    private final CompanyConverter converter = new CompanyConverter();
 
     @GetMapping
     @Operation(summary = "List companies (paginated)")
@@ -39,41 +38,29 @@ public class CompanyController {
             @ParameterObject @PageableDefault(size = 20, sort = "name") Pageable pageable,
             @RequestParam(required = false) ActiveEnum active
     ) {
-        return companyService.findAll(pageable, active).map(this::toResponse);
+        return companyService.findAll(pageable, active).map(converter::toResponse);
     }
 
     @GetMapping("/{extid}")
     @Operation(summary = "Get company by extid")
     public ResponseCompany getByExtid(@PathVariable String extid) {
-        Company item = companyService.findByExtid(extid);
-        return toResponse(item);
+        return converter.toResponse(companyService.findByExtid(extid));
     }
 
     @PostMapping
     @Operation(summary = "Create company")
     public ResponseEntity<ResponseCompany> create(@Valid @RequestBody RequestCompanyCreate request) {
-        Company item = Company.builder()
-                .code(request.getCode())
-                .name(request.getName())
-                .description(request.getDescription())
-                .build();
-        Company result = companyService.create(item);
-        URI location = URI.create("/api/company/" + result.getExtid());
-        return ResponseEntity.created(location).body(toResponse(result));
+        Company created = companyService.create(converter.toDomain(request));
+        URI location = URI.create("/api/company/" + created.getExtid());
+        return ResponseEntity.created(location).body(converter.toResponse(created));
     }
 
     @PutMapping("/{extid}")
     @Operation(summary = "Update company (full or partial)")
     public ResponseCompany update(@PathVariable String extid, @Valid @RequestBody RequestCompanyUpdate request) {
-        validateUpdateRequest(request);
-
-        Company item = Company.builder()
-                .code(request.getCode())
-                .name(request.getName())
-                .description(request.getDescription())
-                .build();
-        Company result = companyService.update(extid, item);
-        return toResponse(result);
+        converter.validateUpdateRequest(request);
+        Company updated = companyService.update(extid, converter.toDomain(request));
+        return converter.toResponse(updated);
     }
 
     @PatchMapping("/{extid}")
@@ -92,21 +79,40 @@ public class CompanyController {
             return ResponseEntity.notFound().build();
         }
     }
+}
 
-    private ResponseCompany toResponse(Company itemDb) {
-        return ResponseCompany.builder()
-                .extid(itemDb.getExtid())
-                .code(itemDb.getCode())
-                .name(itemDb.getName())
-                .description(itemDb.getDescription())
+class CompanyConverter {
+
+    Company toDomain(RequestCompanyCreate request) {
+        return Company.builder()
+                .code(request.getCode())
+                .name(request.getName())
+                .description(request.getDescription())
                 .build();
     }
 
-    private List<ResponseCompany> toResponse(List<Company> items) {
+    Company toDomain(RequestCompanyUpdate request) {
+        return Company.builder()
+                .code(request.getCode())
+                .name(request.getName())
+                .description(request.getDescription())
+                .build();
+    }
+
+    ResponseCompany toResponse(Company item) {
+        return ResponseCompany.builder()
+                .extid(item.getExtid())
+                .code(item.getCode())
+                .name(item.getName())
+                .description(item.getDescription())
+                .build();
+    }
+
+    List<ResponseCompany> toResponse(List<Company> items) {
         return items.stream().map(this::toResponse).toList();
     }
 
-    private void validateUpdateRequest(RequestCompanyUpdate request) {
+    void validateUpdateRequest(RequestCompanyUpdate request) {
         if (request.getCode() == null &&
                 request.getName() == null &&
                 request.getDescription() == null) {

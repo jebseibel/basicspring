@@ -151,15 +151,15 @@ public class DomainBuilderDatabase extends DomainBuilderBase {
     }
 
     public static FoodDb getFoodDb() {
-        return getFoodDb(null, null, null, null, null, null, null, null, null);
+        return getFoodDb(null, null, null, null, null, null, null, null, null, null);
     }
 
     public static FoodDb getFoodDb(String code, String name) {
-        return getFoodDb(code, name, null, null, null, null, null, null, null);
+        return getFoodDb(code, name, null, null, null, null, null, null, null, null);
     }
 
     public static FoodDb getFoodDb(String code, String name, String category, String subcategory, String description,
-                                   String servingType, String nutrition, String notes,
+                                   ServingDb serving, NutritionDb nutrition, FlavorDb flavor, String notes,
                                    String extid) {
         FoodDb item = new FoodDb();
         item.setExtid(extid != null ? extid : UUID.randomUUID().toString());
@@ -168,8 +168,9 @@ public class DomainBuilderDatabase extends DomainBuilderBase {
         item.setCategory(category != null ? category : getNameRandom("Category_"));
         item.setSubcategory(subcategory != null ? subcategory : getNameRandom("SubCat_"));
         item.setDescription(description != null ? description : getDescriptionRandom("Food Description "));
-        item.setServingType(servingType != null ? servingType : getVersionRandom("Cup"));
-        item.setNutrition(nutrition != null ? nutrition : getDescriptionRandom("Nutrition Info "));
+        item.setServing(serving != null ? serving : getServingDb());
+        item.setNutrition(nutrition != null ? nutrition : getNutritionDb());
+        item.setFlavor(flavor != null ? flavor : getFlavorDb());
         item.setNotes(notes != null ? notes : getDescriptionRandom("Food Notes "));
 
         setBaseSyncFields(item);

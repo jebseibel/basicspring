@@ -31,7 +31,7 @@ public class FlavorDb extends BaseDb {
     @Column(name = "description", length = 255)
     private String description;
 
-    @Column(name = "usage", length = 16)
+    @Column(name = "`usage`", length = 16)
     private String usage;
 
     // Rating columns (1–5 range)

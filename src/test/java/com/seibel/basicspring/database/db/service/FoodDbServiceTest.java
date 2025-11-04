@@ -5,6 +5,9 @@ import com.seibel.basicspring.common.enums.ActiveEnum;
 import com.seibel.basicspring.database.db.entity.FoodDb;
 import com.seibel.basicspring.database.db.exceptions.DatabaseFailureException;
 import com.seibel.basicspring.database.db.mapper.FoodMapper;
+import com.seibel.basicspring.database.db.mapper.FlavorMapper;
+import com.seibel.basicspring.database.db.mapper.NutritionMapper;
+import com.seibel.basicspring.database.db.mapper.ServingMapper;
 import com.seibel.basicspring.database.db.repository.FoodRepository;
 import com.seibel.basicspring.testutils.DomainBuilderDatabase;
 import org.junit.jupiter.api.Test;
@@ -30,6 +33,15 @@ class FoodDbServiceTest {
 
     @Mock
     private FoodMapper mapper;
+
+    @Mock
+    private FlavorMapper flavorMapper;
+
+    @Mock
+    private NutritionMapper nutritionMapper;
+
+    @Mock
+    private ServingMapper servingMapper;
 
     @InjectMocks
     private FoodDbService service;
@@ -91,16 +103,15 @@ class FoodDbServiceTest {
     }
 
     @Test
-    void update_shouldReturnNull_whenNotFound() {
+    void update_shouldThrowException_whenNotFound() {
         // Arrange
         Food domain = DomainBuilderDatabase.getFood();
         when(repository.findByExtid("nonexistent")).thenReturn(Optional.empty());
 
-        // Act
-        Food result = service.update("nonexistent", domain);
-
-        // Assert
-        assertNull(result);
+        // Act & Assert
+        assertThrows(DatabaseFailureException.class, () -> {
+            service.update("nonexistent", domain);
+        });
         verify(repository, never()).save(any());
     }
 

@@ -91,16 +91,15 @@ class FlavorDbServiceTest {
     }
 
     @Test
-    void update_shouldReturnNull_whenNotFound() {
+    void update_shouldThrowException_whenNotFound() {
         // Arrange
         Flavor domain = DomainBuilderDatabase.getFlavor();
         when(repository.findByExtid("nonexistent")).thenReturn(Optional.empty());
 
-        // Act
-        Flavor result = service.update("nonexistent", domain);
-
-        // Assert
-        assertNull(result);
+        // Act & Assert
+        assertThrows(DatabaseFailureException.class, () -> {
+            service.update("nonexistent", domain);
+        });
         verify(repository, never()).save(any());
     }
 

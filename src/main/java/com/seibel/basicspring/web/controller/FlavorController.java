@@ -19,7 +19,7 @@ import java.util.List;
 public class FlavorController {
 
     private final FlavorService flavorService;
-    private final FlavorConverter converter = new FlavorConverter();
+    private final FlavorConverter converter;
 
     @PostMapping("/")
     public ResponseFlavor create(@RequestBody RequestFlavorCreate request) {
@@ -51,6 +51,7 @@ public class FlavorController {
     }
 }
 
+@org.springframework.stereotype.Component
 class FlavorConverter {
 
     Flavor toDomain(RequestFlavorCreate request) {
