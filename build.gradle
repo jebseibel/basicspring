@@ -53,6 +53,7 @@ dependencies {
     implementation "org.modelmapper:modelmapper:${modelMapperVersion}"
     implementation "org.threeten:threetenbp:${threetenbpVersion}"
     implementation "jakarta.annotation:jakarta.annotation-api:${jakartaAnnotationVersion}"
+    implementation 'org.apache.commons:commons-csv:1.11.0'
 
     // --- Development Tools ---
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
