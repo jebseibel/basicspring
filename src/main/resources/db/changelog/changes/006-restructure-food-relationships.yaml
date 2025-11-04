@@ -1,0 +1,87 @@
+databaseChangeLog:
+  - changeSet:
+      id: restructure_food_relationships
+      author: jeb
+      labels: restructure_food_relationships
+      changes:
+
+        # Step 1: Add rating columns to flavor table
+        - addColumn:
+            tableName: flavor
+            columns:
+              - column:
+                  name: crunch
+                  type: tinyint
+                  constraints:
+                    nullable: false
+                    checkConstraint: "CHECK (crunch BETWEEN 1 AND 5)"
+                  defaultValueNumeric: 3
+              - column:
+                  name: punch
+                  type: tinyint
+                  constraints:
+                    nullable: false
+                    checkConstraint: "CHECK (punch BETWEEN 1 AND 5)"
+                  defaultValueNumeric: 3
+              - column:
+                  name: sweet
+                  type: tinyint
+                  constraints:
+                    nullable: false
+                    checkConstraint: "CHECK (sweet BETWEEN 1 AND 5)"
+                  defaultValueNumeric: 3
+              - column:
+                  name: savory
+                  type: tinyint
+                  constraints:
+                    nullable: false
+                    checkConstraint: "CHECK (savory BETWEEN 1 AND 5)"
+                  defaultValueNumeric: 3
+
+        # Step 2: Add foreign key columns to food table
+        - addColumn:
+            tableName: food
+            columns:
+              - column:
+                  name: flavor_id
+                  type: bigint
+                  constraints:
+                    foreignKeyName: fk_food_flavor
+                    references: flavor(id)
+              - column:
+                  name: nutrition_id
+                  type: bigint
+                  constraints:
+                    foreignKeyName: fk_food_nutrition
+                    references: nutrition(id)
+              - column:
+                  name: serving_id
+                  type: bigint
+                  constraints:
+                    foreignKeyName: fk_food_serving
+                    references: serving(id)
+
+        # Step 3: Drop old columns from food table
+        - dropColumn:
+            tableName: food
+            columnName: serving_type
+
+        - dropColumn:
+            tableName: food
+            columnName: nutrition
+
+        - dropColumn:
+            tableName: food
+            columnName: crunch
+
+        - dropColumn:
+            tableName: food
+            columnName: punch
+
+        - dropColumn:
+            tableName: food
+            columnName: sweet
+
+        - dropColumn:
+            tableName: food
+            columnName: savory
