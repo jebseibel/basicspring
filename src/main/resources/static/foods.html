@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Foods - Salad Builder</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🍅 Foods</h1>
+            <nav>
+                <a href="/">🏠 Home</a>
+                <a href="/flavors.html">🌶️ Flavors</a>
+                <a href="/nutrition.html">💪 Nutrition</a>
+                <a href="/servings.html">🥄 Servings</a>
+                <a href="/salad-builder.html">🥗 Build Salad</a>
+            </nav>
+        </header>
+
+        <div id="content">
+            <div class="loading">Loading foods...</div>
+        </div>
+    </div>
+
+    <script>
+        async function loadFoods() {
+            try {
+                const response = await fetch('/api/food/');
+                if (!response.ok) throw new Error('Failed to load foods');
+
+                const foods = await response.json();
+                const content = document.getElementById('content');
+
+                if (foods.length === 0) {
+                    content.innerHTML = '<p class="error">No foods found in the database.</p>';
+                    return;
+                }
+
+                content.innerHTML = '<div class="grid"></div>';
+                const grid = content.querySelector('.grid');
+
+                foods.forEach(food => {
+                    const card = document.createElement('div');
+                    card.className = 'card';
+
+                    card.innerHTML = `
+                        <span class="code">${food.code}</span>
+                        <h3>${food.name}</h3>
+                        <p><strong>Category:</strong> ${food.category}</p>
+                        <p><strong>Subcategory:</strong> ${food.subcategory}</p>
+                        ${food.description ? `<p><strong>Description:</strong> ${food.description}</p>` : ''}
+                        ${food.notes ? `<p><em>${food.notes}</em></p>` : ''}
+
+                        ${food.nutrition ? `
+                            <div style="margin-top: 15px; padding: 10px; background: white; border-radius: 6px;">
+                                <strong style="color: #667eea;">Nutrition (per serving):</strong>
+                                <div class="nutrition-values">
+                                    <div class="nutrition-item">
+                                        <span>Carbs:</span>
+                                        <strong>${food.nutrition.carbohydrate}g</strong>
+                                    </div>
+                                    <div class="nutrition-item">
+                                        <span>Fat:</span>
+                                        <strong>${food.nutrition.fat}g</strong>
+                                    </div>
+                                    <div class="nutrition-item">
+                                        <span>Protein:</span>
+                                        <strong>${food.nutrition.protein}g</strong>
+                                    </div>
+                                    <div class="nutrition-item">
+                                        <span>Sugar:</span>
+                                        <strong>${food.nutrition.sugar}g</strong>
+                                    </div>
+                                </div>
+                            </div>
+                        ` : ''}
+
+                        ${food.flavor ? `
+                            <div style="margin-top: 15px; padding: 10px; background: white; border-radius: 6px;">
+                                <strong style="color: #764ba2;">Flavor Profile:</strong>
+                                <div class="flavor-ratings">
+                                    <div class="rating">
+                                        <span class="rating-label">Crunch:</span>
+                                        <span class="rating-value">${food.flavor.crunch}/5</span>
+                                    </div>
+                                    <div class="rating">
+                                        <span class="rating-label">Punch:</span>
+                                        <span class="rating-value">${food.flavor.punch}/5</span>
+                                    </div>
+                                    <div class="rating">
+                                        <span class="rating-label">Sweet:</span>
+                                        <span class="rating-value">${food.flavor.sweet}/5</span>
+                                    </div>
+                                    <div class="rating">
+                                        <span class="rating-label">Savory:</span>
+                                        <span class="rating-value">${food.flavor.savory}/5</span>
+                                    </div>
+                                </div>
+                            </div>
+                        ` : ''}
+                    `;
+
+                    grid.appendChild(card);
+                });
+            } catch (error) {
+                document.getElementById('content').innerHTML =
+                    `<p class="error">Error loading foods: ${error.message}</p>`;
+            }
+        }
+
+        loadFoods();
+    </script>
+</body>
+</html>

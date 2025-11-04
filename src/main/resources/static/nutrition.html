@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nutrition - Salad Builder</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>💪 Nutrition</h1>
+            <nav>
+                <a href="/">🏠 Home</a>
+                <a href="/foods.html">🍅 Foods</a>
+                <a href="/flavors.html">🌶️ Flavors</a>
+                <a href="/servings.html">🥄 Servings</a>
+                <a href="/salad-builder.html">🥗 Build Salad</a>
+            </nav>
+        </header>
+
+        <div id="content">
+            <div class="loading">Loading nutrition info...</div>
+        </div>
+    </div>
+
+    <script>
+        async function loadNutrition() {
+            try {
+                const response = await fetch('/api/nutrition/');
+                if (!response.ok) throw new Error('Failed to load nutrition');
+
+                const nutritionList = await response.json();
+                const content = document.getElementById('content');
+
+                if (nutritionList.length === 0) {
+                    content.innerHTML = '<p class="error">No nutrition information found in the database.</p>';
+                    return;
+                }
+
+                content.innerHTML = '<div class="grid"></div>';
+                const grid = content.querySelector('.grid');
+
+                nutritionList.forEach(nutrition => {
+                    const card = document.createElement('div');
+                    card.className = 'card';
+
+                    const total = nutrition.carbohydrate + nutrition.fat + nutrition.protein + nutrition.sugar;
+
+                    card.innerHTML = `
+                        <span class="code">${nutrition.code}</span>
+                        <h3>${nutrition.name}</h3>
+                        <p><strong>Category:</strong> ${nutrition.category}</p>
+                        <p><strong>Subcategory:</strong> ${nutrition.subcategory}</p>
+                        ${nutrition.description ? `<p><strong>Description:</strong> ${nutrition.description}</p>` : ''}
+
+                        <div style="margin-top: 15px;">
+                            <strong style="color: #667eea;">Nutritional Values (per serving):</strong>
+                            <div class="nutrition-values">
+                                <div class="nutrition-item">
+                                    <span>🌾 Carbohydrate:</span>
+                                    <strong>${nutrition.carbohydrate}g</strong>
+                                </div>
+                                <div class="nutrition-item">
+                                    <span>🥑 Fat:</span>
+                                    <strong>${nutrition.fat}g</strong>
+                                </div>
+                                <div class="nutrition-item">
+                                    <span>🥩 Protein:</span>
+                                    <strong>${nutrition.protein}g</strong>
+                                </div>
+                                <div class="nutrition-item">
+                                    <span>🍬 Sugar:</span>
+                                    <strong>${nutrition.sugar}g</strong>
+                                </div>
+                            </div>
+                            <div style="margin-top: 10px; padding: 10px; background: white; border-radius: 4px; text-align: center;">
+                                <strong>Total: ${total}g</strong>
+                            </div>
+                        </div>
+                    `;
+
+                    grid.appendChild(card);
+                });
+            } catch (error) {
+                document.getElementById('content').innerHTML =
+                    `<p class="error">Error loading nutrition: ${error.message}</p>`;
+            }
+        }
+
+        loadNutrition();
+    </script>
+</body>
+</html>

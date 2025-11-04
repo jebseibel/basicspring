@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flavors - Salad Builder</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🌶️ Flavors</h1>
+            <nav>
+                <a href="/">🏠 Home</a>
+                <a href="/foods.html">🍅 Foods</a>
+                <a href="/nutrition.html">💪 Nutrition</a>
+                <a href="/servings.html">🥄 Servings</a>
+                <a href="/salad-builder.html">🥗 Build Salad</a>
+            </nav>
+        </header>
+
+        <div id="content">
+            <div class="loading">Loading flavors...</div>
+        </div>
+    </div>
+
+    <script>
+        async function loadFlavors() {
+            try {
+                const response = await fetch('/api/flavor/');
+                if (!response.ok) throw new Error('Failed to load flavors');
+
+                const flavors = await response.json();
+                const content = document.getElementById('content');
+
+                if (flavors.length === 0) {
+                    content.innerHTML = '<p class="error">No flavors found in the database.</p>';
+                    return;
+                }
+
+                content.innerHTML = '<div class="grid"></div>';
+                const grid = content.querySelector('.grid');
+
+                flavors.forEach(flavor => {
+                    const card = document.createElement('div');
+                    card.className = 'card';
+
+                    card.innerHTML = `
+                        <span class="code">${flavor.code}</span>
+                        <h3>${flavor.name}</h3>
+                        <p><strong>Category:</strong> ${flavor.category}</p>
+                        <p><strong>Subcategory:</strong> ${flavor.subcategory}</p>
+                        ${flavor.description ? `<p><strong>Description:</strong> ${flavor.description}</p>` : ''}
+                        ${flavor.usage ? `<p><strong>Usage:</strong> ${flavor.usage}</p>` : ''}
+
+                        <div style="margin-top: 15px;">
+                            <strong style="color: #764ba2;">Flavor Ratings:</strong>
+                            <div class="flavor-ratings">
+                                <div class="rating">
+                                    <span class="rating-label">🥕 Crunch:</span>
+                                    <span class="rating-value">${flavor.crunch}/5</span>
+                                </div>
+                                <div class="rating">
+                                    <span class="rating-label">💥 Punch:</span>
+                                    <span class="rating-value">${flavor.punch}/5</span>
+                                </div>
+                                <div class="rating">
+                                    <span class="rating-label">🍯 Sweet:</span>
+                                    <span class="rating-value">${flavor.sweet}/5</span>
+                                </div>
+                                <div class="rating">
+                                    <span class="rating-label">🧂 Savory:</span>
+                                    <span class="rating-value">${flavor.savory}/5</span>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+
+                    grid.appendChild(card);
+                });
+            } catch (error) {
+                document.getElementById('content').innerHTML =
+                    `<p class="error">Error loading flavors: ${error.message}</p>`;
+            }
+        }
+
+        loadFlavors();
+    </script>
+</body>
+</html>
