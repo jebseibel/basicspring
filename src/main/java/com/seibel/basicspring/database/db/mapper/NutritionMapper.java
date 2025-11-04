@@ -22,10 +22,10 @@ public class NutritionMapper {
     }
 
     public List<Nutrition> toModelList(List<NutritionDb> list) {
-        return list == null ? null : list.stream().map(this::toModel).collect(Collectors.toList());
+        return list == null ? List.of() : list.stream().map(this::toModel).collect(Collectors.toList());
     }
 
     public List<NutritionDb> toDbList(List<Nutrition> list) {
-        return list == null ? null : list.stream().map(this::toDb).collect(Collectors.toList());
+        return list == null ? List.of() : list.stream().map(this::toDb).collect(Collectors.toList());
     }
 }

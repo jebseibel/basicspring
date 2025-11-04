@@ -18,6 +18,7 @@ public class Serving extends BaseDomain {
     private String category;
     private String subcategory;
     private String description;
+    private String notes;
     private Integer cup;
     private Integer quarter;
     private Integer tablespoon;

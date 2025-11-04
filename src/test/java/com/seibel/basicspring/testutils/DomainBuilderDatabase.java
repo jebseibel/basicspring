@@ -78,15 +78,15 @@ public class DomainBuilderDatabase extends DomainBuilderBase {
     }
 
     public static ServingDb getServingDb() {
-        return getServingDb(null, null, null, null, null, null, null, null, null, null, null);
+        return getServingDb(null, null, null, null, null, null, null, null, null, null, null, null);
     }
 
     public static ServingDb getServingDb(String code, String name) {
-        return getServingDb(code, name, null, null, null, null, null, null, null, null, null);
+        return getServingDb(code, name, null, null, null, null, null, null, null, null, null, null);
     }
 
     public static ServingDb getServingDb(String code, String name, String category, String subcategory, String description,
-                                         Integer cup, Integer quarter, Integer tablespoon, Integer teaspoon, Integer gram, String extid) {
+                                         Integer cup, Integer quarter, Integer tablespoon, Integer teaspoon, Integer gram, String notes, String extid) {
         ServingDb item = new ServingDb();
         item.setExtid(extid != null ? extid : UUID.randomUUID().toString());
         item.setCode(code != null ? code : getCodeRandom("SRV_"));
@@ -94,6 +94,7 @@ public class DomainBuilderDatabase extends DomainBuilderBase {
         item.setCategory(category != null ? category : getNameRandom("Category_"));
         item.setSubcategory(subcategory != null ? subcategory : getNameRandom("SubCat_"));
         item.setDescription(description != null ? description : getDescriptionRandom("Serving Description "));
+        item.setNotes(notes != null ? notes : getDescriptionRandom("Serving Notes "));
         item.setCup(cup != null ? cup : 1);
         item.setQuarter(quarter != null ? quarter : 4);
         item.setTablespoon(tablespoon != null ? tablespoon : 16);
@@ -115,15 +116,15 @@ public class DomainBuilderDatabase extends DomainBuilderBase {
     }
 
     public static NutritionDb getNutritionDb() {
-        return getNutritionDb(null, null, null, null, null, null, null, null, null, null);
+        return getNutritionDb(null, null, null, null, null, null, null, null, null, null, null);
     }
 
     public static NutritionDb getNutritionDb(String code, String name) {
-        return getNutritionDb(code, name, null, null, null, null, null, null, null, null);
+        return getNutritionDb(code, name, null, null, null, null, null, null, null, null, null);
     }
 
     public static NutritionDb getNutritionDb(String code, String name, String category, String subcategory, String description,
-                                             Integer carbohydrate, Integer fat, Integer protein, Integer sugar, String extid) {
+                                             Integer carbohydrate, Integer fat, Integer protein, Integer sugar, String notes, String extid) {
         NutritionDb item = new NutritionDb();
         item.setExtid(extid != null ? extid : UUID.randomUUID().toString());
         item.setCode(code != null ? code : getCodeRandom("NTR_"));
@@ -131,6 +132,7 @@ public class DomainBuilderDatabase extends DomainBuilderBase {
         item.setCategory(category != null ? category : getNameRandom("Category_"));
         item.setSubcategory(subcategory != null ? subcategory : getNameRandom("SubCat_"));
         item.setDescription(description != null ? description : getDescriptionRandom("Nutrition Description "));
+        item.setNotes(notes != null ? notes : getDescriptionRandom("Nutrition Notes "));
         item.setCarbohydrate(carbohydrate != null ? carbohydrate : 30);
         item.setFat(fat != null ? fat : 10);
         item.setProtein(protein != null ? protein : 20);
@@ -143,11 +145,35 @@ public class DomainBuilderDatabase extends DomainBuilderBase {
     // Food
     public static Food getFood() {
         FoodDb item = getFoodDb();
-        return new FoodMapper().toModel(item);
+        return getFood(item);
     }
 
     public static Food getFood(FoodDb item) {
-        return new FoodMapper().toModel(item);
+        Food food = new Food();
+        food.setExtid(item.getExtid());
+        food.setCode(item.getCode());
+        food.setName(item.getName());
+        food.setCategory(item.getCategory());
+        food.setSubcategory(item.getSubcategory());
+        food.setDescription(item.getDescription());
+        food.setNotes(item.getNotes());
+        food.setCreatedAt(item.getCreatedAt());
+        food.setUpdatedAt(item.getUpdatedAt());
+        food.setDeletedAt(item.getDeletedAt());
+        food.setActive(item.getActive());
+
+        // Create simple mock objects for flavor, nutrition, serving
+        if (item.getFlavor() != null) {
+            food.setFlavor(getFlavor(getFlavorDb(item.getFlavor(), "Flavor_" + item.getFlavor())));
+        }
+        if (item.getNutrition() != null) {
+            food.setNutrition(getNutrition(getNutritionDb(item.getNutrition(), "Nutrition_" + item.getNutrition())));
+        }
+        if (item.getServing() != null) {
+            food.setServing(getServing(getServingDb(item.getServing(), "Serving_" + item.getServing())));
+        }
+
+        return food;
     }
 
     public static FoodDb getFoodDb() {
@@ -159,7 +185,7 @@ public class DomainBuilderDatabase extends DomainBuilderBase {
     }
 
     public static FoodDb getFoodDb(String code, String name, String category, String subcategory, String description,
-                                   ServingDb serving, NutritionDb nutrition, FlavorDb flavor, String notes,
+                                   String flavor, String nutrition, String serving, String notes,
                                    String extid) {
         FoodDb item = new FoodDb();
         item.setExtid(extid != null ? extid : UUID.randomUUID().toString());
@@ -169,6 +195,9 @@ public class DomainBuilderDatabase extends DomainBuilderBase {
         item.setSubcategory(subcategory != null ? subcategory : getNameRandom("SubCat_"));
         item.setDescription(description != null ? description : getDescriptionRandom("Food Description "));
         item.setNotes(notes != null ? notes : getDescriptionRandom("Food Notes "));
+        item.setFlavor(flavor != null ? flavor : getCodeRandom("FLV_"));
+        item.setNutrition(nutrition != null ? nutrition : getCodeRandom("NTR_"));
+        item.setServing(serving != null ? serving : getCodeRandom("SRV_"));
 
         setBaseSyncFields(item);
         return item;
@@ -186,15 +215,15 @@ public class DomainBuilderDatabase extends DomainBuilderBase {
     }
 
     public static FlavorDb getFlavorDb() {
-        return getFlavorDb(null, null, null, null, null, null, null, null, null, null, null);
+        return getFlavorDb(null, null, null, null, null, null, null, null, null, null, null, null);
     }
 
     public static FlavorDb getFlavorDb(String code, String name) {
-        return getFlavorDb(code, name, null, null, null, null, null, null, null, null, null );
+        return getFlavorDb(code, name, null, null, null, null, null, null, null, null, null, null);
     }
 
     public static FlavorDb getFlavorDb(String code, String name, String category, String subcategory, String description,
-                                       String usage, Integer crunch, Integer punch, Integer sweet, Integer savory, String extid) {
+                                       String usage, Integer crunch, Integer punch, Integer sweet, Integer savory, String notes, String extid) {
         FlavorDb item = new FlavorDb();
         item.setExtid(extid != null ? extid : UUID.randomUUID().toString());
         item.setCode(code != null ? code : getCodeRandom("FLV_"));
@@ -202,6 +231,7 @@ public class DomainBuilderDatabase extends DomainBuilderBase {
         item.setCategory(category != null ? category : getNameRandom("Category_"));
         item.setSubcategory(subcategory != null ? subcategory : getNameRandom("SubCat_"));
         item.setDescription(description != null ? description : getDescriptionRandom("Flavor Description "));
+        item.setNotes(notes != null ? notes : getDescriptionRandom("Flavor Notes "));
         item.setUsage(usage != null ? usage : getVersionRandom("Usage"));
         item.setCrunch(crunch != null ? crunch : 3);
         item.setPunch(punch != null ? punch : 3);

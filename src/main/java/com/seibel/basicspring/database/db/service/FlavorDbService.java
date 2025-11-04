@@ -51,11 +51,16 @@ public class FlavorDbService extends BaseDbService {
                 .orElseThrow(() -> new DatabaseAccessException(notFoundMessage(extid)));
 
         existing.setUpdatedAt(LocalDateTime.now());
-        existing.setName(item.getName());
-        existing.setCategory(item.getCategory());
-        existing.setSubcategory(item.getSubcategory());
-        existing.setDescription(item.getDescription());
-        existing.setUsage(item.getUsage());
+        if (item.getName() != null) existing.setName(item.getName());
+        if (item.getCategory() != null) existing.setCategory(item.getCategory());
+        if (item.getSubcategory() != null) existing.setSubcategory(item.getSubcategory());
+        if (item.getDescription() != null) existing.setDescription(item.getDescription());
+        if (item.getNotes() != null) existing.setNotes(item.getNotes());
+        if (item.getUsage() != null) existing.setUsage(item.getUsage());
+        if (item.getCrunch() != null) existing.setCrunch(item.getCrunch());
+        if (item.getPunch() != null) existing.setPunch(item.getPunch());
+        if (item.getSweet() != null) existing.setSweet(item.getSweet());
+        if (item.getSavory() != null) existing.setSavory(item.getSavory());
 
         FlavorDb saved = repository.save(existing);
         log.info(updatedMessage(extid));

@@ -47,17 +47,23 @@ public class ServingDbService extends BaseDbService {
     }
 
     public Serving update(String extid, Serving item) {
-        LocalDateTime now = LocalDateTime.now();
-
         try {
             ServingDb existing = repository.findByExtid(extid)
                     .orElseThrow(() -> new DatabaseAccessException(notFoundMessage(extid)));
-            ServingDb updated = mapper.toDb(item);
-            updated.setId(existing.getId());
-            updated.setExtid(existing.getExtid());
-            updated.setCreatedAt(existing.getCreatedAt());
-            updated.setUpdatedAt(now);
-            ServingDb saved = repository.save(updated);
+
+            existing.setUpdatedAt(LocalDateTime.now());
+            if (item.getName() != null) existing.setName(item.getName());
+            if (item.getCategory() != null) existing.setCategory(item.getCategory());
+            if (item.getSubcategory() != null) existing.setSubcategory(item.getSubcategory());
+            if (item.getDescription() != null) existing.setDescription(item.getDescription());
+            if (item.getNotes() != null) existing.setNotes(item.getNotes());
+            if (item.getCup() != null) existing.setCup(item.getCup());
+            if (item.getQuarter() != null) existing.setQuarter(item.getQuarter());
+            if (item.getTablespoon() != null) existing.setTablespoon(item.getTablespoon());
+            if (item.getTeaspoon() != null) existing.setTeaspoon(item.getTeaspoon());
+            if (item.getGram() != null) existing.setGram(item.getGram());
+
+            ServingDb saved = repository.save(existing);
             log.info(updatedMessage(extid));
             return mapper.toModel(saved);
         } catch (Exception e) {

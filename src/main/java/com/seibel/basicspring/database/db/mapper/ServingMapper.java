@@ -22,10 +22,10 @@ public class ServingMapper {
     }
 
     public List<Serving> toModelList(List<ServingDb> list) {
-        return list == null ? null : list.stream().map(this::toModel).collect(Collectors.toList());
+        return list == null ? List.of() : list.stream().map(this::toModel).collect(Collectors.toList());
     }
 
     public List<ServingDb> toDbList(List<Serving> list) {
-        return list == null ? null : list.stream().map(this::toDb).collect(Collectors.toList());
+        return list == null ? List.of() : list.stream().map(this::toDb).collect(Collectors.toList());
     }
 }

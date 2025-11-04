@@ -48,17 +48,22 @@ public class NutritionDbService extends BaseDbService {
     }
 
     public Nutrition update(String extid, Nutrition item) {
-        LocalDateTime now = LocalDateTime.now();
-
         try {
             NutritionDb existing = repository.findByExtid(extid)
                     .orElseThrow(() -> new DatabaseAccessException(notFoundMessage(extid)));
-            NutritionDb updated = mapper.toDb(item);
-            updated.setId(existing.getId());
-            updated.setExtid(existing.getExtid());
-            updated.setCreatedAt(existing.getCreatedAt());
-            updated.setUpdatedAt(now);
-            NutritionDb saved = repository.save(updated);
+
+            existing.setUpdatedAt(LocalDateTime.now());
+            if (item.getName() != null) existing.setName(item.getName());
+            if (item.getCategory() != null) existing.setCategory(item.getCategory());
+            if (item.getSubcategory() != null) existing.setSubcategory(item.getSubcategory());
+            if (item.getDescription() != null) existing.setDescription(item.getDescription());
+            if (item.getNotes() != null) existing.setNotes(item.getNotes());
+            if (item.getCarbohydrate() != null) existing.setCarbohydrate(item.getCarbohydrate());
+            if (item.getFat() != null) existing.setFat(item.getFat());
+            if (item.getProtein() != null) existing.setProtein(item.getProtein());
+            if (item.getSugar() != null) existing.setSugar(item.getSugar());
+
+            NutritionDb saved = repository.save(existing);
             log.info(updatedMessage(extid));
             return mapper.toModel(saved);
         } catch (Exception e) {
