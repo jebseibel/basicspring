@@ -61,6 +61,10 @@ class FlavorConverter {
                 .subcategory(request.getSubcategory())
                 .description(request.getDescription())
                 .usage(request.getUsage())
+                .crunch(request.getCrunch())
+                .punch(request.getPunch())
+                .sweet(request.getSweet())
+                .savory(request.getSavory())
                 .build();
     }
 
@@ -73,6 +77,10 @@ class FlavorConverter {
                 .subcategory(request.getSubcategory())
                 .description(request.getDescription())
                 .usage(request.getUsage())
+                .crunch(request.getCrunch())
+                .punch(request.getPunch())
+                .sweet(request.getSweet())
+                .savory(request.getSavory())
                 .build();
     }
 
@@ -85,6 +93,10 @@ class FlavorConverter {
                 .subcategory(item.getSubcategory())
                 .description(item.getDescription())
                 .usage(item.getUsage())
+                .crunch(item.getCrunch())
+                .punch(item.getPunch())
+                .sweet(item.getSweet())
+                .savory(item.getSavory())
                 .build();
     }
 
@@ -98,7 +110,11 @@ class FlavorConverter {
                 request.getCategory() == null &&
                 request.getSubcategory() == null &&
                 request.getDescription() == null &&
-                request.getUsage() == null) {
+                request.getUsage() == null &&
+                request.getCrunch() == null &&
+                request.getPunch() == null &&
+                request.getSweet() == null &&
+                request.getSavory() == null) {
             throw new IllegalArgumentException("At least one field must be provided for update.");
         }
     }

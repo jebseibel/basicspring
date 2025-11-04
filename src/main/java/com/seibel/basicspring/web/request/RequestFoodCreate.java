@@ -30,24 +30,10 @@ public class RequestFoodCreate extends BaseRequest {
     @Size(max = 255)
     private String description;
 
-    @Size(max = 16)
-    private String servingType;
-
-    @Size(max = 512)
-    private String nutrition;
-
     @Size(max = 1000)
     private String notes;
 
-    @Min(1) @Max(5)
-    private Integer crunch;
-
-    @Min(1) @Max(5)
-    private Integer punch;
-
-    @Min(1) @Max(5)
-    private Integer sweet;
-
-    @Min(1) @Max(5)
-    private Integer savory;
+    private String flavorExtid;
+    private String nutritionExtid;
+    private String servingExtid;
 }

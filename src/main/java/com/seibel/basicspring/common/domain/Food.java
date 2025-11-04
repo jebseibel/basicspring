@@ -18,11 +18,8 @@ public class Food extends BaseDomain {
     private String category;
     private String subcategory;
     private String description;
-    private String servingType;
-    private String nutrition;
     private String notes;
-    private Integer crunch;
-    private Integer punch;
-    private Integer sweet;
-    private Integer savory;
+    private Flavor flavor;
+    private Nutrition nutrition;
+    private Serving serving;
 }

@@ -13,4 +13,8 @@ public class ResponseFlavor {
     private String subcategory;
     private String description;
     private String usage;
+    private Integer crunch;
+    private Integer punch;
+    private Integer sweet;
+    private Integer savory;
 }

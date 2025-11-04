@@ -5,6 +5,9 @@ import com.seibel.basicspring.common.enums.ActiveEnum;
 import com.seibel.basicspring.database.db.entity.FoodDb;
 import com.seibel.basicspring.database.db.exceptions.DatabaseFailureException;
 import com.seibel.basicspring.database.db.mapper.FoodMapper;
+import com.seibel.basicspring.database.db.mapper.FlavorMapper;
+import com.seibel.basicspring.database.db.mapper.NutritionMapper;
+import com.seibel.basicspring.database.db.mapper.ServingMapper;
 import com.seibel.basicspring.database.db.repository.FoodRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -19,11 +22,19 @@ public class FoodDbService extends BaseDbService {
 
     private final FoodRepository repository;
     private final FoodMapper mapper;
+    private final FlavorMapper flavorMapper;
+    private final NutritionMapper nutritionMapper;
+    private final ServingMapper servingMapper;
 
-    public FoodDbService(FoodRepository repository, FoodMapper mapper) {
+    public FoodDbService(FoodRepository repository, FoodMapper mapper,
+                         FlavorMapper flavorMapper, NutritionMapper nutritionMapper,
+                         ServingMapper servingMapper) {
         super("FoodDb");
         this.repository = repository;
         this.mapper = mapper;
+        this.flavorMapper = flavorMapper;
+        this.nutritionMapper = nutritionMapper;
+        this.servingMapper = servingMapper;
     }
 
     public Food create(Food item) throws DatabaseFailureException {
@@ -50,17 +61,14 @@ public class FoodDbService extends BaseDbService {
                 .orElseThrow(() -> new DatabaseFailureException(notFoundMessage(extid)));
 
         existing.setUpdatedAt(LocalDateTime.now());
-        existing.setName(item.getName());
-        existing.setCategory(item.getCategory());
-        existing.setSubcategory(item.getSubcategory());
-        existing.setDescription(item.getDescription());
-        existing.setServingType(item.getServingType());
-        existing.setNutrition(item.getNutrition());
-        existing.setNotes(item.getNotes());
-        existing.setCrunch(item.getCrunch());
-        existing.setPunch(item.getPunch());
-        existing.setSweet(item.getSweet());
-        existing.setSavory(item.getSavory());
+        if (item.getName() != null) existing.setName(item.getName());
+        if (item.getCategory() != null) existing.setCategory(item.getCategory());
+        if (item.getSubcategory() != null) existing.setSubcategory(item.getSubcategory());
+        if (item.getDescription() != null) existing.setDescription(item.getDescription());
+        if (item.getNotes() != null) existing.setNotes(item.getNotes());
+        if (item.getFlavor() != null) existing.setFlavor(flavorMapper.toDb(item.getFlavor()));
+        if (item.getNutrition() != null) existing.setNutrition(nutritionMapper.toDb(item.getNutrition()));
+        if (item.getServing() != null) existing.setServing(servingMapper.toDb(item.getServing()));
 
         FoodDb saved = repository.save(existing);
         log.info(updatedMessage(extid));

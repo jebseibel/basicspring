@@ -30,5 +30,10 @@ public class RequestFlavorCreate extends BaseRequest {
 
     @Size(max = 16)
     private String usage;
+
+    private Integer crunch;
+    private Integer punch;
+    private Integer sweet;
+    private Integer savory;
 }
 

@@ -2,6 +2,9 @@ package com.seibel.basicspring.web.controller;
 
 import com.seibel.basicspring.common.domain.Food;
 import com.seibel.basicspring.service.FoodService;
+import com.seibel.basicspring.service.FlavorService;
+import com.seibel.basicspring.service.NutritionService;
+import com.seibel.basicspring.service.ServingService;
 import com.seibel.basicspring.web.request.RequestFoodCreate;
 import com.seibel.basicspring.web.request.RequestFoodUpdate;
 import com.seibel.basicspring.web.response.ResponseFood;
@@ -19,7 +22,10 @@ import java.util.List;
 public class FoodController {
 
     private final FoodService foodService;
-    private final FoodConverter converter = new FoodConverter();
+    private final FlavorService flavorService;
+    private final NutritionService nutritionService;
+    private final ServingService servingService;
+    private final FoodConverter converter;
 
     @PostMapping("/")
     public ResponseFood create(@RequestBody RequestFoodCreate request) {
@@ -52,7 +58,16 @@ public class FoodController {
 }
 
 // package-private converter
+@org.springframework.stereotype.Component
+@RequiredArgsConstructor
 class FoodConverter {
+
+    private final FlavorService flavorService;
+    private final NutritionService nutritionService;
+    private final ServingService servingService;
+    private final FlavorConverter flavorConverter;
+    private final NutritionConverter nutritionConverter;
+    private final ServingConverter servingConverter;
 
     Food toDomain(RequestFoodCreate request) {
         return Food.builder()
@@ -61,13 +76,10 @@ class FoodConverter {
                 .category(request.getCategory())
                 .subcategory(request.getSubcategory())
                 .description(request.getDescription())
-                .servingType(request.getServingType())
-                .nutrition(request.getNutrition())
                 .notes(request.getNotes())
-                .crunch(request.getCrunch())
-                .punch(request.getPunch())
-                .sweet(request.getSweet())
-                .savory(request.getSavory())
+                .flavor(request.getFlavorExtid() != null ? flavorService.findByExtid(request.getFlavorExtid()) : null)
+                .nutrition(request.getNutritionExtid() != null ? nutritionService.findByExtid(request.getNutritionExtid()) : null)
+                .serving(request.getServingExtid() != null ? servingService.findByExtid(request.getServingExtid()) : null)
                 .build();
     }
 
@@ -79,13 +91,10 @@ class FoodConverter {
                 .category(request.getCategory())
                 .subcategory(request.getSubcategory())
                 .description(request.getDescription())
-                .servingType(request.getServingType())
-                .nutrition(request.getNutrition())
                 .notes(request.getNotes())
-                .crunch(request.getCrunch())
-                .punch(request.getPunch())
-                .sweet(request.getSweet())
-                .savory(request.getSavory())
+                .flavor(request.getFlavorExtid() != null ? flavorService.findByExtid(request.getFlavorExtid()) : null)
+                .nutrition(request.getNutritionExtid() != null ? nutritionService.findByExtid(request.getNutritionExtid()) : null)
+                .serving(request.getServingExtid() != null ? servingService.findByExtid(request.getServingExtid()) : null)
                 .build();
     }
 
@@ -97,13 +106,10 @@ class FoodConverter {
                 .category(item.getCategory())
                 .subcategory(item.getSubcategory())
                 .description(item.getDescription())
-                .servingType(item.getServingType())
-                .nutrition(item.getNutrition())
                 .notes(item.getNotes())
-                .crunch(item.getCrunch())
-                .punch(item.getPunch())
-                .sweet(item.getSweet())
-                .savory(item.getSavory())
+                .flavor(item.getFlavor() != null ? flavorConverter.toResponse(item.getFlavor()) : null)
+                .nutrition(item.getNutrition() != null ? nutritionConverter.toResponse(item.getNutrition()) : null)
+                .serving(item.getServing() != null ? servingConverter.toResponse(item.getServing()) : null)
                 .build();
     }
 
@@ -117,13 +123,10 @@ class FoodConverter {
                 request.getCategory() == null &&
                 request.getSubcategory() == null &&
                 request.getDescription() == null &&
-                request.getServingType() == null &&
-                request.getNutrition() == null &&
                 request.getNotes() == null &&
-                request.getCrunch() == null &&
-                request.getPunch() == null &&
-                request.getSweet() == null &&
-                request.getSavory() == null) {
+                request.getFlavorExtid() == null &&
+                request.getNutritionExtid() == null &&
+                request.getServingExtid() == null) {
             throw new IllegalArgumentException("At least one field must be provided for update.");
         }
     }
