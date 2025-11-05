@@ -3,9 +3,9 @@ spring:
     name: cpss
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/cpss
-    username: ${CPSS_USERNAME:default_user}
-    password: ${CPSS_PASSWORD:default_pass}
+    url: jdbc:mysql://${RDS_HOSTNAME}:${RDS_PORT}/${RDS_DB_NAME}
+    username: ${RDS_USERNAME}
+    password: ${RDS_PASSWORD}
     hikari:
       initialization-fail-timeout: 0
       connection-timeout: 3000
