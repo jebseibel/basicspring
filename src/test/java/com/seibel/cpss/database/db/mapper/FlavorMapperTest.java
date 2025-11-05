@@ -37,7 +37,7 @@ class FlavorMapperTest {
         assertEquals(db.getCategory(), domain.getCategory());
         assertEquals(db.getSubcategory(), domain.getSubcategory());
         assertEquals(db.getDescription(), domain.getDescription());
-        assertEquals(db.getUsage(), domain.getUsage());
+        assertEquals(db.getHowtouse(), domain.getHowtouse());
         assertEquals(db.getCreatedAt(), domain.getCreatedAt());
         assertEquals(db.getUpdatedAt(), domain.getUpdatedAt());
         assertEquals(db.getDeletedAt(), domain.getDeletedAt());
@@ -60,7 +60,7 @@ class FlavorMapperTest {
         assertEquals(domain.getCategory(), db.getCategory());
         assertEquals(domain.getSubcategory(), db.getSubcategory());
         assertEquals(domain.getDescription(), db.getDescription());
-        assertEquals(domain.getUsage(), db.getUsage());
+        assertEquals(domain.getHowtouse(), db.getHowtouse());
         assertEquals(domain.getCreatedAt(), db.getCreatedAt());
         assertEquals(domain.getUpdatedAt(), db.getUpdatedAt());
         assertEquals(domain.getDeletedAt(), db.getDeletedAt());

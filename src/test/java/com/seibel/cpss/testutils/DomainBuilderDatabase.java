@@ -232,7 +232,7 @@ public class DomainBuilderDatabase extends DomainBuilderBase {
         item.setSubcategory(subcategory != null ? subcategory : getNameRandom("SubCat_"));
         item.setDescription(description != null ? description : getDescriptionRandom("Flavor Description "));
         item.setNotes(notes != null ? notes : getDescriptionRandom("Flavor Notes "));
-        item.setUsage(usage != null ? usage : getVersionRandom("Usage"));
+        item.setHowtouse(usage != null ? usage : getVersionRandom("Usage"));
         item.setCrunch(crunch != null ? crunch : 3);
         item.setPunch(punch != null ? punch : 3);
         item.setSweet(sweet != null ? sweet : 3);
