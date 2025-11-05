@@ -1,0 +1,19 @@
+databaseChangeLog:
+  - changeSet:
+      id: init
+      author: jeb
+      labels: create_profile_table
+      changes:
+
+        # Profile Table
+        - createTable:
+            tableName: profile
+            columns:
+              - column: { name: id, type: bigint, autoIncrement: true, constraints: { primaryKey: true, nullable: false } }
+              - column: { name: extid, type: varchar(36), constraints: { nullable: false, unique: true } }
+              - column: { name: nickname, type: varchar(64), constraints: { nullable: false } }
+              - column: { name: fullname, type: varchar(128), constraints: { nullable: false } }
+              - column: { name: created_at, type: datetime, constraints: { nullable: false } }
+              - column: { name: updated_at, type: datetime }
+              - column: { name: deleted_at, type: datetime }
+              - column: { name: active, type: int }

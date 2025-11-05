@@ -1,0 +1,112 @@
+--liquibase formatted sql
+
+--changeset load_food:1
+INSERT INTO food (
+    id, extid, code, name, category, subcategory, description, notes,
+    flavor, nutrition, serving,
+    created_at, updated_at, deleted_at, active
+) VALUES
+    -- Leafy Greens
+    (501, 'food-romaine-001', 'ROMAINE', 'Romaine Lettuce', 'Vegetable', 'Leafy Green',
+     'Crisp romaine lettuce leaves', 'Perfect base for any salad',
+     'flv-romaine-001', 'nut-romaine-001', 'srv-romaine-001',
+     NOW(), NOW(), NULL, 1),
+
+    (502, 'food-spinach-001', 'SPINACH', 'Fresh Spinach', 'Vegetable', 'Leafy Green',
+     'Tender baby spinach leaves', 'Nutrient-dense green',
+     'flv-spinach-001', 'nut-spinach-001', 'srv-spinach-001',
+     NOW(), NOW(), NULL, 1),
+
+    (503, 'food-kale-001', 'KALE', 'Curly Kale', 'Vegetable', 'Leafy Green',
+     'Fresh curly kale leaves', 'Superfood green with hearty texture',
+     'flv-kale-001', 'nut-kale-001', 'srv-kale-001',
+     NOW(), NOW(), NULL, 1),
+
+    (504, 'food-arugula-001', 'ARUGULA', 'Fresh Arugula', 'Vegetable', 'Leafy Green',
+     'Peppery arugula leaves', 'Adds bold flavor to salads',
+     'flv-arugula-001', 'nut-arugula-001', 'srv-arugula-001',
+     NOW(), NOW(), NULL, 1),
+
+    -- Vegetables
+    (505, 'food-tomato-001', 'TOMATO', 'Cherry Tomatoes', 'Vegetable', 'Fruit Vegetable',
+     'Sweet cherry tomatoes', 'Burst of juicy sweetness',
+     'flv-tomato-001', 'nut-tomato-001', 'srv-tomato-001',
+     NOW(), NOW(), NULL, 1),
+
+    (506, 'food-cucumber-001', 'CUCUMBR', 'English Cucumber', 'Vegetable', 'Fruit Vegetable',
+     'Fresh sliced cucumber', 'Cool and refreshing crunch',
+     'flv-cucumber-001', 'nut-cucumber-001', 'srv-cucumber-001',
+     NOW(), NOW(), NULL, 1),
+
+    (507, 'food-carrot-001', 'CARROT', 'Shredded Carrots', 'Vegetable', 'Root Vegetable',
+     'Fresh shredded carrots', 'Sweet and crunchy',
+     'flv-carrot-001', 'nut-carrot-001', 'srv-carrot-001',
+     NOW(), NOW(), NULL, 1),
+
+    (508, 'food-bellpepper-001', 'BELLPEP', 'Bell Pepper Mix', 'Vegetable', 'Fruit Vegetable',
+     'Mixed color bell peppers', 'Sweet and colorful',
+     'flv-bellpepper-001', 'nut-bellpepper-001', 'srv-bellpepper-001',
+     NOW(), NOW(), NULL, 1),
+
+    (509, 'food-redonion-001', 'REDONION', 'Red Onion', 'Vegetable', 'Bulb Vegetable',
+     'Thinly sliced red onions', 'Sharp and tangy',
+     'flv-redonion-001', 'nut-redonion-001', 'srv-redonion-001',
+     NOW(), NOW(), NULL, 1),
+
+    -- Proteins
+    (510, 'food-chicken-001', 'CHICKEN', 'Grilled Chicken Breast', 'Protein', 'Poultry',
+     'Sliced grilled chicken breast', 'Lean protein for hearty salads',
+     'flv-chicken-001', 'nut-chicken-001', 'srv-chicken-001',
+     NOW(), NOW(), NULL, 1),
+
+    (511, 'food-egg-001', 'HARDEGG', 'Hard Boiled Egg', 'Protein', 'Egg',
+     'Hard boiled eggs', 'Classic protein addition',
+     'flv-egg-001', 'nut-egg-001', 'srv-egg-001',
+     NOW(), NOW(), NULL, 1),
+
+    (512, 'food-chickpea-001', 'CHICKPEA', 'Roasted Chickpeas', 'Protein', 'Legume',
+     'Seasoned roasted chickpeas', 'Plant-based protein and crunch',
+     'flv-chickpea-001', 'nut-chickpea-001', 'srv-chickpea-001',
+     NOW(), NOW(), NULL, 1),
+
+    (513, 'food-feta-001', 'FETA', 'Feta Cheese', 'Protein', 'Dairy',
+     'Crumbled feta cheese', 'Tangy and creamy',
+     'flv-feta-001', 'nut-feta-001', 'srv-feta-001',
+     NOW(), NOW(), NULL, 1),
+
+    -- Nuts & Seeds
+    (514, 'food-almond-001', 'ALMOND', 'Sliced Almonds', 'Nuts', 'Tree Nut',
+     'Sliced almonds', 'Crunchy toasted almonds',
+     'flv-almond-001', 'nut-almond-001', 'srv-almond-001',
+     NOW(), NOW(), NULL, 1),
+
+    (515, 'food-walnut-001', 'WALNUT', 'Chopped Walnuts', 'Nuts', 'Tree Nut',
+     'Chopped walnuts', 'Rich nutty flavor',
+     'flv-walnut-001', 'nut-walnut-001', 'srv-walnut-001',
+     NOW(), NOW(), NULL, 1),
+
+    (516, 'food-sunflower-001', 'SUNFLWR', 'Sunflower Seeds', 'Seeds', 'Seed',
+     'Roasted sunflower seeds', 'Nutty and crunchy',
+     'flv-sunflower-001', 'nut-sunflower-001', 'srv-sunflower-001',
+     NOW(), NOW(), NULL, 1),
+
+    -- Dressings
+    (517, 'food-balsamic-001', 'BALSAMIC', 'Balsamic Vinaigrette', 'Dressing', 'Vinaigrette',
+     'House balsamic vinaigrette', 'Light and tangy dressing',
+     'flv-balsamic-001', 'nut-balsamic-001', 'srv-balsamic-001',
+     NOW(), NOW(), NULL, 1),
+
+    (518, 'food-ranch-001', 'RANCH', 'Ranch Dressing', 'Dressing', 'Creamy',
+     'Creamy ranch dressing', 'Classic creamy dressing',
+     'flv-ranch-001', 'nut-ranch-001', 'srv-ranch-001',
+     NOW(), NOW(), NULL, 1),
+
+    (519, 'food-caesar-001', 'CAESAR', 'Caesar Dressing', 'Dressing', 'Creamy',
+     'Traditional caesar dressing', 'Garlicky and rich',
+     'flv-caesar-001', 'nut-caesar-001', 'srv-caesar-001',
+     NOW(), NOW(), NULL, 1),
+
+    (520, 'food-olive-001', 'OLIVEOIL', 'Extra Virgin Olive Oil', 'Dressing', 'Oil',
+     'Premium olive oil', 'Simple and healthy',
+     'flv-olive-001', 'nut-olive-001', 'srv-olive-001',
+     NOW(), NOW(), NULL, 1);
