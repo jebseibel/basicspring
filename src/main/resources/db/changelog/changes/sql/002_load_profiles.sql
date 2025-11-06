@@ -1,6 +1,3 @@
---liquibase formatted sql
-
---changeset create_profiles:1
 INSERT INTO profile (
     id, extid, nickname, fullname,
     created_at, updated_at, deleted_at, active

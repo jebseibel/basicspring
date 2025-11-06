@@ -1,6 +1,3 @@
---liquibase formatted sql
-
---changeset load_serving:1
 INSERT INTO serving (
     id, extid, code, name, category, subcategory, description, notes,
     cup, quarter, tablespoon, teaspoon, gram,

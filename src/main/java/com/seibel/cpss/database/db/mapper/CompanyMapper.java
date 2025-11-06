@@ -23,12 +23,12 @@ public class CompanyMapper {
     }
 
     public List<Company> toModelList(List<CompanyDb> items) {
-        if (items == null) return null;
+        if (items == null) return List.of();
         return items.stream().map(this::toModel).toList();
     }
 
     public List<CompanyDb> toDbList(List<Company> items) {
-        if (items == null) return null;
+        if (items == null) return List.of();
         return items.stream().map(this::toDb).toList();
     }
 }

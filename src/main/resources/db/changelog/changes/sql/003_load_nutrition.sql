@@ -1,6 +1,3 @@
---liquibase formatted sql
-
---changeset load_nutrition:1
 INSERT INTO nutrition (
     id, extid, code, name, category, subcategory, description, notes,
     carbohydrate, fat, protein, sugar,

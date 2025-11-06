@@ -2,10 +2,11 @@ plugins {
     id 'java'
     id 'org.springframework.boot' version '3.5.7'
     id 'io.spring.dependency-management' version '1.1.7'
+    id 'org.liquibase.gradle' version '2.2.0'
 }
 
 group = 'com.seibel'
-version = '0.0.1-SNAPSHOT'
+version = '0.0.2-SNAPSHOT'
 description = 'cpss'
 
 java {
@@ -72,8 +73,30 @@ dependencies {
     // --- Testing ---
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+    // --- Liquibase Runtime ---
+    liquibaseRuntime 'org.liquibase:liquibase-core:4.29.2'
+    liquibaseRuntime 'com.mysql:mysql-connector-j'
+    liquibaseRuntime 'org.yaml:snakeyaml:2.2'
+    liquibaseRuntime 'info.picocli:picocli:4.7.5'
 }
 
 tasks.named('test') {
     useJUnitPlatform()
+}
+
+// Liquibase configuration
+liquibase {
+    activities {
+        main {
+            changelogFile 'src/main/resources/db/changelog/db.changelog-master.yaml'
+            url System.getenv('RDS_HOSTNAME') ?
+                "jdbc:mysql://${System.getenv('RDS_HOSTNAME')}:${System.getenv('RDS_PORT')}/${System.getenv('RDS_DB_NAME')}" :
+                'jdbc:mysql://localhost:3306/cpss'
+            username System.getenv('RDS_USERNAME') ?: 'root'
+            password System.getenv('RDS_PASSWORD') ?: ''
+            driver 'com.mysql.cj.jdbc.Driver'
+        }
+    }
+    runList = 'main'
 }

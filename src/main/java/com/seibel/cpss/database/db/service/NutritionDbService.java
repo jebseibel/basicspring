@@ -49,21 +49,24 @@ public class NutritionDbService extends BaseDbService {
 
     public Nutrition update(String extid, Nutrition item) {
         try {
-            NutritionDb existing = repository.findByExtid(extid)
-                    .orElseThrow(() -> new DatabaseAccessException(notFoundMessage(extid)));
+            var existing = repository.findByExtid(extid);
+            if (existing.isEmpty()) {
+                return null;
+            }
 
-            existing.setUpdatedAt(LocalDateTime.now());
-            if (item.getName() != null) existing.setName(item.getName());
-            if (item.getCategory() != null) existing.setCategory(item.getCategory());
-            if (item.getSubcategory() != null) existing.setSubcategory(item.getSubcategory());
-            if (item.getDescription() != null) existing.setDescription(item.getDescription());
-            if (item.getNotes() != null) existing.setNotes(item.getNotes());
-            if (item.getCarbohydrate() != null) existing.setCarbohydrate(item.getCarbohydrate());
-            if (item.getFat() != null) existing.setFat(item.getFat());
-            if (item.getProtein() != null) existing.setProtein(item.getProtein());
-            if (item.getSugar() != null) existing.setSugar(item.getSugar());
+            NutritionDb nutritionDb = existing.get();
+            nutritionDb.setUpdatedAt(LocalDateTime.now());
+            if (item.getName() != null) nutritionDb.setName(item.getName());
+            if (item.getCategory() != null) nutritionDb.setCategory(item.getCategory());
+            if (item.getSubcategory() != null) nutritionDb.setSubcategory(item.getSubcategory());
+            if (item.getDescription() != null) nutritionDb.setDescription(item.getDescription());
+            if (item.getNotes() != null) nutritionDb.setNotes(item.getNotes());
+            if (item.getCarbohydrate() != null) nutritionDb.setCarbohydrate(item.getCarbohydrate());
+            if (item.getFat() != null) nutritionDb.setFat(item.getFat());
+            if (item.getProtein() != null) nutritionDb.setProtein(item.getProtein());
+            if (item.getSugar() != null) nutritionDb.setSugar(item.getSugar());
 
-            NutritionDb saved = repository.save(existing);
+            NutritionDb saved = repository.save(nutritionDb);
             log.info(updatedMessage(extid));
             return mapper.toModel(saved);
         } catch (Exception e) {

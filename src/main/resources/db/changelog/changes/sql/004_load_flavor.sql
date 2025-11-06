@@ -1,6 +1,3 @@
---liquibase formatted sql
-
---changeset load_flavor:1
 INSERT INTO flavor (
     id, extid, code, name, category, subcategory, description, notes,
     crunch, punch, sweet, savory, howtouse,

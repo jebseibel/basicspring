@@ -23,12 +23,12 @@ public class ProfileMapper {
     }
 
     public List<Profile> toModelList(List<ProfileDb> items) {
-        if (items == null) return null;
+        if (items == null) return List.of();
         return items.stream().map(this::toModel).toList();
     }
 
     public List<ProfileDb> toDbList(List<Profile> items) {
-        if (items == null) return null;
+        if (items == null) return List.of();
         return items.stream().map(this::toDb).toList();
     }
 }

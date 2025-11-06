@@ -48,12 +48,14 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(AbstractHttpConfigurer::disable)
+                .cors(cors -> cors.configure(http)) // Enable CORS
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/", "/index.html").permitAll() // Allow root for health checks
-                        .requestMatchers("/api/**").permitAll() // Allow all API access (temporary for development)
+                        .requestMatchers("/", "/index.html", "/favicon.ico").permitAll() // Allow root for health checks
+                        .requestMatchers("/api/auth/**").permitAll() // Allow auth endpoints (login/register)
+                        .requestMatchers("/api/**").permitAll() // Allow all API endpoints (test app only)
                         .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
                         .requestMatchers("/css/**", "/js/**", "/images/**", "/*.html").permitAll() // Allow static resources
-                        .anyRequest().authenticated()
+                        .anyRequest().authenticated() // All other requests require authentication
                 )
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)

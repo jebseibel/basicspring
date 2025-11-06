@@ -1,6 +1,3 @@
---liquibase formatted sql
-
---changeset create_accounts:1
 INSERT INTO company (
     id, extid, code, name, description,
     created_at, updated_at,

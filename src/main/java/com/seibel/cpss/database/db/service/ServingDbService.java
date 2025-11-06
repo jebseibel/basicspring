@@ -48,22 +48,25 @@ public class ServingDbService extends BaseDbService {
 
     public Serving update(String extid, Serving item) {
         try {
-            ServingDb existing = repository.findByExtid(extid)
-                    .orElseThrow(() -> new DatabaseAccessException(notFoundMessage(extid)));
+            var existing = repository.findByExtid(extid);
+            if (existing.isEmpty()) {
+                return null;
+            }
 
-            existing.setUpdatedAt(LocalDateTime.now());
-            if (item.getName() != null) existing.setName(item.getName());
-            if (item.getCategory() != null) existing.setCategory(item.getCategory());
-            if (item.getSubcategory() != null) existing.setSubcategory(item.getSubcategory());
-            if (item.getDescription() != null) existing.setDescription(item.getDescription());
-            if (item.getNotes() != null) existing.setNotes(item.getNotes());
-            if (item.getCup() != null) existing.setCup(item.getCup());
-            if (item.getQuarter() != null) existing.setQuarter(item.getQuarter());
-            if (item.getTablespoon() != null) existing.setTablespoon(item.getTablespoon());
-            if (item.getTeaspoon() != null) existing.setTeaspoon(item.getTeaspoon());
-            if (item.getGram() != null) existing.setGram(item.getGram());
+            ServingDb servingDb = existing.get();
+            servingDb.setUpdatedAt(LocalDateTime.now());
+            if (item.getName() != null) servingDb.setName(item.getName());
+            if (item.getCategory() != null) servingDb.setCategory(item.getCategory());
+            if (item.getSubcategory() != null) servingDb.setSubcategory(item.getSubcategory());
+            if (item.getDescription() != null) servingDb.setDescription(item.getDescription());
+            if (item.getNotes() != null) servingDb.setNotes(item.getNotes());
+            if (item.getCup() != null) servingDb.setCup(item.getCup());
+            if (item.getQuarter() != null) servingDb.setQuarter(item.getQuarter());
+            if (item.getTablespoon() != null) servingDb.setTablespoon(item.getTablespoon());
+            if (item.getTeaspoon() != null) servingDb.setTeaspoon(item.getTeaspoon());
+            if (item.getGram() != null) servingDb.setGram(item.getGram());
 
-            ServingDb saved = repository.save(existing);
+            ServingDb saved = repository.save(servingDb);
             log.info(updatedMessage(extid));
             return mapper.toModel(saved);
         } catch (Exception e) {
