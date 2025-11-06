@@ -1,7 +1,15 @@
-import { Link, Outlet } from 'react-router-dom';
-import { ChefHat, Home, Salad, Apple, Sparkles, Scale, Utensils, Users, Building2 } from 'lucide-react';
+import { Link, Outlet, useNavigate } from 'react-router-dom';
+import { ChefHat, Home, Salad, Apple, Sparkles, Scale, Utensils, Users, Building2, LogOut } from 'lucide-react';
+import { authHelpers } from '../services/api';
 
 export default function Layout() {
+    const navigate = useNavigate();
+
+    const handleLogout = () => {
+        authHelpers.removeToken();
+        navigate('/login');
+    };
+
     return (
         <div className="min-h-screen bg-gray-50">
             {/* Navigation */}
@@ -73,6 +81,13 @@ export default function Layout() {
                             >
                                 <Building2 className="h-5 w-5" />
                             </Link>
+                            <button
+                                onClick={handleLogout}
+                                className="text-gray-500 hover:text-gray-700"
+                                title="Logout"
+                            >
+                                <LogOut className="h-5 w-5" />
+                            </button>
                         </div>
                     </div>
                 </div>

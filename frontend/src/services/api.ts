@@ -14,6 +14,9 @@ import type {
     CompanyRequest,
     SaladRequest,
     SaladResponse,
+    LoginRequest,
+    RegisterRequest,
+    AuthResponse,
 } from '../types/api';
 
 // API Configuration
@@ -25,6 +28,20 @@ const apiClient = axios.create({
         'Content-Type': 'application/json',
     },
 });
+
+// Axios interceptor to attach JWT token to requests
+apiClient.interceptors.request.use(
+    (config) => {
+        const token = localStorage.getItem('token');
+        if (token) {
+            config.headers.Authorization = `Bearer ${token}`;
+        }
+        return config;
+    },
+    (error) => {
+        return Promise.reject(error);
+    }
+);
 
 // API Endpoints
 export const foodApi = {
@@ -77,4 +94,17 @@ export const companyApi = {
 
 export const saladApi = {
     buildSalad: (request: SaladRequest) => apiClient.post<SaladResponse>('/salad/build', request),
+};
+
+export const authApi = {
+    login: (credentials: LoginRequest) => apiClient.post<AuthResponse>('/auth/login', credentials),
+    register: (userData: RegisterRequest) => apiClient.post<AuthResponse>('/auth/register', userData),
+};
+
+// Auth helper functions
+export const authHelpers = {
+    saveToken: (token: string) => localStorage.setItem('token', token),
+    getToken: () => localStorage.getItem('token'),
+    removeToken: () => localStorage.removeItem('token'),
+    isAuthenticated: () => !!localStorage.getItem('token'),
 };

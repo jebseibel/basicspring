@@ -166,6 +166,31 @@ export interface SaladResponse {
     };
 }
 
+// Authentication
+export interface User {
+    username: string;
+    email?: string;
+    role: string;
+}
+
+export interface LoginRequest {
+    username: string;
+    password: string;
+}
+
+export interface RegisterRequest {
+    username: string;
+    password: string;
+    email?: string;
+}
+
+export interface AuthResponse {
+    token: string;
+    username: string;
+    email?: string;
+    role: string;
+}
+
 // Pagination
 export interface PageRequest {
     page?: number;

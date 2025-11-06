@@ -20,7 +20,7 @@ export default function SaladBuilder() {
   // Build salad mutation
   const buildSaladMutation = useMutation({
     mutationFn: async (data: { ingredients: SaladIngredient[] }) => {
-      const response = await saladApi.build(data);
+      const response = await saladApi.buildSalad(data);
       return response.data;
     },
     onSuccess: (data) => {
