@@ -49,8 +49,10 @@ public class SecurityConfig {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/", "/index.html").permitAll() // Allow root for health checks
                         .requestMatchers("/api/**").permitAll() // Allow all API access (temporary for development)
                         .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
+                        .requestMatchers("/css/**", "/js/**", "/images/**", "/*.html").permitAll() // Allow static resources
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session
