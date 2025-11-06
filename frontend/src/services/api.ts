@@ -20,7 +20,8 @@ import type {
 } from '../types/api';
 
 // API Configuration
-const API_BASE_URL = 'http://localhost:8080/api';
+// Use relative path for production, localhost for development
+const API_BASE_URL = import.meta.env.VITE_API_URL || '/api';
 
 const apiClient = axios.create({
     baseURL: API_BASE_URL,
@@ -39,6 +40,20 @@ apiClient.interceptors.request.use(
         return config;
     },
     (error) => {
+        return Promise.reject(error);
+    }
+);
+
+// Axios interceptor to handle 403 responses and redirect to login
+apiClient.interceptors.response.use(
+    (response) => response,
+    (error) => {
+        if (error.response?.status === 403 || error.response?.status === 401) {
+            // Clear invalid token
+            localStorage.removeItem('token');
+            // Redirect to login page
+            window.location.href = '/login';
+        }
         return Promise.reject(error);
     }
 );

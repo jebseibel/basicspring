@@ -50,12 +50,22 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(cors -> cors.configure(http)) // Enable CORS
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/", "/index.html", "/favicon.ico").permitAll() // Allow root for health checks
-                        .requestMatchers("/api/auth/**").permitAll() // Allow auth endpoints (login/register)
-                        .requestMatchers("/api/**").permitAll() // Allow all API endpoints (test app only)
+                        // Allow React SPA and static resources (no backend auth)
+                        .requestMatchers("/", "/index.html", "/favicon.ico", "/vite.svg").permitAll()
+                        .requestMatchers("/assets/**", "/*.js", "/*.css").permitAll()
+                        .requestMatchers("/css/**", "/js/**", "/images/**").permitAll()
+
+                        // Allow auth endpoints (login/register)
+                        .requestMatchers("/api/auth/**").permitAll()
+
+                        // Protect all other API endpoints (require JWT)
+                        .requestMatchers("/api/**").authenticated()
+
+                        // Swagger (optional)
                         .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
-                        .requestMatchers("/css/**", "/js/**", "/images/**", "/*.html").permitAll() // Allow static resources
-                        .anyRequest().authenticated() // All other requests require authentication
+
+                        // Everything else requires authentication
+                        .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
