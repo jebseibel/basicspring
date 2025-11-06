@@ -1,0 +1,1 @@
+I want to add JWT to this project. It needs to work locally and in AWS production.
