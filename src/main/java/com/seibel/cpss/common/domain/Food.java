@@ -22,4 +22,5 @@ public class Food extends BaseDomain {
     private Flavor flavor;
     private Nutrition nutrition;
     private Serving serving;
+    private Boolean foundation;
 }

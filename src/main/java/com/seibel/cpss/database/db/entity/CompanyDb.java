@@ -14,7 +14,7 @@ public class CompanyDb extends BaseDb {
 
     private static final long serialVersionUID = 330515747211210728L;
 
-    @Column(name = "code", length = 8, nullable = false, unique = true)
+    @Column(name = "code", length = 16, unique = true)
     private String code;
 
     @Column(name = "name", length = 32, nullable = false, unique = true)

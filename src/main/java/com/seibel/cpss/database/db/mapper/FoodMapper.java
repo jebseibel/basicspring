@@ -51,6 +51,7 @@ public class FoodMapper {
         food.setSubcategory(item.getSubcategory());
         food.setDescription(item.getDescription());
         food.setNotes(item.getNotes());
+        food.setFoundation(item.getFoundation());
         food.setCreatedAt(item.getCreatedAt());
         food.setUpdatedAt(item.getUpdatedAt());
         food.setDeletedAt(item.getDeletedAt());
@@ -86,6 +87,7 @@ public class FoodMapper {
         foodDb.setSubcategory(item.getSubcategory());
         foodDb.setDescription(item.getDescription());
         foodDb.setNotes(item.getNotes());
+        foodDb.setFoundation(item.getFoundation());
         foodDb.setCreatedAt(item.getCreatedAt());
         foodDb.setUpdatedAt(item.getUpdatedAt());
         foodDb.setDeletedAt(item.getDeletedAt());

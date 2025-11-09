@@ -1,0 +1,208 @@
+databaseChangeLog:
+  - changeSet:
+      id: load-csv-data
+      author: jeb
+      labels: load_csv_data
+      changes:
+        # Load Company data
+        - loadData:
+            tableName: company
+            file: db/data/01-company.csv
+            relativeToChangelogFile: false
+            encoding: UTF-8
+            separator: ','
+            quotchar: '"'
+            columns:
+              - column: { name: code, type: string }
+              - column: { name: name, type: string }
+              - column: { name: description, type: string }
+
+        # Load Flavor data
+        - loadData:
+            tableName: flavor
+            file: db/data/flavor.csv
+            relativeToChangelogFile: false
+            encoding: UTF-8
+            separator: ','
+            quotchar: '"'
+            columns:
+              - column: { name: code, type: string }
+              - column: { name: name, type: string }
+              - column: { name: category, type: string }
+              - column: { name: subcategory, type: string }
+              - column: { name: description, type: string }
+              - column: { name: notes, type: string }
+              - column: { name: howtouse, type: string }
+              - column: { name: crunch, type: numeric }
+              - column: { name: punch, type: numeric }
+              - column: { name: sweet, type: numeric }
+              - column: { name: savory, type: numeric }
+
+        # Load Nutrition data
+        - loadData:
+            tableName: nutrition
+            file: db/data/nutrition.csv
+            relativeToChangelogFile: false
+            encoding: UTF-8
+            separator: ','
+            quotchar: '"'
+            columns:
+              - column: { name: code, type: string }
+              - column: { name: name, type: string }
+              - column: { name: category, type: string }
+              - column: { name: subcategory, type: string }
+              - column: { name: description, type: string }
+              - column: { name: notes, type: string }
+              - column: { name: carbohydrate, type: numeric }
+              - column: { name: fat, type: numeric }
+              - column: { name: protein, type: numeric }
+              - column: { name: sugar, type: numeric }
+
+        # Load Serving data
+        - loadData:
+            tableName: serving
+            file: db/data/serving.csv
+            relativeToChangelogFile: false
+            encoding: UTF-8
+            separator: ','
+            quotchar: '"'
+            columns:
+              - column: { name: code, type: string }
+              - column: { name: name, type: string }
+              - column: { name: category, type: string }
+              - column: { name: subcategory, type: string }
+              - column: { name: description, type: string }
+              - column: { name: notes, type: string }
+              - column: { name: cup, type: numeric }
+              - column: { name: quarter, type: numeric }
+              - column: { name: tablespoon, type: numeric }
+              - column: { name: teaspoon, type: numeric }
+              - column: { name: gram, type: numeric }
+
+        # Load Food data - Nuts
+        - loadData:
+            tableName: food
+            file: db/data/10-food-nuts.csv
+            relativeToChangelogFile: false
+            encoding: UTF-8
+            separator: ','
+            quotchar: '"'
+            columns:
+              - column: { name: name, type: string }
+              - column: { name: category, type: string }
+              - column: { name: subcategory, type: string }
+              - column: { name: description, type: string }
+              - column: { name: notes, type: string }
+              - column: { name: flavor, type: string }
+              - column: { name: nutrition, type: string }
+              - column: { name: serving, type: string }
+              - column: { name: foundation, type: boolean }
+
+        # Load Food data - Dried Fruit
+        - loadData:
+            tableName: food
+            file: db/data/10-food-dried-fruit.csv
+            relativeToChangelogFile: false
+            encoding: UTF-8
+            separator: ','
+            quotchar: '"'
+            columns:
+              - column: { name: name, type: string }
+              - column: { name: category, type: string }
+              - column: { name: subcategory, type: string }
+              - column: { name: description, type: string }
+              - column: { name: notes, type: string }
+              - column: { name: flavor, type: string }
+              - column: { name: nutrition, type: string }
+              - column: { name: serving, type: string }
+              - column: { name: foundation, type: boolean }
+
+        # Load Food data - Fresh Fruit
+        - loadData:
+            tableName: food
+            file: db/data/10-food-fresh-fruit.csv
+            relativeToChangelogFile: false
+            encoding: UTF-8
+            separator: ','
+            quotchar: '"'
+            columns:
+              - column: { name: name, type: string }
+              - column: { name: category, type: string }
+              - column: { name: subcategory, type: string }
+              - column: { name: description, type: string }
+              - column: { name: notes, type: string }
+              - column: { name: flavor, type: string }
+              - column: { name: nutrition, type: string }
+              - column: { name: serving, type: string }
+              - column: { name: foundation, type: boolean }
+
+        # Load Food data - Vegetables
+        - loadData:
+            tableName: food
+            file: db/data/10-food-vegetables.csv
+            relativeToChangelogFile: false
+            encoding: UTF-8
+            separator: ','
+            quotchar: '"'
+            columns:
+              - column: { name: name, type: string }
+              - column: { name: category, type: string }
+              - column: { name: subcategory, type: string }
+              - column: { name: description, type: string }
+              - column: { name: notes, type: string }
+              - column: { name: flavor, type: string }
+              - column: { name: nutrition, type: string }
+              - column: { name: serving, type: string }
+              - column: { name: foundation, type: boolean }
+
+        # Load Food data - Cheese
+        - loadData:
+            tableName: food
+            file: db/data/10-food-cheese.csv
+            relativeToChangelogFile: false
+            encoding: UTF-8
+            separator: ','
+            quotchar: '"'
+            columns:
+              - column: { name: name, type: string }
+              - column: { name: category, type: string }
+              - column: { name: subcategory, type: string }
+              - column: { name: description, type: string }
+              - column: { name: notes, type: string }
+              - column: { name: flavor, type: string }
+              - column: { name: nutrition, type: string }
+              - column: { name: serving, type: string }
+              - column: { name: foundation, type: boolean }
+
+        # Load Food data - Dried Crunch
+        - loadData:
+            tableName: food
+            file: db/data/10-food-dried-crunch.csv
+            relativeToChangelogFile: false
+            encoding: UTF-8
+            separator: ','
+            quotchar: '"'
+            columns:
+              - column: { name: name, type: string }
+              - column: { name: category, type: string }
+              - column: { name: subcategory, type: string }
+              - column: { name: description, type: string }
+              - column: { name: notes, type: string }
+              - column: { name: flavor, type: string }
+              - column: { name: nutrition, type: string }
+              - column: { name: serving, type: string }
+              - column: { name: foundation, type: boolean }
+
+        # Load Users data
+        - loadData:
+            tableName: users
+            file: db/data/02-users.csv
+            relativeToChangelogFile: false
+            encoding: UTF-8
+            separator: ','
+            quotchar: '"'
+            columns:
+              - column: { name: username, type: string }
+              - column: { name: password, type: string }
+              - column: { name: email, type: string }
+              - column: { name: role, type: string }

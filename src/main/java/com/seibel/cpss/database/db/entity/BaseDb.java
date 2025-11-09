@@ -19,10 +19,10 @@ public abstract class BaseDb implements Serializable {
     @Column(name = "id", nullable = false)
     protected Long id;
 
-    @Column(name = "extid", length = 36, nullable = false, unique = true, columnDefinition = "VARCHAR(36) DEFAULT (UUID())")
+    @Column(name = "extid", length = 36, nullable = false, unique = true)
     protected String extid;
 
-    @Column(name = "created_at", nullable = false, columnDefinition = "DATETIME DEFAULT CURRENT_TIMESTAMP")
+    @Column(name = "created_at", nullable = false)
     protected LocalDateTime createdAt;
 
     @Column(name = "updated_at")
@@ -31,7 +31,7 @@ public abstract class BaseDb implements Serializable {
     @Column(name = "deleted_at")
     protected LocalDateTime deletedAt;
 
-    @Column(name = "active", columnDefinition = "INT DEFAULT 1")
+    @Column(name = "active")
     @Convert(converter = ActiveEnumConverter.class)
     protected ActiveEnum active;
 }

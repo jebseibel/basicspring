@@ -1,0 +1,15 @@
+name,category,subcategory,description,notes,flavor,nutrition,serving,foundation
+Dried Cranberries,Dried Fruit,Berry,Sweet dried cranberries,Tart and chewy,FLVDCRA,NUTDCRA,SRVDCRA,false
+Golden Raisins,Dried Fruit,Grape,Sweet golden raisins,Natural sweetness,FLVGRAI,NUTGRAI,SRVGRAI,false
+Dark Raisins,Dried Fruit,Grape,Traditional dark raisins,Classic dried fruit,FLVDRAI,NUTDRAI,SRVDRAI,false
+Dried Apricots,Dried Fruit,Stone Fruit,Tangy dried apricots,Bright orange color,FLVAPRI,NUTAPRI,SRVAPRI,false
+Medjool Dates,Dried Fruit,Date,Large medjool dates,Caramel-like flavor,FLVMDAT,NUTMDAT,SRVMDAT,false
+Chopped Dates,Dried Fruit,Date,Diced dates,Easy to sprinkle,FLVCDAT,NUTCDAT,SRVCDAT,false
+Dried Figs,Dried Fruit,Fig,Sweet dried figs,Honey-like taste,FLVFIGS,NUTFIGS,SRVFIGS,false
+Dried Cherries,Dried Fruit,Stone Fruit,Tart dried cherries,Deep red color,FLVCHER,NUTCHER,SRVCHER,false
+Dried Blueberries,Dried Fruit,Berry,Sweet blueberries,Antioxidant rich,FLVBLUE,NUTBLUE,SRVBLUE,false
+Dried Mango,Dried Fruit,Tropical,Chewy mango strips,Tropical sweetness,FLVMANG,NUTMANG,SRVMANG,false
+Dried Pineapple,Dried Fruit,Tropical,Sweet pineapple chunks,Island flavor,FLVPINE,NUTPINE,SRVPINE,false
+Goji Berries,Dried Fruit,Berry,Superfood goji berries,Nutrient dense,FLVGOJI,NUTGOJI,SRVGOJI,false
+Banana Chips,Dried Fruit,Tropical,Crispy banana slices,Sweet and crunchy,FLVBANA,NUTBANA,SRVBANA,false
+Apple Chips,Dried Fruit,Pome,Crunchy apple slices,Naturally sweet,FLVAPPL,NUTAPPL,SRVAPPL,false

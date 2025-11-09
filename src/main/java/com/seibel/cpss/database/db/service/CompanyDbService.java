@@ -2,6 +2,7 @@ package com.seibel.cpss.database.db.service;
 
 import com.seibel.cpss.common.domain.Company;
 import com.seibel.cpss.common.enums.ActiveEnum;
+import com.seibel.cpss.common.util.CodeGenerator;
 import com.seibel.cpss.database.db.entity.CompanyDb;
 import com.seibel.cpss.database.db.exceptions.DatabaseFailureException;
 import com.seibel.cpss.database.db.mapper.CompanyMapper;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
 
 @Slf4j
 @Service
@@ -28,20 +30,38 @@ public class CompanyDbService extends BaseDbService {
         this.mapper = mapper;
     }
 
-    public Company create(@NonNull String code, @NonNull String name, @NonNull String description) {
+    public Company create(String code, @NonNull String name, @NonNull String description) {
+        String extid = UUID.randomUUID().toString();
+        LocalDateTime now = LocalDateTime.now();
+
         try {
             CompanyDb record = new CompanyDb();
-            record.setCode(code);
+            record.setExtid(extid);
+
+            // Auto-generate code if not provided
+            if (code == null || code.trim().isEmpty()) {
+                String generatedCode = CodeGenerator.generateCode(
+                    name,
+                    c -> repository.findByCode(c).isPresent()
+                );
+                record.setCode(generatedCode);
+                log.info("Auto-generated code '{}' for company '{}'", generatedCode, name);
+            } else {
+                record.setCode(code);
+            }
+
             record.setName(name);
             record.setDescription(description);
-            record.setUpdatedAt(LocalDateTime.now());
+            record.setCreatedAt(now);
+            record.setUpdatedAt(now);
+            record.setActive(ActiveEnum.ACTIVE);
 
             CompanyDb saved = repository.save(record);
-            log.info(createdMessage(saved.getExtid()));
+            log.info(createdMessage(extid));
             return mapper.toModel(saved);
 
         } catch (Exception e) {
-            log.error(failedOperationMessage("create"), e);
+            log.error(failedOperationMessage("create", extid), e);
             throw new DatabaseFailureException(failedOperationMessage("create"), e);
         }
     }

@@ -94,7 +94,10 @@ liquibase {
                 "jdbc:mysql://${System.getenv('RDS_HOSTNAME')}:${System.getenv('RDS_PORT')}/${System.getenv('RDS_DB_NAME')}" :
                 'jdbc:mysql://localhost:3306/cpss'
             username System.getenv('RDS_USERNAME') ?: 'root'
-            password System.getenv('RDS_PASSWORD') ?: ''
+            // Only set password if it exists to avoid the parameter issue
+            if (System.getenv('RDS_PASSWORD')) {
+                password System.getenv('RDS_PASSWORD')
+            }
             driver 'com.mysql.cj.jdbc.Driver'
         }
     }

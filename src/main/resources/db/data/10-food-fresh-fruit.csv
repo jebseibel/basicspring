@@ -1,0 +1,19 @@
+name,category,subcategory,description,notes,flavor,nutrition,serving,foundation
+Strawberries,Fresh Fruit,Berry,Fresh sliced strawberries,Sweet and juicy,FLVSTRA,NUTSTRA,SRVSTRA,true
+Blueberries,Fresh Fruit,Berry,Fresh blueberries,Antioxidant powerhouse,FLVFBLU,NUTFBLU,SRVFBLU,true
+Raspberries,Fresh Fruit,Berry,Fresh raspberries,Delicate and tart,FLVRASP,NUTRASP,SRVRASP,false
+Blackberries,Fresh Fruit,Berry,Fresh blackberries,Bold berry flavor,FLVBLAC,NUTBLAC,SRVBLAC,false
+Apple Slices,Fresh Fruit,Pome,Crisp apple slices,Classic fruit choice,FLVFAPP,NUTFAPP,SRVFAPP,false
+Pear Slices,Fresh Fruit,Pome,Juicy pear slices,Subtly sweet,FLVPEAR,NUTPEAR,SRVPEAR,false
+Orange Segments,Fresh Fruit,Citrus,Fresh orange segments,Bright citrus burst,FLVORAG,NUTORAG,SRVORAG,false
+Grapefruit Segments,Fresh Fruit,Citrus,Ruby red grapefruit,Tangy and refreshing,FLVGRAP,NUTGRAP,SRVGRAP,false
+Mandarin Oranges,Fresh Fruit,Citrus,Sweet mandarin segments,Easy to eat,FLVMAND,NUTMAND,SRVMAND,false
+Pineapple Chunks,Fresh Fruit,Tropical,Fresh pineapple pieces,Tropical sweetness,FLVFPIN,NUTFPIN,SRVFPIN,false
+Mango Chunks,Fresh Fruit,Tropical,Fresh mango cubes,Smooth and sweet,FLVFMAN,NUTFMAN,SRVFMAN,false
+Watermelon Cubes,Fresh Fruit,Melon,Juicy watermelon,Refreshing hydration,FLVWATE,NUTWATE,SRVWATE,false
+Cantaloupe Cubes,Fresh Fruit,Melon,Sweet cantaloupe,Peachy orange flesh,FLVCANT,NUTCANT,SRVCANT,false
+Honeydew Melon,Fresh Fruit,Melon,Green honeydew cubes,Mild and sweet,FLVHONE,NUTHONE,SRVHONE,false
+Grapes,Fresh Fruit,Grape,Fresh grape halves,Seedless variety,FLVGRAP,NUTGRAP,SRVGRAP,false
+Kiwi Slices,Fresh Fruit,Tropical,Fresh kiwi rounds,Bright green color,FLVKIWI,NUTKIWI,SRVKIWI,false
+Pomegranate Arils,Fresh Fruit,Berry,Ruby pomegranate seeds,Jewel-like texture,FLVPOME,NUTPOME,SRVPOME,false
+Peach Slices,Fresh Fruit,Stone Fruit,Fresh peach wedges,Summer sweetness,FLVPEAC,NUTPEAC,SRVPEAC,false

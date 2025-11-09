@@ -2,6 +2,7 @@ package com.seibel.cpss.database.db.service;
 
 import com.seibel.cpss.common.domain.Food;
 import com.seibel.cpss.common.enums.ActiveEnum;
+import com.seibel.cpss.common.util.CodeGenerator;
 import com.seibel.cpss.database.db.entity.FoodDb;
 import com.seibel.cpss.database.db.exceptions.DatabaseFailureException;
 import com.seibel.cpss.database.db.mapper.FlavorMapper;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
 
 @Slf4j
 @Service
@@ -37,14 +39,38 @@ public class FoodDbService extends BaseDbService {
     }
 
     public Food create(Food item) throws DatabaseFailureException {
+        String extid = UUID.randomUUID().toString();
+        LocalDateTime now = LocalDateTime.now();
+
         try {
             FoodDb entity = mapper.toDb(item);
-            entity.setUpdatedAt(LocalDateTime.now());
+
+            // Auto-generate code if not provided
+            if (entity.getCode() == null || entity.getCode().trim().isEmpty()) {
+                String generatedCode = CodeGenerator.generateCode(
+                    entity.getName(),
+                    entity.getCategory(),
+                    entity.getSubcategory(),
+                    code -> repository.findByCode(code).isPresent()
+                );
+                entity.setCode(generatedCode);
+                log.info("Auto-generated code '{}' for food '{}'", generatedCode, entity.getName());
+            }
+
+            // Set foundation to false if not provided
+            if (entity.getFoundation() == null) {
+                entity.setFoundation(false);
+            }
+
+            entity.setExtid(extid);
+            entity.setCreatedAt(now);
+            entity.setUpdatedAt(now);
+            entity.setActive(ActiveEnum.ACTIVE);
             FoodDb saved = repository.save(entity);
-            log.info(createdMessage(saved.getExtid()));
+            log.info(createdMessage(extid));
             return mapper.toModel(saved);
         } catch (Exception e) {
-            log.error(failedOperationMessage("create"), e);
+            log.error(failedOperationMessage("create", extid), e);
             throw new DatabaseFailureException(failedOperationMessage("create"), e);
         }
     }
@@ -59,6 +85,7 @@ public class FoodDbService extends BaseDbService {
         if (item.getSubcategory() != null) existing.setSubcategory(item.getSubcategory());
         if (item.getDescription() != null) existing.setDescription(item.getDescription());
         if (item.getNotes() != null) existing.setNotes(item.getNotes());
+        if (item.getFoundation() != null) existing.setFoundation(item.getFoundation());
 
         FoodDb saved = repository.save(existing);
         log.info(updatedMessage(extid));

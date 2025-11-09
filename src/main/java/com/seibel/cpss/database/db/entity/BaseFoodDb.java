@@ -16,7 +16,9 @@ import lombok.NoArgsConstructor;
 @MappedSuperclass
 public abstract class BaseFoodDb extends BaseDb {
 
-    @Column(name = "code", length = 8, nullable = false, unique = true)
+    private static final long serialVersionUID = 2718281828459045235L;
+
+    @Column(name = "code", length = 16, unique = true)
     private String code;
 
     @Column(name = "name", length = 32, nullable = false, unique = true)

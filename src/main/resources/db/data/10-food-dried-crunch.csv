@@ -1,0 +1,19 @@
+name,category,subcategory,description,notes,flavor,nutrition,serving,foundation
+Sunflower Seeds,Seeds,Seed,Roasted sunflower seeds,Nutty crunch,FLVSUN,NUTSUN,SRVSUN,true
+Pumpkin Seeds,Seeds,Seed,Roasted pepitas,Green and crunchy,FLVPUMP,NUTPUMP,SRVPUMP,true
+Chia Seeds,Seeds,Seed,Whole chia seeds,Omega-3 boost,FLVCHIA,NUTCHIA,SRVCHIA,false
+Hemp Hearts,Seeds,Seed,Hulled hemp seeds,Complete protein,FLVHEMP,NUTHEMP,SRVHEMP,false
+Flax Seeds,Seeds,Seed,Ground flaxseed,Fiber rich,FLVFLAX,NUTFLAX,SRVFLAX,false
+Sesame Seeds,Seeds,Seed,Toasted sesame,Asian flair,FLVSESA,NUTSESA,SRVSESA,false
+Croutons,Crunch,Bread,Garlic herb croutons,Classic topper,FLVCROU,NUTCROU,SRVCROU,true
+Seasoned Croutons,Crunch,Bread,Italian croutons,Herbed and crispy,FLVSCRO,NUTSCRO,SRVSCRO,false
+Garlic Crisps,Crunch,Bread,Thin garlic chips,Aromatic crunch,FLVGARC,NUTGARC,SRVGARC,false
+Wonton Strips,Crunch,Fried,Crispy wonton strips,Asian-style crunch,FLVWON,NUTWON,SRVWON,false
+Tortilla Strips,Crunch,Fried,Crispy tortilla strips,Tex-Mex crunch,FLVTOR,NUTTOR,SRVTOR,false
+Bacon Bits,Crunch,Meat,Real bacon pieces,Smoky crunch,FLVBAC,NUTBAC,SRVBAC,false
+Fried Onions,Crunch,Vegetable,Crispy fried onions,French onion style,FLVFON,NUTFON,SRVFON,false
+Chickpea Crunch,Crunch,Legume,Roasted chickpeas,Protein crunch,FLVCHIC,NUTCHIC,SRVCHIC,false
+Quinoa Puffs,Crunch,Grain,Puffed quinoa,Light and airy,FLVQUIN,NUTQUIN,SRVQUIN,false
+Granola Clusters,Crunch,Grain,Honey granola,Sweet clusters,FLVGRAN,NUTGRAN,SRVGRAN,false
+Coconut Flakes,Crunch,Tropical,Toasted coconut,Sweet and crispy,FLVCOCO,NUTCOCO,SRVCOCO,false
+Pita Chips,Crunch,Bread,Seasoned pita chips,Mediterranean crunch,FLVPITA,NUTPITA,SRVPITA,false

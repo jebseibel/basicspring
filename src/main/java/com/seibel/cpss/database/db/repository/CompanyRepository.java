@@ -13,6 +13,7 @@ import java.util.Optional;
 public interface CompanyRepository extends JpaRepository<CompanyDb, Long> {
     Optional<CompanyDb> findByName(String name);
     Optional<CompanyDb> findByExtid(String extid);
+    Optional<CompanyDb> findByCode(String code);
     Page<CompanyDb> findByActive(ActiveEnum active, Pageable pageable);
     boolean existsByExtid(String extid);
 }
