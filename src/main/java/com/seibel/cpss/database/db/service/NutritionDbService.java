@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 @Slf4j
 @Service
@@ -29,20 +28,14 @@ public class NutritionDbService extends BaseDbService {
     }
 
     public Nutrition create(Nutrition item) {
-        String extid = UUID.randomUUID().toString();
-        LocalDateTime now = LocalDateTime.now();
-
         try {
             NutritionDb entity = mapper.toDb(item);
-            entity.setExtid(extid);
-            entity.setCreatedAt(now);
-            entity.setUpdatedAt(now);
-            entity.setActive(ActiveEnum.ACTIVE);
+            entity.setUpdatedAt(LocalDateTime.now());
             NutritionDb saved = repository.save(entity);
-            log.info(createdMessage(extid));
+            log.info(createdMessage(saved.getExtid()));
             return mapper.toModel(saved);
         } catch (Exception e) {
-            log.error(failedOperationMessage("create", extid), e);
+            log.error(failedOperationMessage("create"), e);
             throw new DatabaseFailureException(failedOperationMessage("create"), e);
         }
     }

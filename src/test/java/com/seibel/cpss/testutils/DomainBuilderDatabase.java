@@ -39,34 +39,6 @@ public class DomainBuilderDatabase extends DomainBuilderBase {
     }
 
     // ///////////////////////////////////////////////////////////////////
-    // Profile
-    public static Profile getProfile() {
-        ProfileDb item = getProfileDb();
-        return new ProfileMapper().toModel(item);
-    }
-
-    public static Profile getProfile(ProfileDb item) {
-        return new ProfileMapper().toModel(item);
-    }
-
-    public static ProfileDb getProfileDb() {
-        return getProfileDb(null, null, null);
-    }
-
-    public static ProfileDb getProfileDb(String nickname, String fullname) {
-        return getProfileDb(nickname, fullname, null);
-    }
-
-    public static ProfileDb getProfileDb(String nickname, String fullname, String extid) {
-        ProfileDb item = new ProfileDb();
-        item.setExtid(extid != null ? extid : UUID.randomUUID().toString());
-        item.setNickname(nickname != null ? nickname : getNameRandom("Nick_"));
-        item.setFullname(fullname != null ? fullname : getNameRandom("FullName_"));
-        setBaseSyncFields(item);
-        return item;
-    }
-
-    // ///////////////////////////////////////////////////////////////////
     // Serving
     public static Serving getServing() {
         ServingDb item = getServingDb();

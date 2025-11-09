@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.UUID;
 
 @Slf4j
 @Service
@@ -30,25 +29,19 @@ public class CompanyDbService extends BaseDbService {
     }
 
     public Company create(@NonNull String code, @NonNull String name, @NonNull String description) {
-        String extid = UUID.randomUUID().toString();
-        LocalDateTime now = LocalDateTime.now();
-
         try {
             CompanyDb record = new CompanyDb();
-            record.setExtid(extid);
             record.setCode(code);
             record.setName(name);
             record.setDescription(description);
-            record.setCreatedAt(now);
-            record.setUpdatedAt(now);
-            record.setActive(ActiveEnum.ACTIVE);
+            record.setUpdatedAt(LocalDateTime.now());
 
             CompanyDb saved = repository.save(record);
-            log.info(createdMessage(extid));
+            log.info(createdMessage(saved.getExtid()));
             return mapper.toModel(saved);
 
         } catch (Exception e) {
-            log.error(failedOperationMessage("create", extid), e);
+            log.error(failedOperationMessage("create"), e);
             throw new DatabaseFailureException(failedOperationMessage("create"), e);
         }
     }
