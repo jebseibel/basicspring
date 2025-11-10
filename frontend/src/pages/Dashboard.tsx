@@ -1,5 +1,6 @@
 import { Salad, Apple, Sparkles, Scale, Utensils } from 'lucide-react';
 import { useQuery } from '@tanstack/react-query';
+import { Link } from 'react-router-dom';
 import { foodApi, nutritionApi, flavorApi, servingApi } from '../services/api';
 
 export default function Dashboard() {
@@ -44,7 +45,7 @@ export default function Dashboard() {
 
             {/* Stats Grid */}
             <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-5 mb-8">
-                <div className="bg-white overflow-hidden shadow rounded-lg">
+                <Link to="/foods" className="bg-white overflow-hidden shadow rounded-lg hover:shadow-md transition-shadow">
                     <div className="p-5">
                         <div className="flex items-center">
                             <div className="flex-shrink-0">
@@ -62,9 +63,9 @@ export default function Dashboard() {
                             </div>
                         </div>
                     </div>
-                </div>
+                </Link>
 
-                <div className="bg-white overflow-hidden shadow rounded-lg">
+                <Link to="/nutrition" className="bg-white overflow-hidden shadow rounded-lg hover:shadow-md transition-shadow">
                     <div className="p-5">
                         <div className="flex items-center">
                             <div className="flex-shrink-0">
@@ -82,9 +83,9 @@ export default function Dashboard() {
                             </div>
                         </div>
                     </div>
-                </div>
+                </Link>
 
-                <div className="bg-white overflow-hidden shadow rounded-lg">
+                <Link to="/flavors" className="bg-white overflow-hidden shadow rounded-lg hover:shadow-md transition-shadow">
                     <div className="p-5">
                         <div className="flex items-center">
                             <div className="flex-shrink-0">
@@ -102,9 +103,9 @@ export default function Dashboard() {
                             </div>
                         </div>
                     </div>
-                </div>
+                </Link>
 
-                <div className="bg-white overflow-hidden shadow rounded-lg">
+                <Link to="/servings" className="bg-white overflow-hidden shadow rounded-lg hover:shadow-md transition-shadow">
                     <div className="p-5">
                         <div className="flex items-center">
                             <div className="flex-shrink-0">
@@ -122,7 +123,7 @@ export default function Dashboard() {
                             </div>
                         </div>
                     </div>
-                </div>
+                </Link>
 
                 <div className="bg-white overflow-hidden shadow rounded-lg">
                     <div className="p-5">

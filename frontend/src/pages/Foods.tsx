@@ -34,9 +34,6 @@ export default function Foods() {
           <Apple className="h-8 w-8 mr-3 text-green-600" />
           Food Items
         </h1>
-        <button className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
-          Add Food
-        </button>
       </div>
 
       <div className="bg-white shadow overflow-hidden sm:rounded-lg">
@@ -47,16 +44,13 @@ export default function Foods() {
                 Name
               </th>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Code
-              </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                 Category
               </th>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Description
+                Subcategory
               </th>
-              <th className="px-6 py-3 relative">
-                <span className="sr-only">Actions</span>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Description
               </th>
             </tr>
           </thead>
@@ -68,28 +62,20 @@ export default function Foods() {
                     {food.name}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    {food.code}
+                    {food.category || '-'}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    {food.category || '-'}
+                    {food.subcategory || '-'}
                   </td>
                   <td className="px-6 py-4 text-sm text-gray-500">
                     {food.description || '-'}
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                    <button className="text-green-600 hover:text-green-900 mr-4">
-                      Edit
-                    </button>
-                    <button className="text-red-600 hover:text-red-900">
-                      Delete
-                    </button>
                   </td>
                 </tr>
               ))
             ) : (
               <tr>
-                <td colSpan={5} className="px-6 py-12 text-center text-gray-500">
-                  No food items found. Add your first food item to get started!
+                <td colSpan={4} className="px-6 py-12 text-center text-gray-500">
+                  No food items found.
                 </td>
               </tr>
             )}

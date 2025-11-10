@@ -115,6 +115,12 @@ task copyFrontend(type: Copy) {
     into 'src/main/resources/static'
 }
 
+task killFrontend(type: Exec) {
+    group = 'frontend'
+    description = 'Kill frontend dev server (ports 5173-5175)'
+    commandLine 'bash', '-c', 'lsof -ti:5173,5174,5175 2>/dev/null | xargs kill -9 2>/dev/null || echo "No frontend dev servers running"'
+}
+
 // Create deployment build task that includes frontend
 task buildDeployment {
     group = 'build'
