@@ -85,6 +85,46 @@ tasks.named('test') {
     useJUnitPlatform()
 }
 
+// Frontend build tasks
+task npmInstall(type: Exec) {
+    group = 'frontend'
+    description = 'Install frontend dependencies'
+    workingDir 'frontend'
+    commandLine 'npm', 'install'
+}
+
+task npmBuild(type: Exec) {
+    group = 'frontend'
+    description = 'Build frontend with Vite'
+    dependsOn npmInstall
+    workingDir 'frontend'
+    commandLine 'npm', 'run', 'build'
+}
+
+task cleanStatic(type: Delete) {
+    group = 'frontend'
+    description = 'Clean static resources directory'
+    delete 'src/main/resources/static'
+}
+
+task copyFrontend(type: Copy) {
+    group = 'frontend'
+    description = 'Copy frontend build to Spring Boot static resources'
+    dependsOn npmBuild, cleanStatic
+    from 'frontend/dist'
+    into 'src/main/resources/static'
+}
+
+// Create deployment build task that includes frontend
+task buildDeployment {
+    group = 'build'
+    description = 'Build JAR with frontend included for deployment'
+    dependsOn copyFrontend, build
+
+    // Ensure frontend is copied before processing resources
+    tasks.processResources.mustRunAfter copyFrontend
+}
+
 // Liquibase configuration
 liquibase {
     activities {
