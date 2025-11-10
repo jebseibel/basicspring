@@ -14,6 +14,12 @@ public class FoodDb extends BaseFoodDb {
 
     private static final long serialVersionUID = 4913572206441095325L;
 
+    @Column(name = "category", length = 32, nullable = false)
+    private String category;
+
+    @Column(name = "subcategory", length = 32, nullable = false)
+    private String subcategory;
+
     @Column(name = "flavor", length = 32)
     private String flavor;
 

@@ -20,7 +20,7 @@ databaseChangeLog:
         # Load Flavor data
         - loadData:
             tableName: flavor
-            file: db/data/flavor.csv
+            file: db/data/20-flavor.csv
             relativeToChangelogFile: false
             encoding: UTF-8
             separator: ','
@@ -28,8 +28,6 @@ databaseChangeLog:
             columns:
               - column: { name: code, type: string }
               - column: { name: name, type: string }
-              - column: { name: category, type: string }
-              - column: { name: subcategory, type: string }
               - column: { name: description, type: string }
               - column: { name: notes, type: string }
               - column: { name: howtouse, type: string }
@@ -41,7 +39,7 @@ databaseChangeLog:
         # Load Nutrition data
         - loadData:
             tableName: nutrition
-            file: db/data/nutrition.csv
+            file: db/data/30-nutrition.csv
             relativeToChangelogFile: false
             encoding: UTF-8
             separator: ','
@@ -49,8 +47,6 @@ databaseChangeLog:
             columns:
               - column: { name: code, type: string }
               - column: { name: name, type: string }
-              - column: { name: category, type: string }
-              - column: { name: subcategory, type: string }
               - column: { name: description, type: string }
               - column: { name: notes, type: string }
               - column: { name: carbohydrate, type: numeric }
@@ -61,7 +57,7 @@ databaseChangeLog:
         # Load Serving data
         - loadData:
             tableName: serving
-            file: db/data/serving.csv
+            file: db/data/40-serving.csv
             relativeToChangelogFile: false
             encoding: UTF-8
             separator: ','
@@ -69,8 +65,6 @@ databaseChangeLog:
             columns:
               - column: { name: code, type: string }
               - column: { name: name, type: string }
-              - column: { name: category, type: string }
-              - column: { name: subcategory, type: string }
               - column: { name: description, type: string }
               - column: { name: notes, type: string }
               - column: { name: cup, type: numeric }

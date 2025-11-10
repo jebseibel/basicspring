@@ -40,8 +40,6 @@ public class NutritionDbService extends BaseDbService {
             if (entity.getCode() == null || entity.getCode().trim().isEmpty()) {
                 String generatedCode = CodeGenerator.generateCode(
                     entity.getName(),
-                    entity.getCategory(),
-                    entity.getSubcategory(),
                     code -> repository.findByCode(code).isPresent()
                 );
                 entity.setCode(generatedCode);
@@ -71,8 +69,6 @@ public class NutritionDbService extends BaseDbService {
             NutritionDb nutritionDb = existing.get();
             nutritionDb.setUpdatedAt(LocalDateTime.now());
             if (item.getName() != null) nutritionDb.setName(item.getName());
-            if (item.getCategory() != null) nutritionDb.setCategory(item.getCategory());
-            if (item.getSubcategory() != null) nutritionDb.setSubcategory(item.getSubcategory());
             if (item.getDescription() != null) nutritionDb.setDescription(item.getDescription());
             if (item.getNotes() != null) nutritionDb.setNotes(item.getNotes());
             if (item.getCarbohydrate() != null) nutritionDb.setCarbohydrate(item.getCarbohydrate());

@@ -63,8 +63,6 @@ class ServingConverter {
                 .extid(domain.getExtid())
                 .code(domain.getCode())
                 .name(domain.getName())
-                .category(domain.getCategory())
-                .subcategory(domain.getSubcategory())
                 .description(domain.getDescription())
                 .cup(domain.getCup())
                 .quarter(domain.getQuarter())
@@ -82,8 +80,6 @@ class ServingConverter {
         return Serving.builder()
                 .code(request.getCode())
                 .name(request.getName())
-                .category(request.getCategory())
-                .subcategory(request.getSubcategory())
                 .description(request.getDescription())
                 .cup(request.getCup())
                 .quarter(request.getQuarter())
@@ -98,8 +94,6 @@ class ServingConverter {
                 .extid(extid)
                 .code(request.getCode())
                 .name(request.getName())
-                .category(request.getCategory())
-                .subcategory(request.getSubcategory())
                 .description(request.getDescription())
                 .cup(request.getCup())
                 .quarter(request.getQuarter())
@@ -110,8 +104,8 @@ class ServingConverter {
     }
 
     public void validateUpdateRequest(RequestServingUpdate request) {
-        if (request.getCode() == null && request.getName() == null && request.getCategory() == null &&
-                request.getSubcategory() == null && request.getDescription() == null &&
+        if (request.getCode() == null && request.getName() == null &&
+                request.getDescription() == null &&
                 request.getCup() == null && request.getQuarter() == null &&
                 request.getTablespoon() == null && request.getTeaspoon() == null &&
                 request.getGram() == null) {

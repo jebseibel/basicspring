@@ -63,8 +63,6 @@ class NutritionConverter {
                 .extid(domain.getExtid())
                 .code(domain.getCode())
                 .name(domain.getName())
-                .category(domain.getCategory())
-                .subcategory(domain.getSubcategory())
                 .description(domain.getDescription())
                 .carbohydrate(domain.getCarbohydrate())
                 .fat(domain.getFat())
@@ -81,8 +79,6 @@ class NutritionConverter {
         return Nutrition.builder()
                 .code(request.getCode())
                 .name(request.getName())
-                .category(request.getCategory())
-                .subcategory(request.getSubcategory())
                 .description(request.getDescription())
                 .carbohydrate(request.getCarbohydrate())
                 .fat(request.getFat())
@@ -96,8 +92,6 @@ class NutritionConverter {
                 .extid(extid)
                 .code(request.getCode())
                 .name(request.getName())
-                .category(request.getCategory())
-                .subcategory(request.getSubcategory())
                 .description(request.getDescription())
                 .carbohydrate(request.getCarbohydrate())
                 .fat(request.getFat())
@@ -107,8 +101,8 @@ class NutritionConverter {
     }
 
     public void validateUpdateRequest(RequestNutritionUpdate request) {
-        if (request.getCode() == null && request.getName() == null && request.getCategory() == null &&
-                request.getSubcategory() == null && request.getDescription() == null &&
+        if (request.getCode() == null && request.getName() == null &&
+                request.getDescription() == null &&
                 request.getCarbohydrate() == null && request.getFat() == null &&
                 request.getProtein() == null && request.getSugar() == null) {
             throw new IllegalArgumentException("At least one field must be provided for update.");

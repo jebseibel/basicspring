@@ -15,8 +15,6 @@ public class Nutrition extends BaseDomain {
 
     private String code;
     private String name;
-    private String category;
-    private String subcategory;
     private String description;
     private String notes;
     private Integer carbohydrate;

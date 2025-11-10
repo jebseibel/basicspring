@@ -50,21 +50,19 @@ public class DomainBuilderDatabase extends DomainBuilderBase {
     }
 
     public static ServingDb getServingDb() {
-        return getServingDb(null, null, null, null, null, null, null, null, null, null, null, null);
+        return getServingDb(null, null, null, null, null, null, null, null, null, null);
     }
 
     public static ServingDb getServingDb(String code, String name) {
-        return getServingDb(code, name, null, null, null, null, null, null, null, null, null, null);
+        return getServingDb(code, name, null, null, null, null, null, null, null, null);
     }
 
-    public static ServingDb getServingDb(String code, String name, String category, String subcategory, String description,
+    public static ServingDb getServingDb(String code, String name, String description,
                                          Integer cup, Integer quarter, Integer tablespoon, Integer teaspoon, Integer gram, String notes, String extid) {
         ServingDb item = new ServingDb();
         item.setExtid(extid != null ? extid : UUID.randomUUID().toString());
         item.setCode(code != null ? code : getCodeRandom("SRV_"));
         item.setName(name != null ? name : getNameRandom("Serving_"));
-        item.setCategory(category != null ? category : getNameRandom("Category_"));
-        item.setSubcategory(subcategory != null ? subcategory : getNameRandom("SubCat_"));
         item.setDescription(description != null ? description : getDescriptionRandom("Serving Description "));
         item.setNotes(notes != null ? notes : getDescriptionRandom("Serving Notes "));
         item.setCup(cup != null ? cup : 1);
@@ -88,21 +86,19 @@ public class DomainBuilderDatabase extends DomainBuilderBase {
     }
 
     public static NutritionDb getNutritionDb() {
-        return getNutritionDb(null, null, null, null, null, null, null, null, null, null, null);
+        return getNutritionDb(null, null, null, null, null, null, null, null, null);
     }
 
     public static NutritionDb getNutritionDb(String code, String name) {
-        return getNutritionDb(code, name, null, null, null, null, null, null, null, null, null);
+        return getNutritionDb(code, name, null, null, null, null, null, null, null);
     }
 
-    public static NutritionDb getNutritionDb(String code, String name, String category, String subcategory, String description,
+    public static NutritionDb getNutritionDb(String code, String name, String description,
                                              Integer carbohydrate, Integer fat, Integer protein, Integer sugar, String notes, String extid) {
         NutritionDb item = new NutritionDb();
         item.setExtid(extid != null ? extid : UUID.randomUUID().toString());
         item.setCode(code != null ? code : getCodeRandom("NTR_"));
         item.setName(name != null ? name : getNameRandom("Nutrition_"));
-        item.setCategory(category != null ? category : getNameRandom("Category_"));
-        item.setSubcategory(subcategory != null ? subcategory : getNameRandom("SubCat_"));
         item.setDescription(description != null ? description : getDescriptionRandom("Nutrition Description "));
         item.setNotes(notes != null ? notes : getDescriptionRandom("Nutrition Notes "));
         item.setCarbohydrate(carbohydrate != null ? carbohydrate : 30);
@@ -187,21 +183,19 @@ public class DomainBuilderDatabase extends DomainBuilderBase {
     }
 
     public static FlavorDb getFlavorDb() {
-        return getFlavorDb(null, null, null, null, null, null, null, null, null, null, null, null);
+        return getFlavorDb(null, null, null, null, null, null, null, null, null, null);
     }
 
     public static FlavorDb getFlavorDb(String code, String name) {
-        return getFlavorDb(code, name, null, null, null, null, null, null, null, null, null, null);
+        return getFlavorDb(code, name, null, null, null, null, null, null, null, null);
     }
 
-    public static FlavorDb getFlavorDb(String code, String name, String category, String subcategory, String description,
+    public static FlavorDb getFlavorDb(String code, String name, String description,
                                        String usage, Integer crunch, Integer punch, Integer sweet, Integer savory, String notes, String extid) {
         FlavorDb item = new FlavorDb();
         item.setExtid(extid != null ? extid : UUID.randomUUID().toString());
         item.setCode(code != null ? code : getCodeRandom("FLV_"));
         item.setName(name != null ? name : getNameRandom("Flavor_"));
-        item.setCategory(category != null ? category : getNameRandom("Category_"));
-        item.setSubcategory(subcategory != null ? subcategory : getNameRandom("SubCat_"));
         item.setDescription(description != null ? description : getDescriptionRandom("Flavor Description "));
         item.setNotes(notes != null ? notes : getDescriptionRandom("Flavor Notes "));
         item.setHowtouse(usage != null ? usage : getVersionRandom("Usage"));

@@ -15,8 +15,6 @@ public class Flavor extends BaseDomain {
 
     private String code;
     private String name;
-    private String category;
-    private String subcategory;
     private String description;
     private String notes;
     private String howtouse;

@@ -39,8 +39,6 @@ public class ServingDbService extends BaseDbService {
             if (entity.getCode() == null || entity.getCode().trim().isEmpty()) {
                 String generatedCode = CodeGenerator.generateCode(
                     entity.getName(),
-                    entity.getCategory(),
-                    entity.getSubcategory(),
                     code -> repository.findByCode(code).isPresent()
                 );
                 entity.setCode(generatedCode);
@@ -70,8 +68,6 @@ public class ServingDbService extends BaseDbService {
             ServingDb servingDb = existing.get();
             servingDb.setUpdatedAt(LocalDateTime.now());
             if (item.getName() != null) servingDb.setName(item.getName());
-            if (item.getCategory() != null) servingDb.setCategory(item.getCategory());
-            if (item.getSubcategory() != null) servingDb.setSubcategory(item.getSubcategory());
             if (item.getDescription() != null) servingDb.setDescription(item.getDescription());
             if (item.getNotes() != null) servingDb.setNotes(item.getNotes());
             if (item.getCup() != null) servingDb.setCup(item.getCup());

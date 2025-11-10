@@ -58,8 +58,6 @@ class FlavorConverter {
         return Flavor.builder()
                 .code(request.getCode())
                 .name(request.getName())
-                .category(request.getCategory())
-                .subcategory(request.getSubcategory())
                 .description(request.getDescription())
                 .howtouse(request.getHowtouse())
                 .crunch(request.getCrunch())
@@ -74,8 +72,6 @@ class FlavorConverter {
                 .extid(extid)
                 .code(request.getCode())
                 .name(request.getName())
-                .category(request.getCategory())
-                .subcategory(request.getSubcategory())
                 .description(request.getDescription())
                 .howtouse(request.getHowtouse())
                 .crunch(request.getCrunch())
@@ -90,8 +86,6 @@ class FlavorConverter {
                 .extid(item.getExtid())
                 .code(item.getCode())
                 .name(item.getName())
-                .category(item.getCategory())
-                .subcategory(item.getSubcategory())
                 .description(item.getDescription())
                 .howtouse(item.getHowtouse())
                 .crunch(item.getCrunch())
@@ -108,8 +102,6 @@ class FlavorConverter {
     void validateUpdateRequest(RequestFlavorUpdate request) {
         if (request.getCode() == null &&
                 request.getName() == null &&
-                request.getCategory() == null &&
-                request.getSubcategory() == null &&
                 request.getDescription() == null &&
                 request.getHowtouse() == null &&
                 request.getCrunch() == null &&

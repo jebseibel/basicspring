@@ -39,8 +39,6 @@ public class FlavorDbService extends BaseDbService {
             if (entity.getCode() == null || entity.getCode().trim().isEmpty()) {
                 String generatedCode = CodeGenerator.generateCode(
                     entity.getName(),
-                    entity.getCategory(),
-                    entity.getSubcategory(),
                     code -> repository.findByCode(code).isPresent()
                 );
                 entity.setCode(generatedCode);
@@ -66,8 +64,6 @@ public class FlavorDbService extends BaseDbService {
 
         existing.setUpdatedAt(LocalDateTime.now());
         if (item.getName() != null) existing.setName(item.getName());
-        if (item.getCategory() != null) existing.setCategory(item.getCategory());
-        if (item.getSubcategory() != null) existing.setSubcategory(item.getSubcategory());
         if (item.getDescription() != null) existing.setDescription(item.getDescription());
         if (item.getNotes() != null) existing.setNotes(item.getNotes());
         if (item.getHowtouse() != null) existing.setHowtouse(item.getHowtouse());

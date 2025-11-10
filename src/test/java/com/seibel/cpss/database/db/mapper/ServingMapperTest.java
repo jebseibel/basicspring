@@ -34,8 +34,6 @@ class ServingMapperTest {
         assertEquals(db.getExtid(), domain.getExtid());
         assertEquals(db.getCode(), domain.getCode());
         assertEquals(db.getName(), domain.getName());
-        assertEquals(db.getCategory(), domain.getCategory());
-        assertEquals(db.getSubcategory(), domain.getSubcategory());
         assertEquals(db.getDescription(), domain.getDescription());
         assertEquals(db.getCup(), domain.getCup());
         assertEquals(db.getQuarter(), domain.getQuarter());
@@ -61,8 +59,6 @@ class ServingMapperTest {
         assertEquals(domain.getExtid(), db.getExtid());
         assertEquals(domain.getCode(), db.getCode());
         assertEquals(domain.getName(), db.getName());
-        assertEquals(domain.getCategory(), db.getCategory());
-        assertEquals(domain.getSubcategory(), db.getSubcategory());
         assertEquals(domain.getDescription(), db.getDescription());
         assertEquals(domain.getCup(), db.getCup());
         assertEquals(domain.getQuarter(), db.getQuarter());

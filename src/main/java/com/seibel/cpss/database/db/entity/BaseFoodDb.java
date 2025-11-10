@@ -24,12 +24,6 @@ public abstract class BaseFoodDb extends BaseDb {
     @Column(name = "name", length = 32, nullable = false, unique = true)
     private String name;
 
-    @Column(name = "category", length = 32, nullable = false)
-    private String category;
-
-    @Column(name = "subcategory", length = 32, nullable = false)
-    private String subcategory;
-
     @Column(name = "description")
     private String description;
 
