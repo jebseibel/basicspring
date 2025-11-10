@@ -1,5 +1,5 @@
 import { Link, Outlet, useNavigate } from 'react-router-dom';
-import { ChefHat, Home, Salad, Users, Building2, LogOut } from 'lucide-react';
+import { ChefHat, Home, Salad, Users, Building2, LogOut, Apple, Scale, Sparkles, Utensils } from 'lucide-react';
 import { authHelpers } from '../services/api';
 
 export default function Layout() {
@@ -35,6 +35,34 @@ export default function Layout() {
                                 >
                                     <Salad className="h-4 w-4 mr-2" />
                                     Salad Builder
+                                </Link>
+                                <Link
+                                    to="/foods"
+                                    className="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-500 border-b-2 border-transparent hover:border-gray-300 hover:text-gray-700"
+                                >
+                                    <Apple className="h-4 w-4 mr-2" />
+                                    Foods
+                                </Link>
+                                <Link
+                                    to="/nutrition"
+                                    className="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-500 border-b-2 border-transparent hover:border-gray-300 hover:text-gray-700"
+                                >
+                                    <Scale className="h-4 w-4 mr-2" />
+                                    Nutrition
+                                </Link>
+                                <Link
+                                    to="/flavors"
+                                    className="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-500 border-b-2 border-transparent hover:border-gray-300 hover:text-gray-700"
+                                >
+                                    <Sparkles className="h-4 w-4 mr-2" />
+                                    Flavors
+                                </Link>
+                                <Link
+                                    to="/servings"
+                                    className="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-500 border-b-2 border-transparent hover:border-gray-300 hover:text-gray-700"
+                                >
+                                    <Utensils className="h-4 w-4 mr-2" />
+                                    Servings
                                 </Link>
                             </div>
                         </div>
