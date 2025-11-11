@@ -1,21 +1,21 @@
 code,name,description,notes,howtouse,crunch,punch,sweet,savory
-FETA-CHEESE,"Feta Cheese Flavor","Crumbled feta","Tangy and salty",spread,1,2,2,4
-GOAT-CHEESE,"Goat Cheese Flavor","Creamy goat cheese","Mild tang",spread,1,2,2,4
-BLUE-CHEESE,"Blue Cheese Flavor","Crumbled blue cheese","Bold and pungent",spread,1,2,2,4
-GORGONZOLA,"Gorgonzola Flavor","Italian blue cheese","Creamy and sharp",spread,1,2,2,4
-FRESH-MOZZARELLA,"Fresh Mozzarella Flavor","Pearl mozzarella","Mild and milky",spread,1,2,2,4
-BURRATA,"Burrata Flavor","Creamy burrata","Luxurious center",spread,1,2,2,4
-RICOTTA-SALATA,"Ricotta Salata Flavor","Crumbled ricotta salata","Salty and firm",slice,2,4,1,5
-PARMESAN,"Parmesan Flavor","Shaved parmesan","Nutty and sharp",grate,3,5,1,5
-AGED-PARMESAN,"Aged Parmesan Flavor","Aged parmigiano","Crystalline texture",grate,3,5,1,5
-PECORINO-ROMANO,"Pecorino Romano Flavor","Shaved pecorino","Sharp sheep milk",grate,3,5,1,5
-ASIAGO,"Asiago Flavor","Shaved asiago","Nutty flavor",grate,3,5,1,5
-CHEDDAR,"Cheddar Flavor","Shredded cheddar","Sharp aged cheddar",grate,3,5,1,5
-WHITE-CHEDDAR,"White Cheddar Flavor","White cheddar shreds","Creamy sharp",grate,3,5,1,5
-GRUYERE,"Gruyere Flavor","Shredded gruyere","Nutty and sweet",slice,2,3,2,5
-SWISS-CHEESE,"Swiss Cheese Flavor","Cubed swiss","Mild and nutty",slice,2,3,2,5
-MONTEREY-JACK,"Monterey Jack Flavor","Shredded jack","Mild and creamy",slice,2,3,2,5
-PEPPER-JACK,"Pepper Jack Flavor","Spicy jack cheese","Jalapeño kick",slice,2,3,2,5
-HAVARTI,"Havarti Flavor","Sliced havarti","Buttery smooth",slice,2,3,2,5
-BRIE,"Brie Flavor","Cubed brie","Creamy rind",spread,1,2,2,4
-MANCHEGO,"Manchego Flavor","Cubed manchego","Spanish sheep milk",grate,3,5,1,5
+FETA-CHEESE,"Feta Cheese","Crumbled feta","Tangy and salty",spread,1,2,2,4
+GOAT-CHEESE,"Goat Cheese","Creamy goat cheese","Mild tang",spread,1,2,2,4
+BLUE-CHEESE,"Blue Cheese","Crumbled blue cheese","Bold and pungent",spread,1,2,2,4
+GORGONZOLA,"Gorgonzola","Italian blue cheese","Creamy and sharp",spread,1,2,2,4
+FRESH-MOZZARELLA,"Fresh Mozzarella","Pearl mozzarella","Mild and milky",spread,1,2,2,4
+BURRATA,"Burrata","Creamy burrata","Luxurious center",spread,1,2,2,4
+RICOTTA-SALATA,"Ricotta Salata","Crumbled ricotta salata","Salty and firm",slice,2,4,1,5
+PARMESAN,"Parmesan","Shaved parmesan","Nutty and sharp",grate,3,5,1,5
+AGED-PARMESAN,"Aged Parmesan","Aged parmigiano","Crystalline texture",grate,3,5,1,5
+PECORINO-ROMANO,"Pecorino Romano","Shaved pecorino","Sharp sheep milk",grate,3,5,1,5
+ASIAGO,"Asiago","Shaved asiago","Nutty flavor",grate,3,5,1,5
+CHEDDAR,"Cheddar","Shredded cheddar","Sharp aged cheddar",grate,3,5,1,5
+WHITE-CHEDDAR,"White Cheddar","White cheddar shreds","Creamy sharp",grate,3,5,1,5
+GRUYERE,"Gruyere","Shredded gruyere","Nutty and sweet",slice,2,3,2,5
+SWISS-CHEESE,"Swiss Cheese","Cubed swiss","Mild and nutty",slice,2,3,2,5
+MONTEREY-JACK,"Monterey Jack","Shredded jack","Mild and creamy",slice,2,3,2,5
+PEPPER-JACK,"Pepper Jack","Spicy jack cheese","Jalapeño kick",slice,2,3,2,5
+HAVARTI,"Havarti","Sliced havarti","Buttery smooth",slice,2,3,2,5
+BRIE,"Brie","Cubed brie","Creamy rind",spread,1,2,2,4
+MANCHEGO,"Manchego","Cubed manchego","Spanish sheep milk",grate,3,5,1,5

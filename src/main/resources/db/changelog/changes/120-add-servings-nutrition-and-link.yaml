@@ -1,0 +1,263 @@
+databaseChangeLog:
+  - changeSet:
+      id: load_servings_nutrition_and_link_to_food
+      author: jeb
+      labels: load_servings_nutrition
+      changes:
+        # ===== LOAD SERVING DATA =====
+
+        # Load Serving data - Cheese
+        - loadData:
+            tableName: serving
+            file: db/data/30-serving-cheese.csv
+            relativeToChangelogFile: false
+            encoding: UTF-8
+            separator: ','
+            quotchar: '"'
+            columns:
+              - column: { name: code, type: string }
+              - column: { name: name, type: string }
+              - column: { name: description, type: string }
+              - column: { name: notes, type: string }
+              - column: { name: cup, type: numeric }
+              - column: { name: quarter, type: numeric }
+              - column: { name: tablespoon, type: numeric }
+              - column: { name: teaspoon, type: numeric }
+              - column: { name: gram, type: numeric }
+
+        # Load Serving data - Dried Crunch
+        - loadData:
+            tableName: serving
+            file: db/data/30-serving-dried-crunch.csv
+            relativeToChangelogFile: false
+            encoding: UTF-8
+            separator: ','
+            quotchar: '"'
+            columns:
+              - column: { name: code, type: string }
+              - column: { name: name, type: string }
+              - column: { name: description, type: string }
+              - column: { name: notes, type: string }
+              - column: { name: cup, type: numeric }
+              - column: { name: quarter, type: numeric }
+              - column: { name: tablespoon, type: numeric }
+              - column: { name: teaspoon, type: numeric }
+              - column: { name: gram, type: numeric }
+
+        # Load Serving data - Dried Fruit
+        - loadData:
+            tableName: serving
+            file: db/data/30-serving-dried-fruit.csv
+            relativeToChangelogFile: false
+            encoding: UTF-8
+            separator: ','
+            quotchar: '"'
+            columns:
+              - column: { name: code, type: string }
+              - column: { name: name, type: string }
+              - column: { name: description, type: string }
+              - column: { name: notes, type: string }
+              - column: { name: cup, type: numeric }
+              - column: { name: quarter, type: numeric }
+              - column: { name: tablespoon, type: numeric }
+              - column: { name: teaspoon, type: numeric }
+              - column: { name: gram, type: numeric }
+
+        # Load Serving data - Fresh Fruit
+        - loadData:
+            tableName: serving
+            file: db/data/30-serving-fresh-fruit.csv
+            relativeToChangelogFile: false
+            encoding: UTF-8
+            separator: ','
+            quotchar: '"'
+            columns:
+              - column: { name: code, type: string }
+              - column: { name: name, type: string }
+              - column: { name: description, type: string }
+              - column: { name: notes, type: string }
+              - column: { name: cup, type: numeric }
+              - column: { name: quarter, type: numeric }
+              - column: { name: tablespoon, type: numeric }
+              - column: { name: teaspoon, type: numeric }
+              - column: { name: gram, type: numeric }
+
+        # Load Serving data - Nuts
+        - loadData:
+            tableName: serving
+            file: db/data/30-serving-nuts.csv
+            relativeToChangelogFile: false
+            encoding: UTF-8
+            separator: ','
+            quotchar: '"'
+            columns:
+              - column: { name: code, type: string }
+              - column: { name: name, type: string }
+              - column: { name: description, type: string }
+              - column: { name: notes, type: string }
+              - column: { name: cup, type: numeric }
+              - column: { name: quarter, type: numeric }
+              - column: { name: tablespoon, type: numeric }
+              - column: { name: teaspoon, type: numeric }
+              - column: { name: gram, type: numeric }
+
+        # Load Serving data - Vegetables
+        - loadData:
+            tableName: serving
+            file: db/data/30-serving-vegetables.csv
+            relativeToChangelogFile: false
+            encoding: UTF-8
+            separator: ','
+            quotchar: '"'
+            columns:
+              - column: { name: code, type: string }
+              - column: { name: name, type: string }
+              - column: { name: description, type: string }
+              - column: { name: notes, type: string }
+              - column: { name: cup, type: numeric }
+              - column: { name: quarter, type: numeric }
+              - column: { name: tablespoon, type: numeric }
+              - column: { name: teaspoon, type: numeric }
+              - column: { name: gram, type: numeric }
+
+        # ===== LOAD NUTRITION DATA =====
+
+        # Load Nutrition data - Cheese
+        - loadData:
+            tableName: nutrition
+            file: db/data/40-nutrition-cheese.csv
+            relativeToChangelogFile: false
+            encoding: UTF-8
+            separator: ','
+            quotchar: '"'
+            columns:
+              - column: { name: code, type: string }
+              - column: { name: name, type: string }
+              - column: { name: description, type: string }
+              - column: { name: notes, type: string }
+              - column: { name: carbohydrate, type: numeric }
+              - column: { name: fat, type: numeric }
+              - column: { name: protein, type: numeric }
+              - column: { name: sugar, type: numeric }
+
+        # Load Nutrition data - Dried Crunch
+        - loadData:
+            tableName: nutrition
+            file: db/data/40-nutrition-dried-crunch.csv
+            relativeToChangelogFile: false
+            encoding: UTF-8
+            separator: ','
+            quotchar: '"'
+            columns:
+              - column: { name: code, type: string }
+              - column: { name: name, type: string }
+              - column: { name: description, type: string }
+              - column: { name: notes, type: string }
+              - column: { name: carbohydrate, type: numeric }
+              - column: { name: fat, type: numeric }
+              - column: { name: protein, type: numeric }
+              - column: { name: sugar, type: numeric }
+
+        # Load Nutrition data - Dried Fruit
+        - loadData:
+            tableName: nutrition
+            file: db/data/40-nutrition-dried-fruit.csv
+            relativeToChangelogFile: false
+            encoding: UTF-8
+            separator: ','
+            quotchar: '"'
+            columns:
+              - column: { name: code, type: string }
+              - column: { name: name, type: string }
+              - column: { name: description, type: string }
+              - column: { name: notes, type: string }
+              - column: { name: carbohydrate, type: numeric }
+              - column: { name: fat, type: numeric }
+              - column: { name: protein, type: numeric }
+              - column: { name: sugar, type: numeric }
+
+        # Load Nutrition data - Fresh Fruit
+        - loadData:
+            tableName: nutrition
+            file: db/data/40-nutrition-fresh-fruit.csv
+            relativeToChangelogFile: false
+            encoding: UTF-8
+            separator: ','
+            quotchar: '"'
+            columns:
+              - column: { name: code, type: string }
+              - column: { name: name, type: string }
+              - column: { name: description, type: string }
+              - column: { name: notes, type: string }
+              - column: { name: carbohydrate, type: numeric }
+              - column: { name: fat, type: numeric }
+              - column: { name: protein, type: numeric }
+              - column: { name: sugar, type: numeric }
+
+        # Load Nutrition data - Nuts
+        - loadData:
+            tableName: nutrition
+            file: db/data/40-nutrition-nuts.csv
+            relativeToChangelogFile: false
+            encoding: UTF-8
+            separator: ','
+            quotchar: '"'
+            columns:
+              - column: { name: code, type: string }
+              - column: { name: name, type: string }
+              - column: { name: description, type: string }
+              - column: { name: notes, type: string }
+              - column: { name: carbohydrate, type: numeric }
+              - column: { name: fat, type: numeric }
+              - column: { name: protein, type: numeric }
+              - column: { name: sugar, type: numeric }
+
+        # Load Nutrition data - Vegetables
+        - loadData:
+            tableName: nutrition
+            file: db/data/40-nutrition-vegetables.csv
+            relativeToChangelogFile: false
+            encoding: UTF-8
+            separator: ','
+            quotchar: '"'
+            columns:
+              - column: { name: code, type: string }
+              - column: { name: name, type: string }
+              - column: { name: description, type: string }
+              - column: { name: notes, type: string }
+              - column: { name: carbohydrate, type: numeric }
+              - column: { name: fat, type: numeric }
+              - column: { name: protein, type: numeric }
+              - column: { name: sugar, type: numeric }
+
+        # ===== LINK FOOD TO SERVING AND NUTRITION =====
+
+        # Link each food to its corresponding serving (1-to-1 relationship by name)
+        - sql:
+            sql: |
+              UPDATE food
+              SET serving_id = (
+                SELECT id
+                FROM serving
+                WHERE serving.name = food.name
+              )
+              WHERE EXISTS (
+                SELECT 1
+                FROM serving
+                WHERE serving.name = food.name
+              );
+
+        # Link each food to its corresponding nutrition (1-to-1 relationship by name)
+        - sql:
+            sql: |
+              UPDATE food
+              SET nutrition_id = (
+                SELECT id
+                FROM nutrition
+                WHERE nutrition.name = food.name
+              )
+              WHERE EXISTS (
+                SELECT 1
+                FROM nutrition
+                WHERE nutrition.name = food.name
+              );

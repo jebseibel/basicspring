@@ -1,0 +1,19 @@
+code,name,description,notes,carbohydrate,fat,protein,sugar
+SUNFLOWER-SEEDS,"Sunflower Seeds","Roasted sunflower seeds","Nutty crunch",4,12,5,1
+PUMPKIN-SEEDS,"Pumpkin Seeds","Roasted pepitas","Green and crunchy",4,12,5,1
+CHIA-SEEDS,"Chia Seeds","Whole chia seeds","Omega-3 boost",4,12,5,1
+HEMP-HEARTS,"Hemp Hearts","Hulled hemp seeds","Complete protein",4,12,5,1
+FLAX-SEEDS,"Flax Seeds","Ground flaxseed","Fiber rich",4,12,5,1
+SESAME-SEEDS,"Sesame Seeds","Toasted sesame","Asian flair",4,12,5,1
+CROUTONS,"Croutons","Garlic herb croutons","Classic topper",15,5,3,1
+SEASONED-CROUTON,"Seasoned Croutons","Italian croutons","Herbed and crispy",15,5,3,1
+GARLIC-CRISPS,"Garlic Crisps","Thin garlic chips","Aromatic crunch",15,5,3,1
+WONTON-STRIPS,"Wonton Strips","Crispy wonton strips","Asian-style crunch",15,5,3,1
+TORTILLA-STRIPS,"Tortilla Strips","Crispy tortilla strips","Tex-Mex crunch",15,5,3,1
+BACON-BITS,"Bacon Bits","Real bacon pieces","Smoky crunch",15,5,3,1
+FRIED-ONIONS,"Fried Onions","Crispy fried onions","French onion style",15,5,3,1
+CHICKPEA-CRUNCH,"Chickpea Crunch","Roasted chickpeas","Protein crunch",15,5,3,1
+QUINOA-PUFFS,"Quinoa Puffs","Puffed quinoa","Light and airy",15,5,3,1
+GRANOLA-CLUSTERS,"Granola Clusters","Honey granola","Sweet clusters",15,5,3,1
+COCONUT-FLAKES,"Coconut Flakes","Toasted coconut","Sweet and crispy",15,5,3,1
+PITA-CHIPS,"Pita Chips","Seasoned pita chips","Mediterranean crunch",15,5,3,1

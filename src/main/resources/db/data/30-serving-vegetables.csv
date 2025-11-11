@@ -1,0 +1,31 @@
+code,name,description,notes,cup,quarter,tablespoon,teaspoon,gram
+ROMAINE-LETTUCE,"Romaine Lettuce","Crisp romaine leaves","Classic salad base",100,25,50,17,100
+FRESH-SPINACH,"Fresh Spinach","Baby spinach leaves","Nutrient powerhouse",100,25,50,17,100
+CURLY-KALE,"Curly Kale","Fresh kale leaves","Superfood green",100,25,50,17,100
+FRESH-ARUGULA,"Fresh Arugula","Peppery arugula","Bold flavor profile",100,25,50,17,100
+MIXED-SPRING-GRE,"Mixed Spring Greens","Baby green blend","Tender mixed greens",100,25,50,17,100
+ICEBERG-LETTUCE,"Iceberg Lettuce","Crisp iceberg","Refreshing crunch",100,25,50,17,100
+BUTTER-LETTUCE,"Butter Lettuce","Soft butter lettuce","Delicate leaves",100,25,50,17,100
+CHERRY-TOMATOES,"Cherry Tomatoes","Sweet cherry tomatoes","Bursting with flavor",100,25,50,17,100
+GRAPE-TOMATOES,"Grape Tomatoes","Tiny grape tomatoes","Pop of sweetness",100,25,50,17,100
+ROMA-TOMATOES,"Roma Tomatoes","Diced roma tomatoes","Meaty texture",100,25,50,17,100
+ENGLISH-CUCUMBER,"English Cucumber","Sliced cucumber","Cool and crisp",100,25,50,17,100
+PERSIAN-CUCUMBER,"Persian Cucumber","Mini cucumbers","Seedless variety",100,25,50,17,100
+SHREDDED-CARROTS,"Shredded Carrots","Fresh carrot shreds","Natural sweetness",100,25,50,17,100
+CARROT-COINS,"Carrot Coins","Sliced carrots","Colorful rounds",100,25,50,17,100
+BELL-PEPPER-MIX,"Bell Pepper Mix","Tri-color peppers","Red yellow green",100,25,50,17,100
+RED-BELL-PEPPER,"Red Bell Pepper","Sweet red peppers","Roasted option",100,25,50,17,100
+YELLOW-BELL-PEPP,"Yellow Bell Pepper","Mild yellow peppers","Bright and sweet",100,25,50,17,100
+RED-ONION,"Red Onion","Sliced red onion","Sharp and tangy",100,25,50,17,100
+WHITE-ONION,"White Onion","Diced white onion","Pungent flavor",100,25,50,17,100
+GREEN-ONION,"Green Onion","Sliced scallions","Mild onion flavor",100,25,50,17,100
+BROCCOLI-FLORETS,"Broccoli Florets","Fresh broccoli","Nutrient dense",100,25,50,17,100
+CAULIFLOWER-RICE,"Cauliflower Rice","Riced cauliflower","Low-carb option",100,25,50,17,100
+SHAVED-BRUSSELS,"Shaved Brussels","Thinly sliced sprouts","Crunchy texture",100,25,50,17,100
+RADISH-SLICES,"Radish Slices","Fresh radish rounds","Peppery crunch",100,25,50,17,100
+BEETS,"Beets","Roasted beet cubes","Earthy sweetness",100,25,50,17,100
+SWEET-POTATO,"Sweet Potato","Roasted sweet potato","Caramelized cubes",100,25,50,17,100
+CORN-KERNELS,"Corn Kernels","Fresh corn kernels","Sweet and crunchy",100,25,50,17,100
+EDAMAME,"Edamame","Shelled edamame","Protein boost",100,25,50,17,100
+SUGAR-SNAP-PEAS,"Sugar Snap Peas","Crisp snap peas","Fresh and sweet",100,25,50,17,100
+BABY-CORN,"Baby Corn","Pickled baby corn","Unique texture",100,25,50,17,100

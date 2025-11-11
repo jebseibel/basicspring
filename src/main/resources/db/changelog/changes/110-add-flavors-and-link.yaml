@@ -118,18 +118,17 @@ databaseChangeLog:
               - column: { name: sweet, type: numeric }
               - column: { name: savory, type: numeric }
 
-        # Link each food to its corresponding flavor (1-to-1 relationship)
-        # Flavor names are formatted as: "{Food Name} Flavor"
+        # Link each food to its corresponding flavor (1-to-1 relationship by name)
         - sql:
             sql: |
               UPDATE food
               SET flavor_id = (
                 SELECT id
                 FROM flavor
-                WHERE flavor.name = CONCAT(food.name, ' Flavor')
+                WHERE flavor.name = food.name
               )
               WHERE EXISTS (
                 SELECT 1
                 FROM flavor
-                WHERE flavor.name = CONCAT(food.name, ' Flavor')
+                WHERE flavor.name = food.name
               );

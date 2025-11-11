@@ -1,19 +1,19 @@
 code,name,description,notes,howtouse,crunch,punch,sweet,savory
-SUNFLOWER-SEEDS,"Sunflower Seeds Flavor","Roasted sunflower seeds","Nutty crunch",topping,4,2,2,3
-PUMPKIN-SEEDS,"Pumpkin Seeds Flavor","Roasted pepitas","Green and crunchy",topping,4,2,2,3
-CHIA-SEEDS,"Chia Seeds Flavor","Whole chia seeds","Omega-3 boost",topping,4,2,2,3
-HEMP-HEARTS,"Hemp Hearts Flavor","Hulled hemp seeds","Complete protein",topping,4,2,2,3
-FLAX-SEEDS,"Flax Seeds Flavor","Ground flaxseed","Fiber rich",topping,4,2,2,3
-SESAME-SEEDS,"Sesame Seeds Flavor","Toasted sesame","Asian flair",topping,4,2,2,3
-CROUTONS,"Croutons Flavor","Garlic herb croutons","Classic topper",topping,5,2,2,3
-SEASONED-CROUTON,"Seasoned Croutons Flavor","Italian croutons","Herbed and crispy",topping,5,2,2,3
-GARLIC-CRISPS,"Garlic Crisps Flavor","Thin garlic chips","Aromatic crunch",topping,5,2,2,3
-WONTON-STRIPS,"Wonton Strips Flavor","Crispy wonton strips","Asian-style crunch",topping,5,3,1,5
-TORTILLA-STRIPS,"Tortilla Strips Flavor","Crispy tortilla strips","Tex-Mex crunch",topping,5,3,1,5
-BACON-BITS,"Bacon Bits Flavor","Real bacon pieces","Smoky crunch",topping,5,4,1,5
-FRIED-ONIONS,"Fried Onions Flavor","Crispy fried onions","French onion style",topping,5,3,2,3
-CHICKPEA-CRUNCH,"Chickpea Crunch Flavor","Roasted chickpeas","Protein crunch",topping,4,3,2,4
-QUINOA-PUFFS,"Quinoa Puffs Flavor","Puffed quinoa","Light and airy",topping,5,2,2,3
-GRANOLA-CLUSTERS,"Granola Clusters Flavor","Honey granola","Sweet clusters",topping,5,2,2,3
-COCONUT-FLAKES,"Coconut Flakes Flavor","Toasted coconut","Sweet and crispy",fresh,2,4,5,1
-PITA-CHIPS,"Pita Chips Flavor","Seasoned pita chips","Mediterranean crunch",topping,5,2,2,3
+SUNFLOWER-SEEDS,"Sunflower Seeds","Roasted sunflower seeds","Nutty crunch",topping,4,2,2,3
+PUMPKIN-SEEDS,"Pumpkin Seeds","Roasted pepitas","Green and crunchy",topping,4,2,2,3
+CHIA-SEEDS,"Chia Seeds","Whole chia seeds","Omega-3 boost",topping,4,2,2,3
+HEMP-HEARTS,"Hemp Hearts","Hulled hemp seeds","Complete protein",topping,4,2,2,3
+FLAX-SEEDS,"Flax Seeds","Ground flaxseed","Fiber rich",topping,4,2,2,3
+SESAME-SEEDS,"Sesame Seeds","Toasted sesame","Asian flair",topping,4,2,2,3
+CROUTONS,"Croutons","Garlic herb croutons","Classic topper",topping,5,2,2,3
+SEASONED-CROUTON,"Seasoned Croutons","Italian croutons","Herbed and crispy",topping,5,2,2,3
+GARLIC-CRISPS,"Garlic Crisps","Thin garlic chips","Aromatic crunch",topping,5,2,2,3
+WONTON-STRIPS,"Wonton Strips","Crispy wonton strips","Asian-style crunch",topping,5,3,1,5
+TORTILLA-STRIPS,"Tortilla Strips","Crispy tortilla strips","Tex-Mex crunch",topping,5,3,1,5
+BACON-BITS,"Bacon Bits","Real bacon pieces","Smoky crunch",topping,5,4,1,5
+FRIED-ONIONS,"Fried Onions","Crispy fried onions","French onion style",topping,5,3,2,3
+CHICKPEA-CRUNCH,"Chickpea Crunch","Roasted chickpeas","Protein crunch",topping,4,3,2,4
+QUINOA-PUFFS,"Quinoa Puffs","Puffed quinoa","Light and airy",topping,5,2,2,3
+GRANOLA-CLUSTERS,"Granola Clusters","Honey granola","Sweet clusters",topping,5,2,2,3
+COCONUT-FLAKES,"Coconut Flakes","Toasted coconut","Sweet and crispy",fresh,2,4,5,1
+PITA-CHIPS,"Pita Chips","Seasoned pita chips","Mediterranean crunch",topping,5,2,2,3
