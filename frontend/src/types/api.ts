@@ -7,9 +7,10 @@ export interface Food {
     subcategory?: string;
     description?: string;
     notes?: string;
-    flavorExtid?: string;
-    nutritionExtid?: string;
-    servingExtid?: string;
+    foundation?: boolean;
+    flavor?: Flavor;
+    nutrition?: Nutrition;
+    serving?: Serving;
 }
 
 export interface FoodRequest {

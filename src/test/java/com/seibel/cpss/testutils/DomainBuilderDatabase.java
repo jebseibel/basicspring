@@ -130,15 +130,15 @@ public class DomainBuilderDatabase extends DomainBuilderBase {
         food.setDeletedAt(item.getDeletedAt());
         food.setActive(item.getActive());
 
-        // Create simple mock objects for flavor, nutrition, serving
+        // Copy entity relationships
         if (item.getFlavor() != null) {
-            food.setFlavor(getFlavor(getFlavorDb(item.getFlavor(), "Flavor_" + item.getFlavor())));
+            food.setFlavor(item.getFlavor());
         }
         if (item.getNutrition() != null) {
-            food.setNutrition(getNutrition(getNutritionDb(item.getNutrition(), "Nutrition_" + item.getNutrition())));
+            food.setNutrition(item.getNutrition());
         }
         if (item.getServing() != null) {
-            food.setServing(getServing(getServingDb(item.getServing(), "Serving_" + item.getServing())));
+            food.setServing(item.getServing());
         }
 
         return food;
@@ -153,7 +153,7 @@ public class DomainBuilderDatabase extends DomainBuilderBase {
     }
 
     public static FoodDb getFoodDb(String code, String name, String category, String subcategory, String description,
-                                   String flavor, String nutrition, String serving, String notes,
+                                   FlavorDb flavor, NutritionDb nutrition, ServingDb serving, String notes,
                                    String extid) {
         FoodDb item = new FoodDb();
         item.setExtid(extid != null ? extid : UUID.randomUUID().toString());
@@ -163,9 +163,9 @@ public class DomainBuilderDatabase extends DomainBuilderBase {
         item.setSubcategory(subcategory != null ? subcategory : getNameRandom("SubCat_"));
         item.setDescription(description != null ? description : getDescriptionRandom("Food Description "));
         item.setNotes(notes != null ? notes : getDescriptionRandom("Food Notes "));
-        item.setFlavor(flavor != null ? flavor : getCodeRandom("FLV_"));
-        item.setNutrition(nutrition != null ? nutrition : getCodeRandom("NTR_"));
-        item.setServing(serving != null ? serving : getCodeRandom("SRV_"));
+        item.setFlavor(flavor != null ? flavor : getFlavorDb());
+        item.setNutrition(nutrition != null ? nutrition : getNutritionDb());
+        item.setServing(serving != null ? serving : getServingDb());
 
         setBaseSyncFields(item);
         return item;
