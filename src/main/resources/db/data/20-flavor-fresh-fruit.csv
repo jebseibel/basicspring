@@ -1,0 +1,19 @@
+code,name,description,notes,howtouse,crunch,punch,sweet,savory
+STRAWBERRIES,"Strawberries Flavor","Fresh sliced strawberries","Sweet and juicy",fresh,2,4,5,1
+BLUEBERRIES,"Blueberries Flavor","Fresh blueberries","Antioxidant powerhouse",fresh,2,4,5,1
+RASPBERRIES,"Raspberries Flavor","Fresh raspberries","Delicate and tart",fresh,2,4,5,1
+BLACKBERRIES,"Blackberries Flavor","Fresh blackberries","Bold berry flavor",fresh,2,4,5,1
+APPLE-SLICES,"Apple Slices Flavor","Crisp apple slices","Classic fruit choice",fresh,3,2,4,1
+PEAR-SLICES,"Pear Slices Flavor","Juicy pear slices","Subtly sweet",fresh,3,2,4,1
+ORANGE-SEGMENTS,"Orange Segments Flavor","Fresh orange segments","Bright citrus burst",fresh,2,5,4,1
+GRAPEFRUIT-SEGME,"Grapefruit Segments Flavor","Ruby red grapefruit","Tangy and refreshing",fresh,2,5,4,1
+MANDARIN-ORANGES,"Mandarin Oranges Flavor","Sweet mandarin segments","Easy to eat",fresh,2,5,4,1
+PINEAPPLE-CHUNKS,"Pineapple Chunks Flavor","Fresh pineapple pieces","Tropical sweetness",fresh,2,4,5,1
+MANGO-CHUNKS,"Mango Chunks Flavor","Fresh mango cubes","Smooth and sweet",fresh,2,4,5,1
+WATERMELON-CUBES,"Watermelon Cubes Flavor","Juicy watermelon","Refreshing hydration",fresh,2,2,4,1
+CANTALOUPE-CUBES,"Cantaloupe Cubes Flavor","Sweet cantaloupe","Peachy orange flesh",fresh,2,2,4,1
+HONEYDEW-MELON,"Honeydew Melon Flavor","Green honeydew cubes","Mild and sweet",fresh,2,2,4,1
+GRAPES,"Grapes Flavor","Fresh grape halves","Seedless variety",fresh,2,3,5,1
+KIWI-SLICES,"Kiwi Slices Flavor","Fresh kiwi rounds","Bright green color",fresh,2,4,5,1
+POMEGRANATE-ARIL,"Pomegranate Arils Flavor","Ruby pomegranate seeds","Jewel-like texture",fresh,2,4,5,1
+PEACH-SLICES,"Peach Slices Flavor","Fresh peach wedges","Summer sweetness",fresh,2,3,5,1

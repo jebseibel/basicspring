@@ -1,16 +1,16 @@
-name,category,subcategory,description,notes,flavor,nutrition,serving,foundation
-Sliced Almonds,Nuts,Tree Nut,Thin sliced almonds,Perfect for adding crunch,FLVALM,NUTALM,SRVALM,true
-Whole Almonds,Nuts,Tree Nut,Whole roasted almonds,Heart-healthy option,FLVWALM,NUTWALM,SRVWALM,false
-Chopped Walnuts,Nuts,Tree Nut,Chopped walnuts,Rich omega-3 source,FLVWAL,NUTWAL,SRVWAL,true
-Walnut Halves,Nuts,Tree Nut,Premium walnut halves,Beautiful presentation,FLVWHAL,NUTWHAL,SRVWHAL,false
-Pecan Halves,Nuts,Tree Nut,Fresh pecan halves,Sweet and buttery,FLVPEC,NUTPEC,SRVPEC,false
-Chopped Pecans,Nuts,Tree Nut,Chopped pecans,Great for texture,FLVCPEC,NUTCPEC,SRVCPEC,false
-Cashews,Nuts,Tree Nut,Roasted cashews,Creamy and mild,FLVCASH,NUTCASH,SRVCASH,false
-Pistachios,Nuts,Tree Nut,Shelled pistachios,Vibrant green color,FLVPIST,NUTPIST,SRVPIST,false
-Honey Roasted Peanuts,Nuts,Legume,Sweet honey peanuts,Candied crunch,FLVHPEA,NUTHPEA,SRVHPEA,false
-Dry Roasted Peanuts,Nuts,Legume,Unsalted peanuts,Classic protein,FLVDPEA,NUTDPEA,SRVDPEA,false
-Macadamia Nuts,Nuts,Tree Nut,Buttery macadamias,Luxury nut option,FLVMAC,NUTMAC,SRVMAC,false
-Hazelnuts,Nuts,Tree Nut,Roasted hazelnuts,Rich and earthy,FLVHAZ,NUTHAZ,SRVHAZ,false
-Mixed Nuts,Nuts,Tree Nut,Variety nut blend,Assorted favorites,FLVMIX,NUTMIX,SRVMIX,false
-Candied Pecans,Nuts,Tree Nut,Sweet glazed pecans,Caramelized coating,FLVCPEC,NUTCPEC,SRVCPEC,false
-Pine Nuts,Nuts,Tree Nut,Mediterranean pine nuts,Delicate and buttery,FLVPINE,NUTPINE,SRVPINE,false
+name,category,subcategory,description,notes,foundation
+Sliced Almonds,Nuts,Tree Nut,Thin sliced almonds,Perfect for adding crunch,true
+Whole Almonds,Nuts,Tree Nut,Whole roasted almonds,Heart-healthy option,false
+Chopped Walnuts,Nuts,Tree Nut,Chopped walnuts,Rich omega-3 source,true
+Walnut Halves,Nuts,Tree Nut,Premium walnut halves,Beautiful presentation,false
+Pecan Halves,Nuts,Tree Nut,Fresh pecan halves,Sweet and buttery,false
+Chopped Pecans,Nuts,Tree Nut,Chopped pecans,Great for texture,false
+Cashews,Nuts,Tree Nut,Roasted cashews,Creamy and mild,false
+Pistachios,Nuts,Tree Nut,Shelled pistachios,Vibrant green color,false
+Honey Roasted Peanuts,Nuts,Legume,Sweet honey peanuts,Candied crunch,false
+Dry Roasted Peanuts,Nuts,Legume,Unsalted peanuts,Classic protein,false
+Macadamia Nuts,Nuts,Tree Nut,Buttery macadamias,Luxury nut option,false
+Hazelnuts,Nuts,Tree Nut,Roasted hazelnuts,Rich and earthy,false
+Mixed Nuts,Nuts,Tree Nut,Variety nut blend,Assorted favorites,false
+Candied Pecans,Nuts,Tree Nut,Sweet glazed pecans,Caramelized coating,false
+Pine Nuts,Nuts,Tree Nut,Mediterranean pine nuts,Delicate and buttery,false

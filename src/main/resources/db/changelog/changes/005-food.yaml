@@ -17,12 +17,39 @@ databaseChangeLog:
               - column: { name: subcategory, type: varchar(32), constraints: { nullable: false } }
               - column: { name: description, type: varchar(255) }
               - column: { name: notes, type: varchar(1000) }
-              - column: { name: flavor, type: varchar(32) }
-              - column: { name: nutrition, type: varchar(32) }
-              - column: { name: serving, type: varchar(32) }
+              - column: { name: flavor_id, type: bigint }
+              - column: { name: nutrition_id, type: bigint }
+              - column: { name: serving_id, type: bigint }
               - column: { name: foundation, type: boolean, constraints: { nullable: false }, defaultValueBoolean: false }
               - column: { name: created_at, type: datetime, constraints: { nullable: false }, defaultValueComputed: CURRENT_TIMESTAMP }
               - column: { name: updated_at, type: datetime }
               - column: { name: deleted_at, type: datetime }
               - column: { name: active, type: int, defaultValueNumeric: 1 }
 
+        # Foreign Key Constraints
+        - addForeignKeyConstraint:
+            baseTableName: food
+            baseColumnNames: flavor_id
+            constraintName: fk_food_flavor
+            referencedTableName: flavor
+            referencedColumnNames: id
+            onDelete: SET NULL
+            onUpdate: CASCADE
+
+        - addForeignKeyConstraint:
+            baseTableName: food
+            baseColumnNames: nutrition_id
+            constraintName: fk_food_nutrition
+            referencedTableName: nutrition
+            referencedColumnNames: id
+            onDelete: SET NULL
+            onUpdate: CASCADE
+
+        - addForeignKeyConstraint:
+            baseTableName: food
+            baseColumnNames: serving_id
+            constraintName: fk_food_serving
+            referencedTableName: serving
+            referencedColumnNames: id
+            onDelete: SET NULL
+            onUpdate: CASCADE

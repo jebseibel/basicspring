@@ -1,8 +1,6 @@
 package com.seibel.cpss.database.db.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -20,14 +18,17 @@ public class FoodDb extends BaseFoodDb {
     @Column(name = "subcategory", length = 32, nullable = false)
     private String subcategory;
 
-    @Column(name = "flavor", length = 32)
-    private String flavor;
+    @OneToOne
+    @JoinColumn(name = "flavor_id", referencedColumnName = "id")
+    private FlavorDb flavor;
 
-    @Column(name = "nutrition", length = 32)
-    private String nutrition;
+    @OneToOne
+    @JoinColumn(name = "nutrition_id", referencedColumnName = "id")
+    private NutritionDb nutrition;
 
-    @Column(name = "serving", length = 32)
-    private String serving;
+    @OneToOne
+    @JoinColumn(name = "serving_id", referencedColumnName = "id")
+    private ServingDb serving;
 
     @Column(name = "foundation", nullable = false)
     private Boolean foundation = false;

@@ -57,18 +57,15 @@ public class FoodMapper {
         food.setDeletedAt(item.getDeletedAt());
         food.setActive(item.getActive());
 
-        // Convert String codes to objects
+        // Convert entity relationships to domain models
         if (item.getFlavor() != null) {
-            FlavorDb flavorDb = flavorRepository.findByCode(item.getFlavor()).orElse(null);
-            food.setFlavor(flavorMapper.toModel(flavorDb));
+            food.setFlavor(flavorMapper.toModel(item.getFlavor()));
         }
         if (item.getNutrition() != null) {
-            NutritionDb nutritionDb = nutritionRepository.findByCode(item.getNutrition()).orElse(null);
-            food.setNutrition(nutritionMapper.toModel(nutritionDb));
+            food.setNutrition(nutritionMapper.toModel(item.getNutrition()));
         }
         if (item.getServing() != null) {
-            ServingDb servingDb = servingRepository.findByCode(item.getServing()).orElse(null);
-            food.setServing(servingMapper.toModel(servingDb));
+            food.setServing(servingMapper.toModel(item.getServing()));
         }
 
         return food;
@@ -93,15 +90,18 @@ public class FoodMapper {
         foodDb.setDeletedAt(item.getDeletedAt());
         foodDb.setActive(item.getActive());
 
-        // Convert objects to String codes
+        // Convert domain models to entity relationships (lookup by code)
         if (item.getFlavor() != null) {
-            foodDb.setFlavor(item.getFlavor().getCode());
+            FlavorDb flavorDb = flavorRepository.findByCode(item.getFlavor().getCode()).orElse(null);
+            foodDb.setFlavor(flavorDb);
         }
         if (item.getNutrition() != null) {
-            foodDb.setNutrition(item.getNutrition().getCode());
+            NutritionDb nutritionDb = nutritionRepository.findByCode(item.getNutrition().getCode()).orElse(null);
+            foodDb.setNutrition(nutritionDb);
         }
         if (item.getServing() != null) {
-            foodDb.setServing(item.getServing().getCode());
+            ServingDb servingDb = servingRepository.findByCode(item.getServing().getCode()).orElse(null);
+            foodDb.setServing(servingDb);
         }
 
         return foodDb;

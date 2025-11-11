@@ -1,0 +1,31 @@
+code,name,description,notes,howtouse,crunch,punch,sweet,savory
+ROMAINE-LETTUCE,"Romaine Lettuce Flavor","Crisp romaine leaves","Classic salad base",fresh,2,2,1,3
+FRESH-SPINACH,"Fresh Spinach Flavor","Baby spinach leaves","Nutrient powerhouse",fresh,2,2,1,3
+CURLY-KALE,"Curly Kale Flavor","Fresh kale leaves","Superfood green",fresh,2,2,1,3
+FRESH-ARUGULA,"Fresh Arugula Flavor","Peppery arugula","Bold flavor profile",fresh,2,2,1,3
+MIXED-SPRING-GRE,"Mixed Spring Greens Flavor","Baby green blend","Tender mixed greens",fresh,2,2,1,3
+ICEBERG-LETTUCE,"Iceberg Lettuce Flavor","Crisp iceberg","Refreshing crunch",fresh,2,2,1,3
+BUTTER-LETTUCE,"Butter Lettuce Flavor","Soft butter lettuce","Delicate leaves",fresh,2,2,1,3
+CHERRY-TOMATOES,"Cherry Tomatoes Flavor","Sweet cherry tomatoes","Bursting with flavor",fresh,2,2,2,3
+GRAPE-TOMATOES,"Grape Tomatoes Flavor","Tiny grape tomatoes","Pop of sweetness",fresh,2,2,2,3
+ROMA-TOMATOES,"Roma Tomatoes Flavor","Diced roma tomatoes","Meaty texture",fresh,2,2,2,3
+ENGLISH-CUCUMBER,"English Cucumber Flavor","Sliced cucumber","Cool and crisp",fresh,2,2,2,3
+PERSIAN-CUCUMBER,"Persian Cucumber Flavor","Mini cucumbers","Seedless variety",fresh,2,2,2,3
+SHREDDED-CARROTS,"Shredded Carrots Flavor","Fresh carrot shreds","Natural sweetness",cooked,3,2,3,4
+CARROT-COINS,"Carrot Coins Flavor","Sliced carrots","Colorful rounds",cooked,3,2,3,4
+BELL-PEPPER-MIX,"Bell Pepper Mix Flavor","Tri-color peppers","Red yellow green",fresh,2,2,2,3
+RED-BELL-PEPPER,"Red Bell Pepper Flavor","Sweet red peppers","Roasted option",fresh,2,2,2,3
+YELLOW-BELL-PEPP,"Yellow Bell Pepper Flavor","Mild yellow peppers","Bright and sweet",fresh,2,2,2,3
+RED-ONION,"Red Onion Flavor","Sliced red onion","Sharp and tangy",cooked,2,5,2,5
+WHITE-ONION,"White Onion Flavor","Diced white onion","Pungent flavor",cooked,2,5,2,5
+GREEN-ONION,"Green Onion Flavor","Sliced scallions","Mild onion flavor",cooked,2,5,2,5
+BROCCOLI-FLORETS,"Broccoli Florets Flavor","Fresh broccoli","Nutrient dense",cooked,3,4,1,4
+CAULIFLOWER-RICE,"Cauliflower Rice Flavor","Riced cauliflower","Low-carb option",cooked,3,4,1,4
+SHAVED-BRUSSELS-,"Shaved Brussels Sprouts Flavor","Thinly sliced sprouts","Crunchy texture",cooked,3,4,1,4
+RADISH-SLICES,"Radish Slices Flavor","Fresh radish rounds","Peppery crunch",cooked,3,2,3,4
+BEETS,"Beets Flavor","Roasted beet cubes","Earthy sweetness",cooked,3,2,3,4
+SWEET-POTATO,"Sweet Potato Flavor","Roasted sweet potato","Caramelized cubes",cooked,3,2,3,4
+CORN-KERNELS,"Corn Kernels Flavor","Fresh corn kernels","Sweet and crunchy",cooked,3,2,2,3
+EDAMAME,"Edamame Flavor","Shelled edamame","Protein boost",topping,4,3,2,4
+SUGAR-SNAP-PEAS,"Sugar Snap Peas Flavor","Crisp snap peas","Fresh and sweet",topping,4,3,2,4
+BABY-CORN,"Baby Corn Flavor","Pickled baby corn","Unique texture",cooked,3,2,2,3

@@ -1,4 +1,1 @@
 username,password,email,role
-testuser,$2a$10$N9qo8uLOickgx2ZMRZoMye0J2Ky3sVPHQVUq5N2k1HQwJLEWJBZOC,test@example.com,USER
-admin,$2a$10$N9qo8uLOickgx2ZMRZoMye0J2Ky3sVPHQVUq5N2k1HQwJLEWJBZOC,admin@example.com,ADMIN
-

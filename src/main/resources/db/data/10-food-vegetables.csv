@@ -1,31 +1,31 @@
-name,category,subcategory,description,notes,flavor,nutrition,serving,foundation
-Romaine Lettuce,Vegetable,Leafy Green,Crisp romaine leaves,Classic salad base,FLVROM,NUTROM,SRVROM,true
-Fresh Spinach,Vegetable,Leafy Green,Baby spinach leaves,Nutrient powerhouse,FLVSPI,NUTSPI,SRVSPI,true
-Curly Kale,Vegetable,Leafy Green,Fresh kale leaves,Superfood green,FLVKALE,NUTKALE,SRVKALE,false
-Fresh Arugula,Vegetable,Leafy Green,Peppery arugula,Bold flavor profile,FLVARG,NUTARG,SRVARG,false
-Mixed Spring Greens,Vegetable,Leafy Green,Baby green blend,Tender mixed greens,FLVSPRI,NUTSPRI,SRVSPRI,false
-Iceberg Lettuce,Vegetable,Leafy Green,Crisp iceberg,Refreshing crunch,FLVICE,NUTICE,SRVICE,false
-Butter Lettuce,Vegetable,Leafy Green,Soft butter lettuce,Delicate leaves,FLVBUTT,NUTBUTT,SRVBUTT,false
-Cherry Tomatoes,Vegetable,Fruit Vegetable,Sweet cherry tomatoes,Bursting with flavor,FLVCHER,NUTCHER,SRVCHER,true
-Grape Tomatoes,Vegetable,Fruit Vegetable,Tiny grape tomatoes,Pop of sweetness,FLVGTOM,NUTGTOM,SRVGTOM,false
-Roma Tomatoes,Vegetable,Fruit Vegetable,Diced roma tomatoes,Meaty texture,FLVROMA,NUTROMA,SRVROMA,false
-English Cucumber,Vegetable,Fruit Vegetable,Sliced cucumber,Cool and crisp,FLVCUC,NUTCUC,SRVCUC,true
-Persian Cucumber,Vegetable,Fruit Vegetable,Mini cucumbers,Seedless variety,FLVPERS,NUTPERS,SRVPERS,false
-Shredded Carrots,Vegetable,Root Vegetable,Fresh carrot shreds,Natural sweetness,FLVCAR,NUTCAR,SRVCAR,true
-Carrot Coins,Vegetable,Root Vegetable,Sliced carrots,Colorful rounds,FLVCCOI,NUTCCOI,SRVCCOI,false
-Bell Pepper Mix,Vegetable,Fruit Vegetable,Tri-color peppers,Red yellow green,FLVBEL,NUTBEL,SRVBEL,true
-Red Bell Pepper,Vegetable,Fruit Vegetable,Sweet red peppers,Roasted option,FLVRPEP,NUTRPEP,SRVRPEP,false
-Yellow Bell Pepper,Vegetable,Fruit Vegetable,Mild yellow peppers,Bright and sweet,FLVYPEP,NUTYPEP,SRVYPEP,false
-Red Onion,Vegetable,Bulb Vegetable,Sliced red onion,Sharp and tangy,FLVRON,NUTRON,SRVRON,true
-White Onion,Vegetable,Bulb Vegetable,Diced white onion,Pungent flavor,FLVWON,NUTWON,SRVWON,false
-Green Onion,Vegetable,Bulb Vegetable,Sliced scallions,Mild onion flavor,FLVGON,NUTGON,SRVGON,false
-Broccoli Florets,Vegetable,Cruciferous,Fresh broccoli,Nutrient dense,FLVBROC,NUTBROC,SRVBROC,false
-Cauliflower Rice,Vegetable,Cruciferous,Riced cauliflower,Low-carb option,FLVCAUL,NUTCAUL,SRVCAUL,false
-Shaved Brussels Sprouts,Vegetable,Cruciferous,Thinly sliced sprouts,Crunchy texture,FLVBRUS,NUTBRUS,SRVBRUS,false
-Radish Slices,Vegetable,Root Vegetable,Fresh radish rounds,Peppery crunch,FLVRAD,NUTRAD,SRVRAD,false
-Beets,Vegetable,Root Vegetable,Roasted beet cubes,Earthy sweetness,FLVBEET,NUTBEET,SRVBEET,false
-Sweet Potato,Vegetable,Root Vegetable,Roasted sweet potato,Caramelized cubes,FLVSWPO,NUTSWPO,SRVSWPO,false
-Corn Kernels,Vegetable,Grain Vegetable,Fresh corn kernels,Sweet and crunchy,FLVCORN,NUTCORN,SRVCORN,false
-Edamame,Vegetable,Legume,Shelled edamame,Protein boost,FLVEDA,NUTEDA,SRVEDA,false
-Sugar Snap Peas,Vegetable,Legume,Crisp snap peas,Fresh and sweet,FLVSNAP,NUTSNAP,SRVSNAP,false
-Baby Corn,Vegetable,Grain Vegetable,Pickled baby corn,Unique texture,FLVBCOR,NUTBCOR,SRVBCOR,false
+name,category,subcategory,description,notes,foundation
+Romaine Lettuce,Vegetable,Leafy Green,Crisp romaine leaves,Classic salad base,true
+Fresh Spinach,Vegetable,Leafy Green,Baby spinach leaves,Nutrient powerhouse,true
+Curly Kale,Vegetable,Leafy Green,Fresh kale leaves,Superfood green,false
+Fresh Arugula,Vegetable,Leafy Green,Peppery arugula,Bold flavor profile,false
+Mixed Spring Greens,Vegetable,Leafy Green,Baby green blend,Tender mixed greens,false
+Iceberg Lettuce,Vegetable,Leafy Green,Crisp iceberg,Refreshing crunch,false
+Butter Lettuce,Vegetable,Leafy Green,Soft butter lettuce,Delicate leaves,false
+Cherry Tomatoes,Vegetable,Fruit Vegetable,Sweet cherry tomatoes,Bursting with flavor,true
+Grape Tomatoes,Vegetable,Fruit Vegetable,Tiny grape tomatoes,Pop of sweetness,false
+Roma Tomatoes,Vegetable,Fruit Vegetable,Diced roma tomatoes,Meaty texture,false
+English Cucumber,Vegetable,Fruit Vegetable,Sliced cucumber,Cool and crisp,true
+Persian Cucumber,Vegetable,Fruit Vegetable,Mini cucumbers,Seedless variety,false
+Shredded Carrots,Vegetable,Root Vegetable,Fresh carrot shreds,Natural sweetness,true
+Carrot Coins,Vegetable,Root Vegetable,Sliced carrots,Colorful rounds,false
+Bell Pepper Mix,Vegetable,Fruit Vegetable,Tri-color peppers,Red yellow green,true
+Red Bell Pepper,Vegetable,Fruit Vegetable,Sweet red peppers,Roasted option,false
+Yellow Bell Pepper,Vegetable,Fruit Vegetable,Mild yellow peppers,Bright and sweet,false
+Red Onion,Vegetable,Bulb Vegetable,Sliced red onion,Sharp and tangy,true
+White Onion,Vegetable,Bulb Vegetable,Diced white onion,Pungent flavor,false
+Green Onion,Vegetable,Bulb Vegetable,Sliced scallions,Mild onion flavor,false
+Broccoli Florets,Vegetable,Cruciferous,Fresh broccoli,Nutrient dense,false
+Cauliflower Rice,Vegetable,Cruciferous,Riced cauliflower,Low-carb option,false
+Shaved Brussels Sprouts,Vegetable,Cruciferous,Thinly sliced sprouts,Crunchy texture,false
+Radish Slices,Vegetable,Root Vegetable,Fresh radish rounds,Peppery crunch,false
+Beets,Vegetable,Root Vegetable,Roasted beet cubes,Earthy sweetness,false
+Sweet Potato,Vegetable,Root Vegetable,Roasted sweet potato,Caramelized cubes,false
+Corn Kernels,Vegetable,Grain Vegetable,Fresh corn kernels,Sweet and crunchy,false
+Edamame,Vegetable,Legume,Shelled edamame,Protein boost,false
+Sugar Snap Peas,Vegetable,Legume,Crisp snap peas,Fresh and sweet,false
+Baby Corn,Vegetable,Grain Vegetable,Pickled baby corn,Unique texture,false

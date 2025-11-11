@@ -1,0 +1,135 @@
+databaseChangeLog:
+  - changeSet:
+      id: load_flavors_and_link_to_food
+      author: jeb
+      labels: load_flavors
+      changes:
+        # Load Flavor data - Cheese
+        - loadData:
+            tableName: flavor
+            file: db/data/20-flavor-cheese.csv
+            relativeToChangelogFile: false
+            encoding: UTF-8
+            separator: ','
+            quotchar: '"'
+            columns:
+              - column: { name: code, type: string }
+              - column: { name: name, type: string }
+              - column: { name: description, type: string }
+              - column: { name: notes, type: string }
+              - column: { name: howtouse, type: string }
+              - column: { name: crunch, type: numeric }
+              - column: { name: punch, type: numeric }
+              - column: { name: sweet, type: numeric }
+              - column: { name: savory, type: numeric }
+
+        # Load Flavor data - Dried Crunch
+        - loadData:
+            tableName: flavor
+            file: db/data/20-flavor-dried-crunch.csv
+            relativeToChangelogFile: false
+            encoding: UTF-8
+            separator: ','
+            quotchar: '"'
+            columns:
+              - column: { name: code, type: string }
+              - column: { name: name, type: string }
+              - column: { name: description, type: string }
+              - column: { name: notes, type: string }
+              - column: { name: howtouse, type: string }
+              - column: { name: crunch, type: numeric }
+              - column: { name: punch, type: numeric }
+              - column: { name: sweet, type: numeric }
+              - column: { name: savory, type: numeric }
+
+        # Load Flavor data - Dried Fruit
+        - loadData:
+            tableName: flavor
+            file: db/data/20-flavor-dried-fruit.csv
+            relativeToChangelogFile: false
+            encoding: UTF-8
+            separator: ','
+            quotchar: '"'
+            columns:
+              - column: { name: code, type: string }
+              - column: { name: name, type: string }
+              - column: { name: description, type: string }
+              - column: { name: notes, type: string }
+              - column: { name: howtouse, type: string }
+              - column: { name: crunch, type: numeric }
+              - column: { name: punch, type: numeric }
+              - column: { name: sweet, type: numeric }
+              - column: { name: savory, type: numeric }
+
+        # Load Flavor data - Fresh Fruit
+        - loadData:
+            tableName: flavor
+            file: db/data/20-flavor-fresh-fruit.csv
+            relativeToChangelogFile: false
+            encoding: UTF-8
+            separator: ','
+            quotchar: '"'
+            columns:
+              - column: { name: code, type: string }
+              - column: { name: name, type: string }
+              - column: { name: description, type: string }
+              - column: { name: notes, type: string }
+              - column: { name: howtouse, type: string }
+              - column: { name: crunch, type: numeric }
+              - column: { name: punch, type: numeric }
+              - column: { name: sweet, type: numeric }
+              - column: { name: savory, type: numeric }
+
+        # Load Flavor data - Nuts
+        - loadData:
+            tableName: flavor
+            file: db/data/20-flavor-nuts.csv
+            relativeToChangelogFile: false
+            encoding: UTF-8
+            separator: ','
+            quotchar: '"'
+            columns:
+              - column: { name: code, type: string }
+              - column: { name: name, type: string }
+              - column: { name: description, type: string }
+              - column: { name: notes, type: string }
+              - column: { name: howtouse, type: string }
+              - column: { name: crunch, type: numeric }
+              - column: { name: punch, type: numeric }
+              - column: { name: sweet, type: numeric }
+              - column: { name: savory, type: numeric }
+
+        # Load Flavor data - Vegetables
+        - loadData:
+            tableName: flavor
+            file: db/data/20-flavor-vegetables.csv
+            relativeToChangelogFile: false
+            encoding: UTF-8
+            separator: ','
+            quotchar: '"'
+            columns:
+              - column: { name: code, type: string }
+              - column: { name: name, type: string }
+              - column: { name: description, type: string }
+              - column: { name: notes, type: string }
+              - column: { name: howtouse, type: string }
+              - column: { name: crunch, type: numeric }
+              - column: { name: punch, type: numeric }
+              - column: { name: sweet, type: numeric }
+              - column: { name: savory, type: numeric }
+
+        # Link each food to its corresponding flavor (1-to-1 relationship)
+        # Flavor names are formatted as: "{Food Name} Flavor"
+        - sql:
+            sql: |
+              UPDATE food
+              SET flavor_id = (
+                SELECT id
+                FROM flavor
+                WHERE flavor.name = CONCAT(food.name, ' Flavor')
+              )
+              WHERE EXISTS (
+                SELECT 1
+                FROM flavor
+                WHERE flavor.name = CONCAT(food.name, ' Flavor')
+              );
