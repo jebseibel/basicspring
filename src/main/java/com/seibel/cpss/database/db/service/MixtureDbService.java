@@ -1,9 +1,12 @@
 package com.seibel.cpss.database.db.service;
 
 import com.seibel.cpss.common.domain.Mixture;
+import com.seibel.cpss.common.domain.MixtureIngredient;
 import com.seibel.cpss.common.enums.ActiveEnum;
 import com.seibel.cpss.database.db.entity.MixtureDb;
+import com.seibel.cpss.database.db.entity.MixtureIngredientDb;
 import com.seibel.cpss.database.db.exceptions.DatabaseFailureException;
+import com.seibel.cpss.database.db.mapper.MixtureIngredientMapper;
 import com.seibel.cpss.database.db.mapper.MixtureMapper;
 import com.seibel.cpss.database.db.repository.MixtureRepository;
 import lombok.NonNull;
@@ -12,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -21,11 +25,13 @@ public class MixtureDbService extends BaseDbService {
 
     private final MixtureRepository repository;
     private final MixtureMapper mapper;
+    private final MixtureIngredientMapper ingredientMapper;
 
-    public MixtureDbService(MixtureRepository repository, MixtureMapper mapper) {
+    public MixtureDbService(MixtureRepository repository, MixtureMapper mapper, MixtureIngredientMapper ingredientMapper) {
         super("MixtureDb");
         this.repository = repository;
         this.mapper = mapper;
+        this.ingredientMapper = ingredientMapper;
     }
 
     @Transactional
@@ -40,6 +46,24 @@ public class MixtureDbService extends BaseDbService {
             mixture.setActive(ActiveEnum.ACTIVE);
 
             MixtureDb mixtureDb = mapper.toDb(mixture);
+
+            // Handle ingredients
+            if (mixture.getIngredients() != null && !mixture.getIngredients().isEmpty()) {
+                List<MixtureIngredientDb> ingredientDbs = new ArrayList<>();
+                for (MixtureIngredient ingredient : mixture.getIngredients()) {
+                    ingredient.setExtid(UUID.randomUUID().toString());
+                    ingredient.setCreatedAt(now);
+                    ingredient.setUpdatedAt(now);
+                    ingredient.setActive(ActiveEnum.ACTIVE);
+                    ingredient.setMixtureId(null); // Will be set by cascade
+
+                    MixtureIngredientDb ingredientDb = ingredientMapper.toDb(ingredient);
+                    ingredientDb.setMixture(mixtureDb);
+                    ingredientDbs.add(ingredientDb);
+                }
+                mixtureDb.setIngredients(ingredientDbs);
+            }
+
             MixtureDb saved = repository.save(mixtureDb);
 
             log.info(createdMessage(extid));
@@ -60,9 +84,28 @@ public class MixtureDbService extends BaseDbService {
         }
 
         try {
+            LocalDateTime now = LocalDateTime.now();
             record.setName(mixture.getName());
             record.setDescription(mixture.getDescription());
-            record.setUpdatedAt(LocalDateTime.now());
+            record.setUpdatedAt(now);
+
+            // Handle ingredients update - clear and replace
+            if (mixture.getIngredients() != null) {
+                record.getIngredients().clear();
+
+                List<MixtureIngredientDb> ingredientDbs = new ArrayList<>();
+                for (MixtureIngredient ingredient : mixture.getIngredients()) {
+                    ingredient.setExtid(UUID.randomUUID().toString());
+                    ingredient.setCreatedAt(now);
+                    ingredient.setUpdatedAt(now);
+                    ingredient.setActive(ActiveEnum.ACTIVE);
+
+                    MixtureIngredientDb ingredientDb = ingredientMapper.toDb(ingredient);
+                    ingredientDb.setMixture(record);
+                    ingredientDbs.add(ingredientDb);
+                }
+                record.getIngredients().addAll(ingredientDbs);
+            }
 
             MixtureDb updated = repository.save(record);
             log.info(updatedMessage(extid));

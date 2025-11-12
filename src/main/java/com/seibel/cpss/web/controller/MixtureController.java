@@ -84,27 +84,78 @@ class MixtureConverter {
     private final FoodService foodService;
 
     Mixture toDomain(RequestMixtureCreate request, String userExtid) {
-        return Mixture.builder()
+        Mixture mixture = Mixture.builder()
                 .name(request.getName())
                 .description(request.getDescription())
                 .userExtid(userExtid)
                 .build();
+
+        // Convert ingredients
+        if (request.getIngredients() != null && !request.getIngredients().isEmpty()) {
+            List<com.seibel.cpss.common.domain.MixtureIngredient> ingredients = new ArrayList<>();
+            for (RequestMixtureCreate.MixtureIngredientRequest ingredientReq : request.getIngredients()) {
+                com.seibel.cpss.common.domain.MixtureIngredient ingredient =
+                    com.seibel.cpss.common.domain.MixtureIngredient.builder()
+                        .foodExtid(ingredientReq.getFoodExtid())
+                        .quantity(ingredientReq.getQuantity())
+                        .unit("tablespoon") // Hardcoded for Phase 1
+                        .build();
+                ingredients.add(ingredient);
+            }
+            mixture.setIngredients(ingredients);
+        }
+
+        return mixture;
     }
 
     Mixture toDomain(String extid, RequestMixtureUpdate request) {
-        return Mixture.builder()
+        Mixture mixture = Mixture.builder()
                 .extid(extid)
                 .name(request.getName())
                 .description(request.getDescription())
                 .build();
+
+        // Convert ingredients
+        if (request.getIngredients() != null && !request.getIngredients().isEmpty()) {
+            List<com.seibel.cpss.common.domain.MixtureIngredient> ingredients = new ArrayList<>();
+            for (RequestMixtureUpdate.MixtureIngredientRequest ingredientReq : request.getIngredients()) {
+                com.seibel.cpss.common.domain.MixtureIngredient ingredient =
+                    com.seibel.cpss.common.domain.MixtureIngredient.builder()
+                        .foodExtid(ingredientReq.getFoodExtid())
+                        .quantity(ingredientReq.getQuantity())
+                        .unit("tablespoon") // Hardcoded for Phase 1
+                        .build();
+                ingredients.add(ingredient);
+            }
+            mixture.setIngredients(ingredients);
+        }
+
+        return mixture;
     }
 
     ResponseMixture toResponse(Mixture mixture) {
+        List<ResponseMixture.MixtureIngredientResponse> ingredientResponses = new ArrayList<>();
+
+        if (mixture.getIngredients() != null) {
+            for (com.seibel.cpss.common.domain.MixtureIngredient ingredient : mixture.getIngredients()) {
+                ResponseMixture.MixtureIngredientResponse ingredientResponse =
+                    ResponseMixture.MixtureIngredientResponse.builder()
+                        .extid(ingredient.getExtid())
+                        .foodExtid(ingredient.getFoodExtid())
+                        .foodName(ingredient.getFood() != null ? ingredient.getFood().getName() : null)
+                        .quantity(ingredient.getQuantity())
+                        .unit(ingredient.getUnit())
+                        .build();
+                ingredientResponses.add(ingredientResponse);
+            }
+        }
+
         return ResponseMixture.builder()
                 .extid(mixture.getExtid())
                 .name(mixture.getName())
                 .description(mixture.getDescription())
                 .userExtid(mixture.getUserExtid())
+                .ingredients(ingredientResponses)
                 .createdAt(mixture.getCreatedAt())
                 .updatedAt(mixture.getUpdatedAt())
                 .build();

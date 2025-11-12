@@ -2,14 +2,19 @@ package com.seibel.cpss.database.db.mapper;
 
 import com.seibel.cpss.common.domain.Mixture;
 import com.seibel.cpss.database.db.entity.MixtureDb;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Component
+@RequiredArgsConstructor
 public class MixtureMapper {
+
+    private final MixtureIngredientMapper ingredientMapper;
 
     public Mixture toModel(MixtureDb item) {
         if (Objects.isNull(item)) {
@@ -26,6 +31,13 @@ public class MixtureMapper {
         mixture.setUpdatedAt(item.getUpdatedAt());
         mixture.setDeletedAt(item.getDeletedAt());
         mixture.setActive(item.getActive());
+
+        // Convert ingredients
+        if (item.getIngredients() != null && !item.getIngredients().isEmpty()) {
+            mixture.setIngredients(ingredientMapper.toModelList(item.getIngredients()));
+        } else {
+            mixture.setIngredients(new ArrayList<>());
+        }
 
         return mixture;
     }
@@ -45,6 +57,9 @@ public class MixtureMapper {
         mixtureDb.setUpdatedAt(item.getUpdatedAt());
         mixtureDb.setDeletedAt(item.getDeletedAt());
         mixtureDb.setActive(item.getActive());
+
+        // Note: Ingredients are handled separately in the service layer
+        // to avoid circular dependencies and manage relationships properly
 
         return mixtureDb;
     }

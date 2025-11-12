@@ -1,8 +1,11 @@
 package com.seibel.cpss.service;
 
+import com.seibel.cpss.common.domain.Food;
 import com.seibel.cpss.common.domain.Mixture;
+import com.seibel.cpss.common.domain.MixtureIngredient;
 import com.seibel.cpss.common.exceptions.ResourceNotFoundException;
 import com.seibel.cpss.common.exceptions.ServiceException;
+import com.seibel.cpss.common.exceptions.ValidationException;
 import com.seibel.cpss.database.db.exceptions.DatabaseFailureException;
 import com.seibel.cpss.database.db.service.MixtureDbService;
 import lombok.extern.slf4j.Slf4j;
@@ -17,10 +20,12 @@ import java.util.List;
 public class MixtureService extends BaseService {
 
     private final MixtureDbService dbService;
+    private final FoodService foodService;
 
-    public MixtureService(MixtureDbService dbService) {
+    public MixtureService(MixtureDbService dbService, FoodService foodService) {
         super(Mixture.class.getSimpleName());
         this.dbService = dbService;
+        this.foodService = foodService;
     }
 
     @Transactional
@@ -29,6 +34,9 @@ public class MixtureService extends BaseService {
         requireNonBlank(mixture.getName(), "name");
         requireNonBlank(mixture.getUserExtid(), "userExtid");
         log.info("create(): {}", mixture.getName());
+
+        // Validate ingredients
+        validateIngredients(mixture);
 
         try {
             return dbService.create(mixture);
@@ -43,6 +51,9 @@ public class MixtureService extends BaseService {
         requireNonBlank(extid, "extid");
         requireNonNull(mixture, "Mixture");
         log.info("update(): extid={}, {}", extid, mixture.getName());
+
+        // Validate ingredients
+        validateIngredients(mixture);
 
         try {
             Mixture updated = dbService.update(extid, mixture);
@@ -105,6 +116,32 @@ public class MixtureService extends BaseService {
         } catch (DatabaseFailureException e) {
             log.error("Failed to retrieve all mixtures", e);
             throw new ServiceException("Unable to retrieve mixtures", e);
+        }
+    }
+
+    private void validateIngredients(Mixture mixture) {
+        if (mixture.getIngredients() == null || mixture.getIngredients().isEmpty()) {
+            throw new ValidationException("Mixture must have at least one ingredient");
+        }
+
+        for (MixtureIngredient ingredient : mixture.getIngredients()) {
+            if (ingredient.getFoodExtid() == null || ingredient.getFoodExtid().isBlank()) {
+                throw new ValidationException("Ingredient must have a food extid");
+            }
+
+            if (ingredient.getQuantity() == null || ingredient.getQuantity() <= 0) {
+                throw new ValidationException("Ingredient quantity must be greater than 0");
+            }
+
+            // Verify the food exists and is mixable
+            Food food = foodService.findByExtid(ingredient.getFoodExtid());
+            if (food == null) {
+                throw new ValidationException("Food not found: " + ingredient.getFoodExtid());
+            }
+
+            if (!food.getMixable()) {
+                throw new ValidationException("Food is not mixable: " + food.getName());
+            }
         }
     }
 }

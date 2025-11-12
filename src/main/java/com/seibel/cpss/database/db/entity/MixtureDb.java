@@ -4,6 +4,9 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Entity
@@ -20,4 +23,7 @@ public class MixtureDb extends BaseDb {
 
     @Column(name = "user_extid", length = 36, nullable = false)
     private String userExtid;
+
+    @OneToMany(mappedBy = "mixture", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<MixtureIngredientDb> ingredients = new ArrayList<>();
 }
