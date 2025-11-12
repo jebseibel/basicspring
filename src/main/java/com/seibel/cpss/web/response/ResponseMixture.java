@@ -23,7 +23,7 @@ public class ResponseMixture {
         private String extid;
         private String foodExtid;
         private String foodName;
-        private Double quantity;
+        private Integer quantity;
         private String unit;
     }
 }

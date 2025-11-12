@@ -21,7 +21,7 @@ public class MixtureIngredientDb extends BaseDb {
     private FoodDb food;
 
     @Column(name = "quantity", nullable = false)
-    private Double quantity;
+    private Integer quantity;
 
     @Column(name = "unit", length = 20, nullable = false)
     private String unit;

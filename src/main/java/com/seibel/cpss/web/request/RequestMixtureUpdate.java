@@ -21,6 +21,6 @@ public class RequestMixtureUpdate extends BaseRequest {
     @Data
     public static class MixtureIngredientRequest {
         private String foodExtid;
-        private Double quantity;
+        private Integer quantity;
     }
 }

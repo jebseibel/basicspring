@@ -13,7 +13,7 @@ databaseChangeLog:
               - column: { name: extid, type: varchar(36), constraints: { nullable: false, unique: true }, defaultValueComputed: "(UUID())" }
               - column: { name: mixture_id, type: bigint, constraints: { nullable: false } }
               - column: { name: food_id, type: bigint, constraints: { nullable: false } }
-              - column: { name: quantity, type: double, constraints: { nullable: false } }
+              - column: { name: quantity, type: int, constraints: { nullable: false }, defaultValueNumeric: 1 }
               - column: { name: unit, type: varchar(20), constraints: { nullable: false } }
               - column: { name: created_at, type: datetime, constraints: { nullable: false }, defaultValueComputed: CURRENT_TIMESTAMP }
               - column: { name: updated_at, type: datetime }

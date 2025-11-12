@@ -15,6 +15,6 @@ public class MixtureIngredient extends BaseDomain {
     private Long mixtureId;
     private String foodExtid;
     private Food food;
-    private Double quantity;
+    private Integer quantity;
     private String unit;
 }
