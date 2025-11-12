@@ -8,6 +8,7 @@ export interface Food {
     description?: string;
     notes?: string;
     foundation?: boolean;
+    mixable?: boolean;
     flavor?: Flavor;
     nutrition?: Nutrition;
     serving?: Serving;
@@ -20,6 +21,8 @@ export interface FoodRequest {
     subcategory?: string;
     description?: string;
     notes?: string;
+    foundation?: boolean;
+    mixable?: boolean;
     flavorExtid?: string;
     nutritionExtid?: string;
     servingExtid?: string;

@@ -80,6 +80,8 @@ class FoodConverter {
                 .flavor(request.getFlavorExtid() != null ? flavorService.findByExtid(request.getFlavorExtid()) : null)
                 .nutrition(request.getNutritionExtid() != null ? nutritionService.findByExtid(request.getNutritionExtid()) : null)
                 .serving(request.getServingExtid() != null ? servingService.findByExtid(request.getServingExtid()) : null)
+                .foundation(request.getFoundation())
+                .mixable(request.getMixable())
                 .build();
     }
 
@@ -95,6 +97,8 @@ class FoodConverter {
                 .flavor(request.getFlavorExtid() != null ? flavorService.findByExtid(request.getFlavorExtid()) : null)
                 .nutrition(request.getNutritionExtid() != null ? nutritionService.findByExtid(request.getNutritionExtid()) : null)
                 .serving(request.getServingExtid() != null ? servingService.findByExtid(request.getServingExtid()) : null)
+                .foundation(request.getFoundation())
+                .mixable(request.getMixable())
                 .build();
     }
 
@@ -110,6 +114,8 @@ class FoodConverter {
                 .flavor(item.getFlavor() != null ? flavorConverter.toResponse(item.getFlavor()) : null)
                 .nutrition(item.getNutrition() != null ? nutritionConverter.toResponse(item.getNutrition()) : null)
                 .serving(item.getServing() != null ? servingConverter.toResponse(item.getServing()) : null)
+                .foundation(item.getFoundation())
+                .mixable(item.getMixable())
                 .build();
     }
 
@@ -126,7 +132,9 @@ class FoodConverter {
                 request.getNotes() == null &&
                 request.getFlavorExtid() == null &&
                 request.getNutritionExtid() == null &&
-                request.getServingExtid() == null) {
+                request.getServingExtid() == null &&
+                request.getFoundation() == null &&
+                request.getMixable() == null) {
             throw new IllegalArgumentException("At least one field must be provided for update.");
         }
     }

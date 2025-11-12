@@ -1,19 +1,19 @@
-name,category,subcategory,description,notes,foundation
-Strawberries,Fresh Fruit,Berry,Fresh sliced strawberries,Sweet and juicy,true
-Blueberries,Fresh Fruit,Berry,Fresh blueberries,Antioxidant powerhouse,true
-Raspberries,Fresh Fruit,Berry,Fresh raspberries,Delicate and tart,false
-Blackberries,Fresh Fruit,Berry,Fresh blackberries,Bold berry flavor,false
-Apple Slices,Fresh Fruit,Pome,Crisp apple slices,Classic fruit choice,false
-Pear Slices,Fresh Fruit,Pome,Juicy pear slices,Subtly sweet,false
-Orange Segments,Fresh Fruit,Citrus,Fresh orange segments,Bright citrus burst,false
-Grapefruit Segments,Fresh Fruit,Citrus,Ruby red grapefruit,Tangy and refreshing,false
-Mandarin Oranges,Fresh Fruit,Citrus,Sweet mandarin segments,Easy to eat,false
-Pineapple Chunks,Fresh Fruit,Tropical,Fresh pineapple pieces,Tropical sweetness,false
-Mango Chunks,Fresh Fruit,Tropical,Fresh mango cubes,Smooth and sweet,false
-Watermelon Cubes,Fresh Fruit,Melon,Juicy watermelon,Refreshing hydration,false
-Cantaloupe Cubes,Fresh Fruit,Melon,Sweet cantaloupe,Peachy orange flesh,false
-Honeydew Melon,Fresh Fruit,Melon,Green honeydew cubes,Mild and sweet,false
-Grapes,Fresh Fruit,Grape,Fresh grape halves,Seedless variety,false
-Kiwi Slices,Fresh Fruit,Tropical,Fresh kiwi rounds,Bright green color,false
-Pomegranate Arils,Fresh Fruit,Berry,Ruby pomegranate seeds,Jewel-like texture,false
-Peach Slices,Fresh Fruit,Stone Fruit,Fresh peach wedges,Summer sweetness,false
+name,category,subcategory,description,notes,foundation,mixable
+Strawberries,Fresh Fruit,Berry,Fresh sliced strawberries,Sweet and juicy,true,false
+Blueberries,Fresh Fruit,Berry,Fresh blueberries,Antioxidant powerhouse,true,false
+Raspberries,Fresh Fruit,Berry,Fresh raspberries,Delicate and tart,false,false
+Blackberries,Fresh Fruit,Berry,Fresh blackberries,Bold berry flavor,false,false
+Apple Slices,Fresh Fruit,Pome,Crisp apple slices,Classic fruit choice,false,false
+Pear Slices,Fresh Fruit,Pome,Juicy pear slices,Subtly sweet,false,false
+Orange Segments,Fresh Fruit,Citrus,Fresh orange segments,Bright citrus burst,false,false
+Grapefruit Segments,Fresh Fruit,Citrus,Ruby red grapefruit,Tangy and refreshing,false,false
+Mandarin Oranges,Fresh Fruit,Citrus,Sweet mandarin segments,Easy to eat,false,false
+Pineapple Chunks,Fresh Fruit,Tropical,Fresh pineapple pieces,Tropical sweetness,false,false
+Mango Chunks,Fresh Fruit,Tropical,Fresh mango cubes,Smooth and sweet,false,false
+Watermelon Cubes,Fresh Fruit,Melon,Juicy watermelon,Refreshing hydration,false,false
+Cantaloupe Cubes,Fresh Fruit,Melon,Sweet cantaloupe,Peachy orange flesh,false,false
+Honeydew Melon,Fresh Fruit,Melon,Green honeydew cubes,Mild and sweet,false,false
+Grapes,Fresh Fruit,Grape,Fresh grape halves,Seedless variety,false,false
+Kiwi Slices,Fresh Fruit,Tropical,Fresh kiwi rounds,Bright green color,false,false
+Pomegranate Arils,Fresh Fruit,Berry,Ruby pomegranate seeds,Jewel-like texture,false,false
+Peach Slices,Fresh Fruit,Stone Fruit,Fresh peach wedges,Summer sweetness,false,false

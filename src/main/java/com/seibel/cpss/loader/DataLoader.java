@@ -208,6 +208,7 @@ public class DataLoader implements CommandLineRunner {
                 food.setDescription(record.get("description"));
                 food.setNotes(record.get("notes"));
                 food.setFoundation(parseBoolean(record.get("foundation")));
+                food.setMixable(parseBoolean(record.get("mixable")));
 
                 foodDbService.create(food);
                 count++;

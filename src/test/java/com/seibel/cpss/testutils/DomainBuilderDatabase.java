@@ -130,16 +130,16 @@ public class DomainBuilderDatabase extends DomainBuilderBase {
         food.setDeletedAt(item.getDeletedAt());
         food.setActive(item.getActive());
 
-        // Copy entity relationships
-        if (item.getFlavor() != null) {
-            food.setFlavor(item.getFlavor());
-        }
-        if (item.getNutrition() != null) {
-            food.setNutrition(item.getNutrition());
-        }
-        if (item.getServing() != null) {
-            food.setServing(item.getServing());
-        }
+//        // Copy entity relationships
+//        if (item.getFlavor() != null) {
+//            food.setFlavor(item.getFlavor());
+//        }
+//        if (item.getNutrition() != null) {
+//            food.setNutrition(item.getNutrition());
+//        }
+//        if (item.getServing() != null) {
+//            food.setServing(item.getServing());
+//        }
 
         return food;
     }

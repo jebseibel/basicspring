@@ -1,20 +1,25 @@
 package com.seibel.cpss.web.controller;
 
 import com.seibel.cpss.common.domain.Food;
+import com.seibel.cpss.common.domain.Salad;
 import com.seibel.cpss.service.FoodService;
+import com.seibel.cpss.service.SaladService;
 import com.seibel.cpss.web.request.RequestSaladBuild;
+import com.seibel.cpss.web.request.RequestSaladCreate;
+import com.seibel.cpss.web.request.RequestSaladUpdate;
 import com.seibel.cpss.web.response.ResponseFlavor;
 import com.seibel.cpss.web.response.ResponseNutrition;
 import com.seibel.cpss.web.response.ResponseSalad;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/salad")
@@ -23,83 +28,86 @@ import java.util.List;
 public class SaladController {
 
     private final FoodService foodService;
+    private final SaladService saladService;
     private final FlavorConverter flavorConverter;
     private final NutritionConverter nutritionConverter;
+    private final SaladConverter saladConverter;
 
-    @PostMapping("/build")
-    public ResponseSalad buildSalad(@RequestBody RequestSaladBuild request) {
-        List<ResponseSalad.SaladIngredientDetail> ingredientDetails = new ArrayList<>();
+    @PostMapping
+    public ResponseEntity<ResponseSalad> create(@RequestBody RequestSaladCreate request, Authentication authentication) {
+        String userExtid = authentication.getName(); // Assuming username is the extid
+        Salad salad = saladConverter.toDomain(request, userExtid);
+        Salad created = saladService.create(salad);
+        return ResponseEntity.status(HttpStatus.CREATED).body(saladConverter.toResponse(created));
+    }
 
-        int totalCarbs = 0;
-        int totalFat = 0;
-        int totalProtein = 0;
-        int totalSugar = 0;
+    @GetMapping("/{extid}")
+    public ResponseSalad getByExtid(@PathVariable String extid) {
+        Salad salad = saladService.findByExtid(extid);
+        return saladConverter.toResponse(salad);
+    }
 
-        int sumCrunch = 0;
-        int sumPunch = 0;
-        int sumSweet = 0;
-        int sumSavory = 0;
-        int flavorCount = 0;
+    @GetMapping("/user/{userExtid}")
+    public List<ResponseSalad> getByUserExtid(@PathVariable String userExtid) {
+        List<Salad> salads = saladService.findByUserExtid(userExtid);
+        return salads.stream()
+                .map(saladConverter::toResponse)
+                .collect(Collectors.toList());
+    }
 
-        for (RequestSaladBuild.SaladIngredient ingredient : request.getIngredients()) {
-            Food food = foodService.findByExtid(ingredient.getFoodExtid());
+    @GetMapping
+    public List<ResponseSalad> getAll() {
+        List<Salad> salads = saladService.findAll();
+        return salads.stream()
+                .map(saladConverter::toResponse)
+                .collect(Collectors.toList());
+    }
 
-            ResponseNutrition nutrition = food.getNutrition() != null
-                ? nutritionConverter.toResponse(food.getNutrition())
-                : null;
+    @PutMapping("/{extid}")
+    public ResponseSalad update(@PathVariable String extid, @RequestBody RequestSaladUpdate request) {
+        Salad salad = saladConverter.toDomain(extid, request);
+        Salad updated = saladService.update(extid, salad);
+        return saladConverter.toResponse(updated);
+    }
 
-            ResponseFlavor flavor = food.getFlavor() != null
-                ? flavorConverter.toResponse(food.getFlavor())
-                : null;
+    @DeleteMapping("/{extid}")
+    public ResponseEntity<Void> delete(@PathVariable String extid) {
+        saladService.delete(extid);
+        return ResponseEntity.noContent().build();
+    }
+}
 
-            // Aggregate nutrition based on quantity
-            if (nutrition != null) {
-                totalCarbs += (int) (nutrition.getCarbohydrate() * ingredient.getQuantity());
-                totalFat += (int) (nutrition.getFat() * ingredient.getQuantity());
-                totalProtein += (int) (nutrition.getProtein() * ingredient.getQuantity());
-                totalSugar += (int) (nutrition.getSugar() * ingredient.getQuantity());
-            }
+// package-private converter
+@org.springframework.stereotype.Component
+@RequiredArgsConstructor
+class SaladConverter {
 
-            // Aggregate flavor (will be averaged later)
-            if (flavor != null) {
-                sumCrunch += flavor.getCrunch();
-                sumPunch += flavor.getPunch();
-                sumSweet += flavor.getSweet();
-                sumSavory += flavor.getSavory();
-                flavorCount++;
-            }
+    private final FoodService foodService;
 
-            ingredientDetails.add(ResponseSalad.SaladIngredientDetail.builder()
-                    .foodExtid(food.getExtid())
-                    .foodName(food.getName())
-                    .quantity(ingredient.getQuantity())
-                    .nutrition(nutrition)
-                    .flavor(flavor)
-                    .build());
-        }
-
-        // Calculate average flavor
-        ResponseSalad.AggregatedFlavor averageFlavor = null;
-        if (flavorCount > 0) {
-            averageFlavor = ResponseSalad.AggregatedFlavor.builder()
-                    .averageCrunch(sumCrunch / flavorCount)
-                    .averagePunch(sumPunch / flavorCount)
-                    .averageSweet(sumSweet / flavorCount)
-                    .averageSavory(sumSavory / flavorCount)
-                    .build();
-        }
-
-        ResponseSalad.AggregatedNutrition totalNutrition = ResponseSalad.AggregatedNutrition.builder()
-                .totalCarbohydrate(totalCarbs)
-                .totalFat(totalFat)
-                .totalProtein(totalProtein)
-                .totalSugar(totalSugar)
+    Salad toDomain(RequestSaladCreate request, String userExtid) {
+        return Salad.builder()
+                .name(request.getName())
+                .description(request.getDescription())
+                .userExtid(userExtid)
                 .build();
+    }
 
+    Salad toDomain(String extid, RequestSaladUpdate request) {
+        return Salad.builder()
+                .extid(extid)
+                .name(request.getName())
+                .description(request.getDescription())
+                .build();
+    }
+
+    ResponseSalad toResponse(Salad salad) {
         return ResponseSalad.builder()
-                .ingredients(ingredientDetails)
-                .totalNutrition(totalNutrition)
-                .averageFlavor(averageFlavor)
+                .extid(salad.getExtid())
+                .name(salad.getName())
+                .description(salad.getDescription())
+                .userExtid(salad.getUserExtid())
+                .createdAt(salad.getCreatedAt())
+                .updatedAt(salad.getUpdatedAt())
                 .build();
     }
 }

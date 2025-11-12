@@ -1,1 +1,1 @@
-I want to add JWT to this project. It needs to work locally and in AWS production.
+we are working on something called mixture. We have the backend, now we need the frontend

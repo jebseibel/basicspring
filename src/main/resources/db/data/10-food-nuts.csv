@@ -1,16 +1,16 @@
-name,category,subcategory,description,notes,foundation
-Sliced Almonds,Nuts,Tree Nut,Thin sliced almonds,Perfect for adding crunch,true
-Whole Almonds,Nuts,Tree Nut,Whole roasted almonds,Heart-healthy option,false
-Chopped Walnuts,Nuts,Tree Nut,Chopped walnuts,Rich omega-3 source,true
-Walnut Halves,Nuts,Tree Nut,Premium walnut halves,Beautiful presentation,false
-Pecan Halves,Nuts,Tree Nut,Fresh pecan halves,Sweet and buttery,false
-Chopped Pecans,Nuts,Tree Nut,Chopped pecans,Great for texture,false
-Cashews,Nuts,Tree Nut,Roasted cashews,Creamy and mild,false
-Pistachios,Nuts,Tree Nut,Shelled pistachios,Vibrant green color,false
-Honey Roasted Peanuts,Nuts,Legume,Sweet honey peanuts,Candied crunch,false
-Dry Roasted Peanuts,Nuts,Legume,Unsalted peanuts,Classic protein,false
-Macadamia Nuts,Nuts,Tree Nut,Buttery macadamias,Luxury nut option,false
-Hazelnuts,Nuts,Tree Nut,Roasted hazelnuts,Rich and earthy,false
-Mixed Nuts,Nuts,Tree Nut,Variety nut blend,Assorted favorites,false
-Candied Pecans,Nuts,Tree Nut,Sweet glazed pecans,Caramelized coating,false
-Pine Nuts,Nuts,Tree Nut,Mediterranean pine nuts,Delicate and buttery,false
+name,category,subcategory,description,notes,foundation,mixable
+Sliced Almonds,Nuts,Tree Nut,Thin sliced almonds,Perfect for adding crunch,true,false
+Whole Almonds,Nuts,Tree Nut,Whole roasted almonds,Heart-healthy option,false,false
+Chopped Walnuts,Nuts,Tree Nut,Chopped walnuts,Rich omega-3 source,true,true
+Walnut Halves,Nuts,Tree Nut,Premium walnut halves,Beautiful presentation,false,false
+Pecan Halves,Nuts,Tree Nut,Fresh pecan halves,Sweet and buttery,false,false
+Chopped Pecans,Nuts,Tree Nut,Chopped pecans,Great for texture,false,false
+Cashews,Nuts,Tree Nut,Roasted cashews,Creamy and mild,false,false
+Pistachios,Nuts,Tree Nut,Shelled pistachios,Vibrant green color,false,true
+Honey Roasted Peanuts,Nuts,Legume,Sweet honey peanuts,Candied crunch,false,false
+Dry Roasted Peanuts,Nuts,Legume,Unsalted peanuts,Classic protein,false,false
+Macadamia Nuts,Nuts,Tree Nut,Buttery macadamias,Luxury nut option,false,false
+Hazelnuts,Nuts,Tree Nut,Roasted hazelnuts,Rich and earthy,false,true
+Mixed Nuts,Nuts,Tree Nut,Variety nut blend,Assorted favorites,false,false
+Candied Pecans,Nuts,Tree Nut,Sweet glazed pecans,Caramelized coating,false,false
+Pine Nuts,Nuts,Tree Nut,Mediterranean pine nuts,Delicate and buttery,false,true

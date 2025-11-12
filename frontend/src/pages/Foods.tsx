@@ -10,6 +10,8 @@ type SortDirection = 'asc' | 'desc' | null;
 export default function Foods() {
   const [sortField, setSortField] = useState<SortField | null>(null);
   const [sortDirection, setSortDirection] = useState<SortDirection>(null);
+  const [mixableFilter, setMixableFilter] = useState<'all' | 'mixable' | 'non-mixable'>('all');
+  const [foundationFilter, setFoundationFilter] = useState<'all' | 'foundation'>('all');
 
   const { data: foods, isLoading, error } = useQuery({
     queryKey: ['foods'],
@@ -19,10 +21,28 @@ export default function Foods() {
     },
   });
 
-  const sortedFoods = useMemo(() => {
-    if (!foods || !sortField || !sortDirection) return foods;
+  const filteredAndSortedFoods = useMemo(() => {
+    if (!foods) return foods;
 
-    return [...foods].sort((a, b) => {
+    // First apply filters
+    let filtered = foods;
+
+    // Apply mixable filter
+    if (mixableFilter === 'mixable') {
+      filtered = filtered.filter(food => food.mixable === true);
+    } else if (mixableFilter === 'non-mixable') {
+      filtered = filtered.filter(food => food.mixable !== true);
+    }
+
+    // Apply foundation filter
+    if (foundationFilter === 'foundation') {
+      filtered = filtered.filter(food => food.foundation === true);
+    }
+
+    // Then apply sorting
+    if (!sortField || !sortDirection) return filtered;
+
+    return [...filtered].sort((a, b) => {
       let aValue = a[sortField];
       let bValue = b[sortField];
 
@@ -38,7 +58,7 @@ export default function Foods() {
       if (aValue > bValue) return sortDirection === 'asc' ? 1 : -1;
       return 0;
     });
-  }, [foods, sortField, sortDirection]);
+  }, [foods, sortField, sortDirection, mixableFilter, foundationFilter]);
 
   const handleSort = (field: SortField) => {
     if (sortField === field) {
@@ -88,6 +108,32 @@ export default function Foods() {
           <Apple className="h-8 w-8 mr-3 text-green-600" />
           Food Items
         </h1>
+        <div className="flex items-center gap-4">
+          <div className="flex items-center gap-2">
+            <input
+              type="checkbox"
+              id="foundationFilter"
+              checked={foundationFilter === 'foundation'}
+              onChange={(e) => setFoundationFilter(e.target.checked ? 'foundation' : 'all')}
+              className="w-4 h-4 text-green-600 bg-gray-100 border-gray-300 rounded focus:ring-green-500 focus:ring-2"
+            />
+            <label htmlFor="foundationFilter" className="text-sm font-medium text-gray-700 cursor-pointer">
+              Foundation
+            </label>
+          </div>
+          <div className="flex items-center gap-2">
+            <input
+              type="checkbox"
+              id="mixableFilter"
+              checked={mixableFilter === 'mixable'}
+              onChange={(e) => setMixableFilter(e.target.checked ? 'mixable' : 'all')}
+              className="w-4 h-4 text-green-600 bg-gray-100 border-gray-300 rounded focus:ring-green-500 focus:ring-2"
+            />
+            <label htmlFor="mixableFilter" className="text-sm font-medium text-gray-700 cursor-pointer">
+              Mixable
+            </label>
+          </div>
+        </div>
       </div>
 
       <div className="bg-white shadow overflow-hidden sm:rounded-lg">
@@ -130,11 +176,17 @@ export default function Foods() {
                   {getSortIcon('description')}
                 </div>
               </th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Foundation
+              </th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Mixable
+              </th>
             </tr>
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
-            {sortedFoods && sortedFoods.length > 0 ? (
-              sortedFoods.map((food) => (
+            {filteredAndSortedFoods && filteredAndSortedFoods.length > 0 ? (
+              filteredAndSortedFoods.map((food) => (
                 <tr key={food.extid} className="hover:bg-gray-50">
                   <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                     {food.name}
@@ -148,11 +200,17 @@ export default function Foods() {
                   <td className="px-6 py-4 text-sm text-gray-500">
                     {food.description || '-'}
                   </td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    {food.foundation ? '✓' : '-'}
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    {food.mixable ? '✓' : '-'}
+                  </td>
                 </tr>
               ))
             ) : (
               <tr>
-                <td colSpan={4} className="px-6 py-12 text-center text-gray-500">
+                <td colSpan={6} className="px-6 py-12 text-center text-gray-500">
                   No food items found.
                 </td>
               </tr>

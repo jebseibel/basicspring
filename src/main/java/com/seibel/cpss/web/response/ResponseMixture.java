@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 
 @Data
 @Builder
-public class ResponseSalad {
+public class ResponseMixture {
     private String extid;
     private String name;
     private String description;

@@ -1,0 +1,52 @@
+databaseChangeLog:
+  - changeSet:
+      id: create_salad_tables
+      author: jeb
+      labels: create_salad_tables
+      changes:
+
+        # Salad Table
+        - createTable:
+            tableName: salad
+            columns:
+              - column: { name: id, type: bigint, autoIncrement: true, constraints: { primaryKey: true, nullable: false } }
+              - column: { name: extid, type: varchar(36), constraints: { nullable: false, unique: true }, defaultValueComputed: "(UUID())" }
+              - column: { name: name, type: varchar(100), constraints: { nullable: false } }
+              - column: { name: description, type: varchar(500) }
+              - column: { name: user_extid, type: varchar(36), constraints: { nullable: false } }
+              - column: { name: created_at, type: datetime, constraints: { nullable: false }, defaultValueComputed: CURRENT_TIMESTAMP }
+              - column: { name: updated_at, type: datetime }
+              - column: { name: deleted_at, type: datetime }
+              - column: { name: active, type: int, defaultValueNumeric: 1 }
+
+        # Salad Ingredient Table
+        - createTable:
+            tableName: salad_ingredient
+            columns:
+              - column: { name: id, type: bigint, autoIncrement: true, constraints: { primaryKey: true, nullable: false } }
+              - column: { name: salad_id, type: bigint, constraints: { nullable: false } }
+              - column: { name: food_extid, type: varchar(36), constraints: { nullable: false } }
+              - column: { name: quantity, type: double, constraints: { nullable: false } }
+
+        # Foreign Key Constraints
+        - addForeignKeyConstraint:
+            baseTableName: salad_ingredient
+            baseColumnNames: salad_id
+            constraintName: fk_salad_ingredient_salad
+            referencedTableName: salad
+            referencedColumnNames: id
+            onDelete: CASCADE
+            onUpdate: CASCADE
+
+        # Indexes
+        - createIndex:
+            indexName: idx_salad_user_extid
+            tableName: salad
+            columns:
+              - column: { name: user_extid }
+
+        - createIndex:
+            indexName: idx_salad_ingredient_food_extid
+            tableName: salad_ingredient
+            columns:
+              - column: { name: food_extid }

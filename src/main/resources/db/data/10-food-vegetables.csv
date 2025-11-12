@@ -1,31 +1,31 @@
-name,category,subcategory,description,notes,foundation
-Romaine Lettuce,Vegetable,Leafy Green,Crisp romaine leaves,Classic salad base,true
-Fresh Spinach,Vegetable,Leafy Green,Baby spinach leaves,Nutrient powerhouse,true
-Curly Kale,Vegetable,Leafy Green,Fresh kale leaves,Superfood green,false
-Fresh Arugula,Vegetable,Leafy Green,Peppery arugula,Bold flavor profile,false
-Mixed Spring Greens,Vegetable,Leafy Green,Baby green blend,Tender mixed greens,false
-Iceberg Lettuce,Vegetable,Leafy Green,Crisp iceberg,Refreshing crunch,false
-Butter Lettuce,Vegetable,Leafy Green,Soft butter lettuce,Delicate leaves,false
-Cherry Tomatoes,Vegetable,Fruit Vegetable,Sweet cherry tomatoes,Bursting with flavor,true
-Grape Tomatoes,Vegetable,Fruit Vegetable,Tiny grape tomatoes,Pop of sweetness,false
-Roma Tomatoes,Vegetable,Fruit Vegetable,Diced roma tomatoes,Meaty texture,false
-English Cucumber,Vegetable,Fruit Vegetable,Sliced cucumber,Cool and crisp,true
-Persian Cucumber,Vegetable,Fruit Vegetable,Mini cucumbers,Seedless variety,false
-Shredded Carrots,Vegetable,Root Vegetable,Fresh carrot shreds,Natural sweetness,true
-Carrot Coins,Vegetable,Root Vegetable,Sliced carrots,Colorful rounds,false
-Bell Pepper Mix,Vegetable,Fruit Vegetable,Tri-color peppers,Red yellow green,true
-Red Bell Pepper,Vegetable,Fruit Vegetable,Sweet red peppers,Roasted option,false
-Yellow Bell Pepper,Vegetable,Fruit Vegetable,Mild yellow peppers,Bright and sweet,false
-Red Onion,Vegetable,Bulb Vegetable,Sliced red onion,Sharp and tangy,true
-White Onion,Vegetable,Bulb Vegetable,Diced white onion,Pungent flavor,false
-Green Onion,Vegetable,Bulb Vegetable,Sliced scallions,Mild onion flavor,false
-Broccoli Florets,Vegetable,Cruciferous,Fresh broccoli,Nutrient dense,false
-Cauliflower Rice,Vegetable,Cruciferous,Riced cauliflower,Low-carb option,false
-Shaved Brussels,Vegetable,Cruciferous,Thinly sliced sprouts,Crunchy texture,false
-Radish Slices,Vegetable,Root Vegetable,Fresh radish rounds,Peppery crunch,false
-Beets,Vegetable,Root Vegetable,Roasted beet cubes,Earthy sweetness,false
-Sweet Potato,Vegetable,Root Vegetable,Roasted sweet potato,Caramelized cubes,false
-Corn Kernels,Vegetable,Grain Vegetable,Fresh corn kernels,Sweet and crunchy,false
-Edamame,Vegetable,Legume,Shelled edamame,Protein boost,false
-Sugar Snap Peas,Vegetable,Legume,Crisp snap peas,Fresh and sweet,false
-Baby Corn,Vegetable,Grain Vegetable,Pickled baby corn,Unique texture,false
+name,category,subcategory,description,notes,foundation,mixable
+Romaine Lettuce,Vegetable,Leafy Green,Crisp romaine leaves,Classic salad base,true,false
+Fresh Spinach,Vegetable,Leafy Green,Baby spinach leaves,Nutrient powerhouse,true,false
+Curly Kale,Vegetable,Leafy Green,Fresh kale leaves,Superfood green,false,false
+Fresh Arugula,Vegetable,Leafy Green,Peppery arugula,Bold flavor profile,false,false
+Mixed Spring Greens,Vegetable,Leafy Green,Baby green blend,Tender mixed greens,false,false
+Iceberg Lettuce,Vegetable,Leafy Green,Crisp iceberg,Refreshing crunch,false,false
+Butter Lettuce,Vegetable,Leafy Green,Soft butter lettuce,Delicate leaves,false,false
+Cherry Tomatoes,Vegetable,Fruit Vegetable,Sweet cherry tomatoes,Bursting with flavor,true,false
+Grape Tomatoes,Vegetable,Fruit Vegetable,Tiny grape tomatoes,Pop of sweetness,false,false
+Roma Tomatoes,Vegetable,Fruit Vegetable,Diced roma tomatoes,Meaty texture,false,false
+English Cucumber,Vegetable,Fruit Vegetable,Sliced cucumber,Cool and crisp,true,false
+Persian Cucumber,Vegetable,Fruit Vegetable,Mini cucumbers,Seedless variety,false,false
+Shredded Carrots,Vegetable,Root Vegetable,Fresh carrot shreds,Natural sweetness,true,false
+Carrot Coins,Vegetable,Root Vegetable,Sliced carrots,Colorful rounds,false,false
+Bell Pepper Mix,Vegetable,Fruit Vegetable,Tri-color peppers,Red yellow green,true,false
+Red Bell Pepper,Vegetable,Fruit Vegetable,Sweet red peppers,Roasted option,false,false
+Yellow Bell Pepper,Vegetable,Fruit Vegetable,Mild yellow peppers,Bright and sweet,false,false
+Red Onion,Vegetable,Bulb Vegetable,Sliced red onion,Sharp and tangy,true,false
+White Onion,Vegetable,Bulb Vegetable,Diced white onion,Pungent flavor,false,false
+Green Onion,Vegetable,Bulb Vegetable,Sliced scallions,Mild onion flavor,false,false
+Broccoli Florets,Vegetable,Cruciferous,Fresh broccoli,Nutrient dense,false,false
+Cauliflower Rice,Vegetable,Cruciferous,Riced cauliflower,Low-carb option,false,false
+Shaved Brussels,Vegetable,Cruciferous,Thinly sliced sprouts,Crunchy texture,false,false
+Radish Slices,Vegetable,Root Vegetable,Fresh radish rounds,Peppery crunch,false,false
+Beets,Vegetable,Root Vegetable,Roasted beet cubes,Earthy sweetness,false,false
+Sweet Potato,Vegetable,Root Vegetable,Roasted sweet potato,Caramelized cubes,false,false
+Corn Kernels,Vegetable,Grain Vegetable,Fresh corn kernels,Sweet and crunchy,false,false
+Edamame,Vegetable,Legume,Shelled edamame,Protein boost,false,false
+Sugar Snap Peas,Vegetable,Legume,Crisp snap peas,Fresh and sweet,false,false
+Baby Corn,Vegetable,Grain Vegetable,Pickled baby corn,Unique texture,false,false
