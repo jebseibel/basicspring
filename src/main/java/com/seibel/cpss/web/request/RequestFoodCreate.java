@@ -34,4 +34,6 @@ public class RequestFoodCreate extends BaseRequest {
     private String flavorExtid;
     private String nutritionExtid;
     private String servingExtid;
+    private Boolean foundation;
+    private Boolean mixable;
 }

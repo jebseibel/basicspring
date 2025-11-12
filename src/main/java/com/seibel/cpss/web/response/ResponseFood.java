@@ -16,4 +16,6 @@ public class ResponseFood {
     private ResponseFlavor flavor;
     private ResponseNutrition nutrition;
     private ResponseServing serving;
+    private Boolean foundation;
+    private Boolean mixable;
 }

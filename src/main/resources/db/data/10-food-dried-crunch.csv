@@ -1,19 +1,19 @@
-name,category,subcategory,description,notes,foundation
-Sunflower Seeds,Seeds,Seed,Roasted sunflower seeds,Nutty crunch,true
-Pumpkin Seeds,Seeds,Seed,Roasted pepitas,Green and crunchy,true
-Chia Seeds,Seeds,Seed,Whole chia seeds,Omega-3 boost,false
-Hemp Hearts,Seeds,Seed,Hulled hemp seeds,Complete protein,false
-Flax Seeds,Seeds,Seed,Ground flaxseed,Fiber rich,false
-Sesame Seeds,Seeds,Seed,Toasted sesame,Asian flair,false
-Croutons,Crunch,Bread,Garlic herb croutons,Classic topper,true
-Seasoned Croutons,Crunch,Bread,Italian croutons,Herbed and crispy,false
-Garlic Crisps,Crunch,Bread,Thin garlic chips,Aromatic crunch,false
-Wonton Strips,Crunch,Fried,Crispy wonton strips,Asian-style crunch,false
-Tortilla Strips,Crunch,Fried,Crispy tortilla strips,Tex-Mex crunch,false
-Bacon Bits,Crunch,Meat,Real bacon pieces,Smoky crunch,false
-Fried Onions,Crunch,Vegetable,Crispy fried onions,French onion style,false
-Chickpea Crunch,Crunch,Legume,Roasted chickpeas,Protein crunch,false
-Quinoa Puffs,Crunch,Grain,Puffed quinoa,Light and airy,false
-Granola Clusters,Crunch,Grain,Honey granola,Sweet clusters,false
-Coconut Flakes,Crunch,Tropical,Toasted coconut,Sweet and crispy,false
-Pita Chips,Crunch,Bread,Seasoned pita chips,Mediterranean crunch,false
+name,category,subcategory,description,notes,foundation,mixable
+Sunflower Seeds,Seeds,Seed,Roasted sunflower seeds,Nutty crunch,true,true
+Pumpkin Seeds,Seeds,Seed,Roasted pepitas,Green and crunchy,true,true
+Chia Seeds,Seeds,Seed,Whole chia seeds,Omega-3 boost,false,true
+Hemp Hearts,Seeds,Seed,Hulled hemp seeds,Complete protein,false,true
+Flax Seeds,Seeds,Seed,Ground flaxseed,Fiber rich,false,true
+Sesame Seeds,Seeds,Seed,Toasted sesame,Asian flair,false,true
+Croutons,Crunch,Bread,Garlic herb croutons,Classic topper,true,false
+Seasoned Croutons,Crunch,Bread,Italian croutons,Herbed and crispy,false,false
+Garlic Crisps,Crunch,Bread,Thin garlic chips,Aromatic crunch,false,false
+Wonton Strips,Crunch,Fried,Crispy wonton strips,Asian-style crunch,false,false
+Tortilla Strips,Crunch,Fried,Crispy tortilla strips,Tex-Mex crunch,false,false
+Bacon Bits,Crunch,Meat,Real bacon pieces,Smoky crunch,false,false
+Fried Onions,Crunch,Vegetable,Crispy fried onions,French onion style,false,false
+Chickpea Crunch,Crunch,Legume,Roasted chickpeas,Protein crunch,false,false
+Quinoa Puffs,Crunch,Grain,Puffed quinoa,Light and airy,false,true
+Granola Clusters,Crunch,Grain,Honey granola,Sweet clusters,false,false
+Coconut Flakes,Crunch,Tropical,Toasted coconut,Sweet and crispy,false,true
+Pita Chips,Crunch,Bread,Seasoned pita chips,Mediterranean crunch,false,false

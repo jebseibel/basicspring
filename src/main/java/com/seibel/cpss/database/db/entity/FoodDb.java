@@ -33,5 +33,7 @@ public class FoodDb extends BaseFoodDb {
     @Column(name = "foundation", nullable = false)
     private Boolean foundation = false;
 
+    @Column(name = "mixable", nullable = false)
+    private Boolean mixable = false;
 }
 

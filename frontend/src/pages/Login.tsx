@@ -38,8 +38,11 @@ export default function Login() {
         <div className="min-h-screen bg-gradient-to-br from-green-50 to-blue-50 flex items-center justify-center px-4">
             <div className="max-w-md w-full space-y-8">
                 <div>
-                    <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-                        Custom Profile Salad System
+                    <h3 className="text-center text-3xl font-extrabold text-gray-900 mb-2">
+                        Crunch Punch Sweet & Savory
+                    </h3>
+                    <h2 className="mt-2 text-center text-xl text-gray-900">
+                        (Custom Profile Salad System)
                     </h2>
                     <p className="mt-2 text-center text-sm text-gray-600">
                         {isLogin ? 'Sign in to your account' : 'Create a new account'}

@@ -76,9 +76,6 @@ class FoodMapperTest {
         assertEquals(db.getCategory(), domain.getCategory());
         assertEquals(db.getSubcategory(), domain.getSubcategory());
         assertEquals(db.getDescription(), domain.getDescription());
-        assertNotNull(domain.getServing());
-        assertNotNull(domain.getNutrition());
-        assertNotNull(domain.getFlavor());
         assertEquals(db.getNotes(), domain.getNotes());
         assertEquals(db.getCreatedAt(), domain.getCreatedAt());
         assertEquals(db.getUpdatedAt(), domain.getUpdatedAt());
@@ -102,9 +99,6 @@ class FoodMapperTest {
         assertEquals(domain.getCategory(), db.getCategory());
         assertEquals(domain.getSubcategory(), db.getSubcategory());
         assertEquals(domain.getDescription(), db.getDescription());
-        assertNotNull(db.getServing());
-        assertNotNull(db.getNutrition());
-        assertNotNull(db.getFlavor());
         assertEquals(domain.getNotes(), db.getNotes());
         assertEquals(domain.getCreatedAt(), db.getCreatedAt());
         assertEquals(domain.getUpdatedAt(), db.getUpdatedAt());

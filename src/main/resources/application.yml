@@ -25,4 +25,5 @@ spring:
 
 logging:
   level:
+    com.seibel.cpss.loader.DataLoader: INFO
     org.springframework.security.config.annotation.authentication.configuration: ERROR

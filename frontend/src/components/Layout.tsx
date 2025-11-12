@@ -1,5 +1,5 @@
 import { Link, Outlet, useNavigate } from 'react-router-dom';
-import { ChefHat, Home, Salad, Users, Building2, LogOut, Apple, Scale, Sparkles, Utensils } from 'lucide-react';
+import { ChefHat, Home, Salad, Users, Building2, LogOut, Apple, Scale, Sparkles, Utensils, Blend } from 'lucide-react';
 import { authHelpers } from '../services/api';
 
 export default function Layout() {
@@ -30,11 +30,18 @@ export default function Layout() {
                                     Dashboard
                                 </Link>
                                 <Link
-                                    to="/salad-builder"
+                                    to="/salads"
                                     className="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-500 border-b-2 border-transparent hover:border-gray-300 hover:text-gray-700"
                                 >
                                     <Salad className="h-4 w-4 mr-2" />
-                                    Salad Builder
+                                    Salads
+                                </Link>
+                                <Link
+                                    to="/mixtures"
+                                    className="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-500 border-b-2 border-transparent hover:border-gray-300 hover:text-gray-700"
+                                >
+                                    <Blend className="h-4 w-4 mr-2" />
+                                    Mixtures
                                 </Link>
                                 <Link
                                     to="/foods"
