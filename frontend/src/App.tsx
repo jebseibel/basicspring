@@ -5,6 +5,7 @@ import ProtectedRoute from './components/ProtectedRoute';
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
 import SaladBuilder from './pages/SaladBuilder';
+import Mixtures from './pages/Mixtures';
 import Foods from './pages/Foods';
 import Nutrition from './pages/Nutrition';
 import Flavors from './pages/Flavors';
@@ -35,7 +36,8 @@ function App() {
                         }
                     >
                         <Route index element={<Dashboard />} />
-                        <Route path="salad-builder" element={<SaladBuilder />} />
+                        <Route path="salads" element={<SaladBuilder />} />
+                        <Route path="mixtures" element={<Mixtures />} />
                         <Route path="foods" element={<Foods />} />
                         <Route path="nutrition" element={<Nutrition />} />
                         <Route path="flavors" element={<Flavors />} />

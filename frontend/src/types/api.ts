@@ -137,37 +137,34 @@ export interface CompanyRequest {
     description?: string;
 }
 
-// Salad Builder Types
-export interface SaladIngredient {
-    foodExtid: string;
-    quantity: number;
+// Salad Types
+export interface Salad {
+    extid: string;
+    name: string;
+    description?: string;
+    userExtid: string;
+    createdAt: string;
+    updatedAt: string;
 }
 
 export interface SaladRequest {
-    ingredients: SaladIngredient[];
+    name: string;
+    description?: string;
 }
 
-export interface SaladIngredientDetail {
-    food: Food;
-    quantity: number;
-    nutrition: Nutrition;
-    flavor: Flavor;
+// Mixture Types
+export interface Mixture {
+    extid: string;
+    name: string;
+    description?: string;
+    userExtid: string;
+    createdAt: string;
+    updatedAt: string;
 }
 
-export interface SaladResponse {
-    ingredients: SaladIngredientDetail[];
-    totalNutrition: {
-        carbohydrate: number;
-        fat: number;
-        protein: number;
-        sugar: number;
-    };
-    averageFlavor: {
-        crunch: number;
-        punch: number;
-        sweet: number;
-        savory: number;
-    };
+export interface MixtureRequest {
+    name: string;
+    description?: string;
 }
 
 // Authentication

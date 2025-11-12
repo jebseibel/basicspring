@@ -1,28 +1,28 @@
 import { useQuery } from '@tanstack/react-query';
-import { saladApi } from '../services/api';
-import { Salad as SaladIcon, ArrowUpDown, ArrowUp, ArrowDown } from 'lucide-react';
+import { mixtureApi } from '../services/api';
+import { Blend, ArrowUpDown, ArrowUp, ArrowDown } from 'lucide-react';
 import { useState, useMemo } from 'react';
-import type { Salad } from '../types/api';
+import type { Mixture } from '../types/api';
 
 type SortField = 'name' | 'description' | 'userExtid';
 type SortDirection = 'asc' | 'desc' | null;
 
-export default function SaladBuilder() {
+export default function Mixtures() {
     const [sortField, setSortField] = useState<SortField | null>(null);
     const [sortDirection, setSortDirection] = useState<SortDirection>(null);
 
-    const { data: salads, isLoading, error } = useQuery({
-        queryKey: ['salads'],
+    const { data: mixtures, isLoading, error } = useQuery({
+        queryKey: ['mixtures'],
         queryFn: async () => {
-            const response = await saladApi.getAll();
+            const response = await mixtureApi.getAll();
             return response.data;
         },
     });
 
-    const sortedSalads = useMemo(() => {
-        if (!salads || !sortField || !sortDirection) return salads;
+    const sortedMixtures = useMemo(() => {
+        if (!mixtures || !sortField || !sortDirection) return mixtures;
 
-        return [...salads].sort((a, b) => {
+        return [...mixtures].sort((a, b) => {
             let aValue = a[sortField];
             let bValue = b[sortField];
 
@@ -38,7 +38,7 @@ export default function SaladBuilder() {
             if (aValue > bValue) return sortDirection === 'asc' ? 1 : -1;
             return 0;
         });
-    }, [salads, sortField, sortDirection]);
+    }, [mixtures, sortField, sortDirection]);
 
     const handleSort = (field: SortField) => {
         if (sortField === field) {
@@ -60,15 +60,15 @@ export default function SaladBuilder() {
             return <ArrowUpDown className="h-4 w-4 ml-1 text-gray-400" />;
         }
         if (sortDirection === 'asc') {
-            return <ArrowUp className="h-4 w-4 ml-1 text-green-600" />;
+            return <ArrowUp className="h-4 w-4 ml-1 text-purple-600" />;
         }
-        return <ArrowDown className="h-4 w-4 ml-1 text-green-600" />;
+        return <ArrowDown className="h-4 w-4 ml-1 text-purple-600" />;
     };
 
     if (isLoading) {
         return (
             <div className="flex items-center justify-center h-64">
-                <div className="text-gray-500">Loading salads...</div>
+                <div className="text-gray-500">Loading mixtures...</div>
             </div>
         );
     }
@@ -76,7 +76,7 @@ export default function SaladBuilder() {
     if (error) {
         return (
             <div className="flex items-center justify-center h-64">
-                <div className="text-red-500">Error loading salads. Make sure the backend is running.</div>
+                <div className="text-red-500">Error loading mixtures. Make sure the backend is running.</div>
             </div>
         );
     }
@@ -85,8 +85,8 @@ export default function SaladBuilder() {
         <div className="px-4 py-6 sm:px-0">
             <div className="flex items-center justify-between mb-6">
                 <h1 className="text-3xl font-bold text-gray-900 flex items-center">
-                    <SaladIcon className="h-8 w-8 mr-3 text-green-600" />
-                    Salads
+                    <Blend className="h-8 w-8 mr-3 text-purple-600" />
+                    Mixtures
                 </h1>
             </div>
 
@@ -124,24 +124,24 @@ export default function SaladBuilder() {
                     </tr>
                     </thead>
                     <tbody className="bg-white divide-y divide-gray-200">
-                    {sortedSalads && sortedSalads.length > 0 ? (
-                        sortedSalads.map((salad) => (
-                            <tr key={salad.extid} className="hover:bg-gray-50">
+                    {sortedMixtures && sortedMixtures.length > 0 ? (
+                        sortedMixtures.map((mixture) => (
+                            <tr key={mixture.extid} className="hover:bg-gray-50">
                                 <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                    {salad.name}
+                                    {mixture.name}
                                 </td>
                                 <td className="px-6 py-4 text-sm text-gray-500">
-                                    {salad.description || '-'}
+                                    {mixture.description || '-'}
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                    {salad.userExtid}
+                                    {mixture.userExtid}
                                 </td>
                             </tr>
                         ))
                     ) : (
                         <tr>
                             <td colSpan={3} className="px-6 py-12 text-center text-gray-500">
-                                No salads found.
+                                No mixtures found.
                             </td>
                         </tr>
                     )}

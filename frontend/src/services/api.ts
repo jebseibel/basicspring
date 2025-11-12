@@ -12,8 +12,10 @@ import type {
     ProfileRequest,
     Company,
     CompanyRequest,
+    Salad,
     SaladRequest,
-    SaladResponse,
+    Mixture,
+    MixtureRequest,
     LoginRequest,
     RegisterRequest,
     AuthResponse,
@@ -108,7 +110,19 @@ export const companyApi = {
 };
 
 export const saladApi = {
-    buildSalad: (request: SaladRequest) => apiClient.post<SaladResponse>('/salad/build', request),
+    getAll: () => apiClient.get<Salad[]>('/salad'),
+    getById: (extid: string) => apiClient.get<Salad>(`/salad/${extid}`),
+    create: (salad: SaladRequest) => apiClient.post<Salad>('/salad', salad),
+    update: (extid: string, salad: SaladRequest) => apiClient.put<Salad>(`/salad/${extid}`, salad),
+    delete: (extid: string) => apiClient.delete(`/salad/${extid}`),
+};
+
+export const mixtureApi = {
+    getAll: () => apiClient.get<Mixture[]>('/mixture'),
+    getById: (extid: string) => apiClient.get<Mixture>(`/mixture/${extid}`),
+    create: (mixture: MixtureRequest) => apiClient.post<Mixture>('/mixture', mixture),
+    update: (extid: string, mixture: MixtureRequest) => apiClient.put<Mixture>(`/mixture/${extid}`, mixture),
+    delete: (extid: string) => apiClient.delete(`/mixture/${extid}`),
 };
 
 export const authApi = {
