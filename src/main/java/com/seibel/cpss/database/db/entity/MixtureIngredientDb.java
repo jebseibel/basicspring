@@ -20,9 +20,6 @@ public class MixtureIngredientDb extends BaseDb {
     @JoinColumn(name = "food_id", referencedColumnName = "id", nullable = false)
     private FoodDb food;
 
-    @Column(name = "quantity", nullable = false)
-    private Integer quantity;
-
-    @Column(name = "unit", length = 20, nullable = false)
-    private String unit;
+    @Column(name = "grams", nullable = false)
+    private Integer grams;
 }

@@ -28,7 +28,7 @@ public class RequestFoodUpdate extends BaseRequest {
 
     private String flavorExtid;
     private String nutritionExtid;
-    private String servingExtid;
+    private Integer typicalServingGrams;
     private Boolean foundation;
     private Boolean mixable;
 }

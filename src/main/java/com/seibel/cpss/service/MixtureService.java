@@ -129,14 +129,9 @@ public class MixtureService extends BaseService {
                 throw new ValidationException("Ingredient must have a food extid");
             }
 
-            // Phase 1: Enforce quantity = 1
-            if (ingredient.getQuantity() == null || ingredient.getQuantity() != 1) {
-                throw new ValidationException("Ingredient quantity must be 1 for Phase 1");
-            }
-
-            // Phase 1: Enforce unit = "tablespoon"
-            if (ingredient.getUnit() == null || !ingredient.getUnit().equals("tablespoon")) {
-                throw new ValidationException("Ingredient unit must be 'tablespoon' for Phase 1");
+            // Validate grams
+            if (ingredient.getGrams() == null || ingredient.getGrams() <= 0) {
+                throw new ValidationException("Ingredient grams must be greater than 0");
             }
 
             // Verify the food exists and is mixable

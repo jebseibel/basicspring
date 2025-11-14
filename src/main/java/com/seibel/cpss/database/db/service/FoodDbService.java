@@ -8,7 +8,6 @@ import com.seibel.cpss.database.db.exceptions.DatabaseFailureException;
 import com.seibel.cpss.database.db.mapper.FlavorMapper;
 import com.seibel.cpss.database.db.mapper.FoodMapper;
 import com.seibel.cpss.database.db.mapper.NutritionMapper;
-import com.seibel.cpss.database.db.mapper.ServingMapper;
 import com.seibel.cpss.database.db.repository.FoodRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -25,17 +24,14 @@ public class FoodDbService extends BaseDbService {
     private final FoodMapper mapper;
     private final FlavorMapper flavorMapper;
     private final NutritionMapper nutritionMapper;
-    private final ServingMapper servingMapper;
 
     public FoodDbService(FoodRepository repository, FoodMapper mapper,
-                         FlavorMapper flavorMapper, NutritionMapper nutritionMapper,
-                         ServingMapper servingMapper) {
+                         FlavorMapper flavorMapper, NutritionMapper nutritionMapper) {
         super("FoodDb");
         this.repository = repository;
         this.mapper = mapper;
         this.flavorMapper = flavorMapper;
         this.nutritionMapper = nutritionMapper;
-        this.servingMapper = servingMapper;
     }
 
     public Food create(Food item) throws DatabaseFailureException {

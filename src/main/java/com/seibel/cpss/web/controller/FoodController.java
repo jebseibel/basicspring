@@ -4,7 +4,6 @@ import com.seibel.cpss.common.domain.Food;
 import com.seibel.cpss.service.FlavorService;
 import com.seibel.cpss.service.FoodService;
 import com.seibel.cpss.service.NutritionService;
-import com.seibel.cpss.service.ServingService;
 import com.seibel.cpss.web.request.RequestFoodCreate;
 import com.seibel.cpss.web.request.RequestFoodUpdate;
 import com.seibel.cpss.web.response.ResponseFood;
@@ -24,7 +23,6 @@ public class FoodController {
     private final FoodService foodService;
     private final FlavorService flavorService;
     private final NutritionService nutritionService;
-    private final ServingService servingService;
     private final FoodConverter converter;
 
     @PostMapping
@@ -64,10 +62,8 @@ class FoodConverter {
 
     private final FlavorService flavorService;
     private final NutritionService nutritionService;
-    private final ServingService servingService;
     private final FlavorConverter flavorConverter;
     private final NutritionConverter nutritionConverter;
-    private final ServingConverter servingConverter;
 
     Food toDomain(RequestFoodCreate request) {
         return Food.builder()
@@ -79,7 +75,7 @@ class FoodConverter {
                 .notes(request.getNotes())
                 .flavor(request.getFlavorExtid() != null ? flavorService.findByExtid(request.getFlavorExtid()) : null)
                 .nutrition(request.getNutritionExtid() != null ? nutritionService.findByExtid(request.getNutritionExtid()) : null)
-                .serving(request.getServingExtid() != null ? servingService.findByExtid(request.getServingExtid()) : null)
+                .typicalServingGrams(request.getTypicalServingGrams())
                 .foundation(request.getFoundation())
                 .mixable(request.getMixable())
                 .build();
@@ -96,7 +92,7 @@ class FoodConverter {
                 .notes(request.getNotes())
                 .flavor(request.getFlavorExtid() != null ? flavorService.findByExtid(request.getFlavorExtid()) : null)
                 .nutrition(request.getNutritionExtid() != null ? nutritionService.findByExtid(request.getNutritionExtid()) : null)
-                .serving(request.getServingExtid() != null ? servingService.findByExtid(request.getServingExtid()) : null)
+                .typicalServingGrams(request.getTypicalServingGrams())
                 .foundation(request.getFoundation())
                 .mixable(request.getMixable())
                 .build();
@@ -113,7 +109,7 @@ class FoodConverter {
                 .notes(item.getNotes())
                 .flavor(item.getFlavor() != null ? flavorConverter.toResponse(item.getFlavor()) : null)
                 .nutrition(item.getNutrition() != null ? nutritionConverter.toResponse(item.getNutrition()) : null)
-                .serving(item.getServing() != null ? servingConverter.toResponse(item.getServing()) : null)
+                .typicalServingGrams(item.getTypicalServingGrams())
                 .foundation(item.getFoundation())
                 .mixable(item.getMixable())
                 .build();
@@ -132,7 +128,7 @@ class FoodConverter {
                 request.getNotes() == null &&
                 request.getFlavorExtid() == null &&
                 request.getNutritionExtid() == null &&
-                request.getServingExtid() == null &&
+                request.getTypicalServingGrams() == null &&
                 request.getFoundation() == null &&
                 request.getMixable() == null) {
             throw new IllegalArgumentException("At least one field must be provided for update.");

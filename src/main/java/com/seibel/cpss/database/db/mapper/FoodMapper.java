@@ -4,10 +4,8 @@ import com.seibel.cpss.common.domain.Food;
 import com.seibel.cpss.database.db.entity.FlavorDb;
 import com.seibel.cpss.database.db.entity.FoodDb;
 import com.seibel.cpss.database.db.entity.NutritionDb;
-import com.seibel.cpss.database.db.entity.ServingDb;
 import com.seibel.cpss.database.db.repository.FlavorRepository;
 import com.seibel.cpss.database.db.repository.NutritionRepository;
-import com.seibel.cpss.database.db.repository.ServingRepository;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -19,23 +17,17 @@ public class FoodMapper {
 
     private final FlavorRepository flavorRepository;
     private final NutritionRepository nutritionRepository;
-    private final ServingRepository servingRepository;
     private final FlavorMapper flavorMapper;
     private final NutritionMapper nutritionMapper;
-    private final ServingMapper servingMapper;
 
     public FoodMapper(FlavorRepository flavorRepository,
                       NutritionRepository nutritionRepository,
-                      ServingRepository servingRepository,
                       FlavorMapper flavorMapper,
-                      NutritionMapper nutritionMapper,
-                      ServingMapper servingMapper) {
+                      NutritionMapper nutritionMapper) {
         this.flavorRepository = flavorRepository;
         this.nutritionRepository = nutritionRepository;
-        this.servingRepository = servingRepository;
         this.flavorMapper = flavorMapper;
         this.nutritionMapper = nutritionMapper;
-        this.servingMapper = servingMapper;
     }
 
     public Food toModel(FoodDb item) {
@@ -51,6 +43,7 @@ public class FoodMapper {
         food.setSubcategory(item.getSubcategory());
         food.setDescription(item.getDescription());
         food.setNotes(item.getNotes());
+        food.setTypicalServingGrams(item.getTypicalServingGrams());
         food.setFoundation(item.getFoundation());
         food.setMixable(item.getMixable());
         food.setCreatedAt(item.getCreatedAt());
@@ -64,9 +57,6 @@ public class FoodMapper {
         }
         if (item.getNutrition() != null) {
             food.setNutrition(nutritionMapper.toModel(item.getNutrition()));
-        }
-        if (item.getServing() != null) {
-            food.setServing(servingMapper.toModel(item.getServing()));
         }
 
         return food;
@@ -85,6 +75,7 @@ public class FoodMapper {
         foodDb.setSubcategory(item.getSubcategory());
         foodDb.setDescription(item.getDescription());
         foodDb.setNotes(item.getNotes());
+        foodDb.setTypicalServingGrams(item.getTypicalServingGrams());
         foodDb.setFoundation(item.getFoundation());
         foodDb.setMixable(item.getMixable());
         foodDb.setCreatedAt(item.getCreatedAt());
@@ -100,10 +91,6 @@ public class FoodMapper {
         if (item.getNutrition() != null) {
             NutritionDb nutritionDb = nutritionRepository.findByCode(item.getNutrition().getCode()).orElse(null);
             foodDb.setNutrition(nutritionDb);
-        }
-        if (item.getServing() != null) {
-            ServingDb servingDb = servingRepository.findByCode(item.getServing().getCode()).orElse(null);
-            foodDb.setServing(servingDb);
         }
 
         return foodDb;

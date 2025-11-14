@@ -3,19 +3,15 @@ package com.seibel.cpss.loader;
 import com.seibel.cpss.common.domain.Flavor;
 import com.seibel.cpss.common.domain.Food;
 import com.seibel.cpss.common.domain.Nutrition;
-import com.seibel.cpss.common.domain.Serving;
 import com.seibel.cpss.database.db.entity.FlavorDb;
 import com.seibel.cpss.database.db.entity.FoodDb;
 import com.seibel.cpss.database.db.entity.NutritionDb;
-import com.seibel.cpss.database.db.entity.ServingDb;
 import com.seibel.cpss.database.db.repository.FlavorRepository;
 import com.seibel.cpss.database.db.repository.FoodRepository;
 import com.seibel.cpss.database.db.repository.NutritionRepository;
-import com.seibel.cpss.database.db.repository.ServingRepository;
 import com.seibel.cpss.database.db.service.FlavorDbService;
 import com.seibel.cpss.database.db.service.FoodDbService;
 import com.seibel.cpss.database.db.service.NutritionDbService;
-import com.seibel.cpss.database.db.service.ServingDbService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.annotation.Order;
@@ -39,13 +35,11 @@ public class DataLoader implements CommandLineRunner {
     private final FoodDbService foodDbService;
     private final FlavorDbService flavorDbService;
     private final NutritionDbService nutritionDbService;
-    private final ServingDbService servingDbService;
 
     // Repositories needed for linking relationships
     private final FoodRepository foodRepository;
     private final FlavorRepository flavorRepository;
     private final NutritionRepository nutritionRepository;
-    private final ServingRepository servingRepository;
 
     private static final String DATA_PATH = "db/data/";
 
@@ -62,19 +56,15 @@ public class DataLoader implements CommandLineRunner {
     public DataLoader(FoodDbService foodDbService,
                       FlavorDbService flavorDbService,
                       NutritionDbService nutritionDbService,
-                      ServingDbService servingDbService,
                       FoodRepository foodRepository,
                       FlavorRepository flavorRepository,
-                      NutritionRepository nutritionRepository,
-                      ServingRepository servingRepository) {
+                      NutritionRepository nutritionRepository) {
         this.foodDbService = foodDbService;
         this.flavorDbService = flavorDbService;
         this.nutritionDbService = nutritionDbService;
-        this.servingDbService = servingDbService;
         this.foodRepository = foodRepository;
         this.flavorRepository = flavorRepository;
         this.nutritionRepository = nutritionRepository;
-        this.servingRepository = servingRepository;
     }
 
     @Override
@@ -91,9 +81,8 @@ public class DataLoader implements CommandLineRunner {
 
             log.info("No existing data found. Loading from CSV files...");
 
-            // Load in order: Flavor -> Serving -> Nutrition -> Food -> Link relationships
+            // Load in order: Flavor -> Nutrition -> Food -> Link relationships
             loadFlavors();
-            loadServings();
             loadNutrition();
             loadFoods();
             linkFoodRelationships();
@@ -134,34 +123,6 @@ public class DataLoader implements CommandLineRunner {
         }
 
         log.info("Loaded {} flavor profiles", count);
-    }
-
-    private void loadServings() throws IOException {
-        log.info("Loading Servings...");
-        int count = 0;
-
-        for (String category : CATEGORIES) {
-            String filePath = DATA_PATH + "30-serving-" + category + ".csv";
-            List<Map<String, String>> records = CsvParser.parse(filePath);
-
-            for (Map<String, String> record : records) {
-                Serving serving = new Serving();
-                serving.setCode(record.get("code"));
-                serving.setName(record.get("name"));
-                serving.setDescription(record.get("description"));
-                serving.setNotes(record.get("notes"));
-                serving.setCup(parseInteger(record.get("cup")));
-                serving.setQuarter(parseInteger(record.get("quarter")));
-                serving.setTablespoon(parseInteger(record.get("tablespoon")));
-                serving.setTeaspoon(parseInteger(record.get("teaspoon")));
-                serving.setGram(parseInteger(record.get("gram")));
-
-                servingDbService.create(serving);
-                count++;
-            }
-        }
-
-        log.info("Loaded {} serving profiles", count);
     }
 
     private void loadNutrition() throws IOException {
@@ -227,7 +188,6 @@ public class DataLoader implements CommandLineRunner {
 
         List<FoodDb> allFoods = foodRepository.findAll();
         int linkedFlavors = 0;
-        int linkedServings = 0;
         int linkedNutrition = 0;
 
         for (FoodDb food : allFoods) {
@@ -241,16 +201,6 @@ public class DataLoader implements CommandLineRunner {
                 updated = true;
             } else {
                 log.warn("No flavor profile found for food: {}", food.getName());
-            }
-
-            // Link Serving by name
-            Optional<ServingDb> serving = servingRepository.findByName(food.getName());
-            if (serving.isPresent()) {
-                food.setServing(serving.get());
-                linkedServings++;
-                updated = true;
-            } else {
-                log.warn("No serving profile found for food: {}", food.getName());
             }
 
             // Link Nutrition by name
@@ -268,20 +218,18 @@ public class DataLoader implements CommandLineRunner {
             }
         }
 
-        log.info("Linked {} flavors, {} servings, {} nutrition profiles to food items",
-                linkedFlavors, linkedServings, linkedNutrition);
+        log.info("Linked {} flavors, {} nutrition profiles to food items",
+                linkedFlavors, linkedNutrition);
     }
 
     private void logSummary() {
         long foods = foodRepository.count();
         long flavors = flavorRepository.count();
-        long servings = servingRepository.count();
         long nutrition = nutritionRepository.count();
 
         log.info("=== Data Load Summary ===");
         log.info("Foods:     {}", foods);
         log.info("Flavors:   {}", flavors);
-        log.info("Servings:  {}", servings);
         log.info("Nutrition: {}", nutrition);
         log.info("========================");
     }

@@ -15,7 +15,7 @@ public class ResponseFood {
     private String notes;
     private ResponseFlavor flavor;
     private ResponseNutrition nutrition;
-    private ResponseServing serving;
+    private Integer typicalServingGrams;
     private Boolean foundation;
     private Boolean mixable;
 }

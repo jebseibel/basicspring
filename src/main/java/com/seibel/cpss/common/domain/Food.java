@@ -21,7 +21,7 @@ public class Food extends BaseDomain {
     private String notes;
     private Flavor flavor;
     private Nutrition nutrition;
-    private Serving serving;
+    private Integer typicalServingGrams;
     private Boolean foundation;
     private Boolean mixable;
 }

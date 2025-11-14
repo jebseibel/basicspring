@@ -97,8 +97,7 @@ class MixtureConverter {
                 com.seibel.cpss.common.domain.MixtureIngredient ingredient =
                     com.seibel.cpss.common.domain.MixtureIngredient.builder()
                         .foodExtid(ingredientReq.getFoodExtid())
-                        .quantity(1) // Always 1 for Phase 1
-                        .unit("tablespoon") // Always tablespoon for Phase 1
+                        .grams(ingredientReq.getGrams())
                         .build();
                 ingredients.add(ingredient);
             }
@@ -122,8 +121,7 @@ class MixtureConverter {
                 com.seibel.cpss.common.domain.MixtureIngredient ingredient =
                     com.seibel.cpss.common.domain.MixtureIngredient.builder()
                         .foodExtid(ingredientReq.getFoodExtid())
-                        .quantity(1) // Always 1 for Phase 1
-                        .unit("tablespoon") // Always tablespoon for Phase 1
+                        .grams(ingredientReq.getGrams())
                         .build();
                 ingredients.add(ingredient);
             }
@@ -143,8 +141,7 @@ class MixtureConverter {
                         .extid(ingredient.getExtid())
                         .foodExtid(ingredient.getFoodExtid())
                         .foodName(ingredient.getFood() != null ? ingredient.getFood().getName() : null)
-                        .quantity(ingredient.getQuantity())
-                        .unit(ingredient.getUnit())
+                        .grams(ingredient.getGrams())
                         .build();
                 ingredientResponses.add(ingredientResponse);
             }

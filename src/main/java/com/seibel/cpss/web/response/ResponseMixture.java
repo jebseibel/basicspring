@@ -23,7 +23,6 @@ public class ResponseMixture {
         private String extid;
         private String foodExtid;
         private String foodName;
-        private Integer quantity;
-        private String unit;
+        private Integer grams;
     }
 }

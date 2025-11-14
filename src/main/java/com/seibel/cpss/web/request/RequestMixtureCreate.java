@@ -27,7 +27,7 @@ public class RequestMixtureCreate extends BaseRequest {
         @NotEmpty(message = "Food extid is required.")
         private String foodExtid;
 
-        @NotNull(message = "Quantity is required.")
-        private Integer quantity;
+        @NotNull(message = "Grams is required.")
+        private Integer grams;
     }
 }

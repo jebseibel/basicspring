@@ -26,9 +26,8 @@ public class FoodDb extends BaseFoodDb {
     @JoinColumn(name = "nutrition_id", referencedColumnName = "id")
     private NutritionDb nutrition;
 
-    @OneToOne
-    @JoinColumn(name = "serving_id", referencedColumnName = "id")
-    private ServingDb serving;
+    @Column(name = "typical_serving_grams")
+    private Integer typicalServingGrams;
 
     @Column(name = "foundation", nullable = false)
     private Boolean foundation = false;

@@ -32,8 +32,7 @@ public class MixtureIngredientMapper {
         ingredient.setMixtureId(item.getMixture() != null ? item.getMixture().getId() : null);
         ingredient.setFoodExtid(item.getFood() != null ? item.getFood().getExtid() : null);
         ingredient.setFood(item.getFood() != null ? foodMapper.toModel(item.getFood()) : null);
-        ingredient.setQuantity(item.getQuantity());
-        ingredient.setUnit(item.getUnit());
+        ingredient.setGrams(item.getGrams());
         ingredient.setCreatedAt(item.getCreatedAt());
         ingredient.setUpdatedAt(item.getUpdatedAt());
         ingredient.setDeletedAt(item.getDeletedAt());
@@ -63,8 +62,7 @@ public class MixtureIngredientMapper {
             ingredientDb.setFood(food);
         }
 
-        ingredientDb.setQuantity(item.getQuantity());
-        ingredientDb.setUnit(item.getUnit());
+        ingredientDb.setGrams(item.getGrams());
         ingredientDb.setCreatedAt(item.getCreatedAt());
         ingredientDb.setUpdatedAt(item.getUpdatedAt());
         ingredientDb.setDeletedAt(item.getDeletedAt());
