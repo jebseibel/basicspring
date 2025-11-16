@@ -7,6 +7,7 @@ import Dashboard from './pages/Dashboard';
 import SaladBuilder from './pages/SaladBuilder';
 import Mixtures from './pages/Mixtures';
 import MakeMixture from './pages/MakeMixture';
+import MixtureShop from './pages/MixtureShop';
 import Foods from './pages/Foods';
 import Nutrition from './pages/Nutrition';
 
@@ -39,6 +40,7 @@ function App() {
                         <Route path="mixtures" element={<Mixtures />} />
                         <Route path="mixtures/new" element={<MakeMixture />} />
                         <Route path="mixtures/edit/:extid" element={<MakeMixture />} />
+                        <Route path="mixtures/shop/:extid" element={<MixtureShop />} />
                         <Route path="foods" element={<Foods />} />
                         <Route path="nutrition" element={<Nutrition />} />
                         <Route path="profiles" element={<div className="p-6">Profiles page coming soon...</div>} />

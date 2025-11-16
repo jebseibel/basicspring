@@ -1,6 +1,6 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { mixtureApi } from '../services/api';
-import { Blend, ArrowUpDown, ArrowUp, ArrowDown, ChevronRight, ChevronDown, Copy, Plus, Trash2, Edit } from 'lucide-react';
+import { Blend, ArrowUpDown, ArrowUp, ArrowDown, ChevronRight, ChevronDown, Copy, Plus, Trash2, Edit, ShoppingCart } from 'lucide-react';
 import { useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import type { Mixture, MixtureRequest } from '../types/api';
@@ -305,6 +305,13 @@ export default function Mixtures() {
                                                         Make it my Own
                                                     </button>
                                                 )}
+                                                <button
+                                                    onClick={() => navigate(`/mixtures/shop/${mixture.extid}`)}
+                                                    className="text-green-600 hover:text-green-800 p-1"
+                                                    title="Shopping list"
+                                                >
+                                                    <ShoppingCart className="h-5 w-5" />
+                                                </button>
                                                 {mixture.userExtid && (
                                                     <>
                                                         <button
