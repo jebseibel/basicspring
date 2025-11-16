@@ -3,25 +3,29 @@ package com.seibel.cpss.loader;
 import com.seibel.cpss.common.domain.Flavor;
 import com.seibel.cpss.common.domain.Food;
 import com.seibel.cpss.common.domain.Nutrition;
+import com.seibel.cpss.common.domain.Mixture;
+import com.seibel.cpss.common.domain.MixtureIngredient;
 import com.seibel.cpss.database.db.entity.FlavorDb;
 import com.seibel.cpss.database.db.entity.FoodDb;
 import com.seibel.cpss.database.db.entity.NutritionDb;
+import com.seibel.cpss.database.db.entity.MixtureDb;
 import com.seibel.cpss.database.db.repository.FlavorRepository;
 import com.seibel.cpss.database.db.repository.FoodRepository;
 import com.seibel.cpss.database.db.repository.NutritionRepository;
+import com.seibel.cpss.database.db.repository.MixtureRepository;
+import com.seibel.cpss.database.db.repository.MixtureIngredientRepository;
 import com.seibel.cpss.database.db.service.FlavorDbService;
 import com.seibel.cpss.database.db.service.FoodDbService;
 import com.seibel.cpss.database.db.service.NutritionDbService;
+import com.seibel.cpss.database.db.service.MixtureDbService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Data loader that reads CSV files and loads data through DbService layer.
@@ -35,11 +39,14 @@ public class DataLoader implements CommandLineRunner {
     private final FoodDbService foodDbService;
     private final FlavorDbService flavorDbService;
     private final NutritionDbService nutritionDbService;
+    private final MixtureDbService mixtureDbService;
 
     // Repositories needed for linking relationships
     private final FoodRepository foodRepository;
     private final FlavorRepository flavorRepository;
     private final NutritionRepository nutritionRepository;
+    private final MixtureRepository mixtureRepository;
+    private final MixtureIngredientRepository mixtureIngredientRepository;
 
     private static final String DATA_PATH = "db/data/";
 
@@ -56,15 +63,21 @@ public class DataLoader implements CommandLineRunner {
     public DataLoader(FoodDbService foodDbService,
                       FlavorDbService flavorDbService,
                       NutritionDbService nutritionDbService,
+                      MixtureDbService mixtureDbService,
                       FoodRepository foodRepository,
                       FlavorRepository flavorRepository,
-                      NutritionRepository nutritionRepository) {
+                      NutritionRepository nutritionRepository,
+                      MixtureRepository mixtureRepository,
+                      MixtureIngredientRepository mixtureIngredientRepository) {
         this.foodDbService = foodDbService;
         this.flavorDbService = flavorDbService;
         this.nutritionDbService = nutritionDbService;
+        this.mixtureDbService = mixtureDbService;
         this.foodRepository = foodRepository;
         this.flavorRepository = flavorRepository;
         this.nutritionRepository = nutritionRepository;
+        this.mixtureRepository = mixtureRepository;
+        this.mixtureIngredientRepository = mixtureIngredientRepository;
     }
 
     @Override
@@ -81,11 +94,12 @@ public class DataLoader implements CommandLineRunner {
 
             log.info("No existing data found. Loading from CSV files...");
 
-            // Load in order: Flavor -> Nutrition -> Food -> Link relationships
+            // Load in order: Flavor -> Nutrition -> Food -> Link relationships -> Mixtures (with ingredients)
             loadFlavors();
             loadNutrition();
             loadFoods();
             linkFoodRelationships();
+            loadMixtures();
 
             log.info("=== Data Loading Complete ===");
             logSummary();
@@ -143,6 +157,8 @@ public class DataLoader implements CommandLineRunner {
                 nutrition.setFat(parseInteger(record.get("fat")));
                 nutrition.setProtein(parseInteger(record.get("protein")));
                 nutrition.setSugar(parseInteger(record.get("sugar")));
+                nutrition.setVitaminD(parseInteger(record.get("vitamin_d")));
+                nutrition.setVitaminE(parseInteger(record.get("vitamin_e")));
 
                 nutritionDbService.create(nutrition);
                 count++;
@@ -222,15 +238,76 @@ public class DataLoader implements CommandLineRunner {
                 linkedFlavors, linkedNutrition);
     }
 
+    private void loadMixtures() throws IOException {
+        log.info("Loading Mixtures with Ingredients...");
+
+        // First, read all ingredients and group by mixture name
+        String ingredientsPath = DATA_PATH + "60-mixture-ingredient.csv";
+        List<Map<String, String>> ingredientRecords = CsvParser.parse(ingredientsPath);
+
+        // Group ingredients by mixture name
+        Map<String, List<Map<String, String>>> ingredientsByMixture = ingredientRecords.stream()
+                .collect(Collectors.groupingBy(record -> record.get("mixture_name")));
+
+        // Now load mixtures with their ingredients
+        String mixturesPath = DATA_PATH + "50-mixture.csv";
+        List<Map<String, String>> mixtureRecords = CsvParser.parse(mixturesPath);
+        int count = 0;
+        int ingredientCount = 0;
+
+        for (Map<String, String> record : mixtureRecords) {
+            String mixtureName = record.get("name");
+
+            Mixture mixture = new Mixture();
+            mixture.setName(mixtureName);
+            mixture.setDescription(record.get("description"));
+            // Leave userExtid as null for prebuilt/system mixtures
+
+            // Add ingredients if they exist
+            List<MixtureIngredient> ingredients = new ArrayList<>();
+            List<Map<String, String>> mixtureIngredients = ingredientsByMixture.get(mixtureName);
+
+            if (mixtureIngredients != null) {
+                for (Map<String, String> ingredientRecord : mixtureIngredients) {
+                    String foodName = ingredientRecord.get("food_name");
+                    Integer grams = parseInteger(ingredientRecord.get("grams"));
+
+                    // Find food by name to get its extid
+                    Optional<FoodDb> foodOpt = foodRepository.findByName(foodName);
+                    if (foodOpt.isEmpty()) {
+                        log.warn("Food not found for ingredient: {}", foodName);
+                        continue;
+                    }
+
+                    MixtureIngredient ingredient = new MixtureIngredient();
+                    ingredient.setFoodExtid(foodOpt.get().getExtid());
+                    ingredient.setGrams(grams);
+                    // BaseDb fields will be set by the service
+
+                    ingredients.add(ingredient);
+                    ingredientCount++;
+                }
+            }
+
+            mixture.setIngredients(ingredients);
+            mixtureDbService.create(mixture);
+            count++;
+        }
+
+        log.info("Loaded {} prebuilt mixtures with {} ingredients", count, ingredientCount);
+    }
+
     private void logSummary() {
         long foods = foodRepository.count();
         long flavors = flavorRepository.count();
         long nutrition = nutritionRepository.count();
+        long mixtures = mixtureRepository.count();
 
         log.info("=== Data Load Summary ===");
         log.info("Foods:     {}", foods);
         log.info("Flavors:   {}", flavors);
         log.info("Nutrition: {}", nutrition);
+        log.info("Mixtures:  {}", mixtures);
         log.info("========================");
     }
 

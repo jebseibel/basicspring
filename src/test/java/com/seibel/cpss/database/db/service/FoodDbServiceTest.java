@@ -7,7 +7,6 @@ import com.seibel.cpss.database.db.exceptions.DatabaseFailureException;
 import com.seibel.cpss.database.db.mapper.FlavorMapper;
 import com.seibel.cpss.database.db.mapper.FoodMapper;
 import com.seibel.cpss.database.db.mapper.NutritionMapper;
-import com.seibel.cpss.database.db.mapper.ServingMapper;
 import com.seibel.cpss.database.db.repository.FoodRepository;
 import com.seibel.cpss.testutils.DomainBuilderDatabase;
 import org.junit.jupiter.api.Test;
@@ -39,9 +38,6 @@ class FoodDbServiceTest {
 
     @Mock
     private NutritionMapper nutritionMapper;
-
-    @Mock
-    private ServingMapper servingMapper;
 
     @InjectMocks
     private FoodDbService service;

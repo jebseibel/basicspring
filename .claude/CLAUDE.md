@@ -19,3 +19,6 @@
 - JWT tokens for stateless auth
 - Token stored in localStorage (frontend)
 - Basic security (no social login, MFA, etc.)
+
+FRONT END NOTES:
+- For any Front End work, we can not use Modals.

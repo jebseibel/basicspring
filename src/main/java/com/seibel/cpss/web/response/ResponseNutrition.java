@@ -13,9 +13,13 @@ public class ResponseNutrition {
     private String category;
     private String subcategory;
     private String description;
+    private Integer calories;
     private Integer carbohydrate;
     private Integer fat;
     private Integer protein;
     private Integer sugar;
+    private Integer fiber;
+    private Integer vitaminD;
+    private Integer vitaminE;
 }
 

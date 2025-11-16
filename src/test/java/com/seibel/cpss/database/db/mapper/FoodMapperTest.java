@@ -4,10 +4,8 @@ import com.seibel.cpss.common.domain.Food;
 import com.seibel.cpss.database.db.entity.FlavorDb;
 import com.seibel.cpss.database.db.entity.FoodDb;
 import com.seibel.cpss.database.db.entity.NutritionDb;
-import com.seibel.cpss.database.db.entity.ServingDb;
 import com.seibel.cpss.database.db.repository.FlavorRepository;
 import com.seibel.cpss.database.db.repository.NutritionRepository;
-import com.seibel.cpss.database.db.repository.ServingRepository;
 import com.seibel.cpss.testutils.DomainBuilderDatabase;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -31,33 +29,26 @@ class FoodMapperTest {
     @Mock
     private NutritionRepository nutritionRepository;
     @Mock
-    private ServingRepository servingRepository;
-    @Mock
     private FlavorMapper flavorMapper;
     @Mock
     private NutritionMapper nutritionMapper;
-    @Mock
-    private ServingMapper servingMapper;
 
     private FoodMapper mapper;
 
     @BeforeEach
     void setUp() {
-        mapper = new FoodMapper(flavorRepository, nutritionRepository, servingRepository,
-                                flavorMapper, nutritionMapper, servingMapper);
+        mapper = new FoodMapper(flavorRepository, nutritionRepository,
+                                flavorMapper, nutritionMapper);
 
         // Setup default mock behavior with lenient stubbings
         FlavorDb flavorDb = DomainBuilderDatabase.getFlavorDb();
         NutritionDb nutritionDb = DomainBuilderDatabase.getNutritionDb();
-        ServingDb servingDb = DomainBuilderDatabase.getServingDb();
 
         org.mockito.Mockito.lenient().when(flavorRepository.findByCode(anyString())).thenReturn(Optional.of(flavorDb));
         org.mockito.Mockito.lenient().when(nutritionRepository.findByCode(anyString())).thenReturn(Optional.of(nutritionDb));
-        org.mockito.Mockito.lenient().when(servingRepository.findByCode(anyString())).thenReturn(Optional.of(servingDb));
 
         org.mockito.Mockito.lenient().when(flavorMapper.toModel(flavorDb)).thenReturn(DomainBuilderDatabase.getFlavor(flavorDb));
         org.mockito.Mockito.lenient().when(nutritionMapper.toModel(nutritionDb)).thenReturn(DomainBuilderDatabase.getNutrition(nutritionDb));
-        org.mockito.Mockito.lenient().when(servingMapper.toModel(servingDb)).thenReturn(DomainBuilderDatabase.getServing(servingDb));
     }
 
     @Test

@@ -2,7 +2,6 @@ import { useQuery } from '@tanstack/react-query';
 import { foodApi } from '../services/api';
 import { Apple, ArrowUpDown, ArrowUp, ArrowDown } from 'lucide-react';
 import { useState, useMemo } from 'react';
-import type { Food } from '../types/api';
 
 type SortField = 'name' | 'category' | 'subcategory' | 'description';
 type SortDirection = 'asc' | 'desc' | null;

@@ -68,6 +68,8 @@ class NutritionConverter {
                 .fat(domain.getFat())
                 .protein(domain.getProtein())
                 .sugar(domain.getSugar())
+                .vitaminD(domain.getVitaminD())
+                .vitaminE(domain.getVitaminE())
                 .build();
     }
 
@@ -84,6 +86,8 @@ class NutritionConverter {
                 .fat(request.getFat())
                 .protein(request.getProtein())
                 .sugar(request.getSugar())
+                .vitaminD(request.getVitaminD())
+                .vitaminE(request.getVitaminE())
                 .build();
     }
 
@@ -97,6 +101,8 @@ class NutritionConverter {
                 .fat(request.getFat())
                 .protein(request.getProtein())
                 .sugar(request.getSugar())
+                .vitaminD(request.getVitaminD())
+                .vitaminE(request.getVitaminE())
                 .build();
     }
 
@@ -104,7 +110,8 @@ class NutritionConverter {
         if (request.getCode() == null && request.getName() == null &&
                 request.getDescription() == null &&
                 request.getCarbohydrate() == null && request.getFat() == null &&
-                request.getProtein() == null && request.getSugar() == null) {
+                request.getProtein() == null && request.getSugar() == null &&
+                request.getVitaminD() == null && request.getVitaminE() == null) {
             throw new IllegalArgumentException("At least one field must be provided for update.");
         }
     }

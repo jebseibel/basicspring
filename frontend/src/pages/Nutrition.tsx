@@ -4,7 +4,7 @@ import { Scale, ArrowUpDown, ArrowUp, ArrowDown } from 'lucide-react';
 import { useState, useMemo } from 'react';
 import type { Nutrition } from '../types/api';
 
-type SortField = 'name' | 'carbohydrate' | 'fat' | 'protein' | 'sugar';
+type SortField = 'name' | 'carbohydrate' | 'fat' | 'protein' | 'sugar' | 'vitaminD' | 'vitaminE';
 type SortDirection = 'asc' | 'desc' | null;
 
 export default function Nutrition() {
@@ -139,6 +139,24 @@ export default function Nutrition() {
                                 {getSortIcon('sugar')}
                             </div>
                         </th>
+                        <th
+                            className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
+                            onClick={() => handleSort('vitaminD')}
+                        >
+                            <div className="flex items-center">
+                                Vitamin D
+                                {getSortIcon('vitaminD')}
+                            </div>
+                        </th>
+                        <th
+                            className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
+                            onClick={() => handleSort('vitaminE')}
+                        >
+                            <div className="flex items-center">
+                                Vitamin E
+                                {getSortIcon('vitaminE')}
+                            </div>
+                        </th>
                     </tr>
                     </thead>
                     <tbody className="bg-white divide-y divide-gray-200">
@@ -160,11 +178,17 @@ export default function Nutrition() {
                                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                     {nutrition.sugar}
                                 </td>
+                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                    {nutrition.vitaminD ?? '-'}
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                    {nutrition.vitaminE ?? '-'}
+                                </td>
                             </tr>
                         ))
                     ) : (
                         <tr>
-                            <td colSpan={5} className="px-6 py-12 text-center text-gray-500">
+                            <td colSpan={7} className="px-6 py-12 text-center text-gray-500">
                                 No nutrition profiles found.
                             </td>
                         </tr>

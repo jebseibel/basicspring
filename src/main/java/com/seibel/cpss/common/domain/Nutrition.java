@@ -21,6 +21,7 @@ public class Nutrition extends BaseDomain {
     private Integer fat;
     private Integer protein;
     private Integer sugar;
+    private Integer fiber;
     private Integer vitaminD;
     private Integer vitaminE;
 }

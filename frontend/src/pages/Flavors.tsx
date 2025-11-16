@@ -2,7 +2,6 @@ import { useQuery } from '@tanstack/react-query';
 import { flavorApi } from '../services/api';
 import { Sparkles, ArrowUpDown, ArrowUp, ArrowDown } from 'lucide-react';
 import { useState, useMemo } from 'react';
-import type { Flavor } from '../types/api';
 
 type SortField = 'name' | 'crunch' | 'punch' | 'sweet' | 'savory' | 'howtouse';
 type SortDirection = 'asc' | 'desc' | null;

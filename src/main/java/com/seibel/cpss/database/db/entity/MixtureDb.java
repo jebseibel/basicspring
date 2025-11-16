@@ -21,7 +21,7 @@ public class MixtureDb extends BaseDb {
     @Column(name = "description", length = 500)
     private String description;
 
-    @Column(name = "user_extid", length = 36, nullable = false)
+    @Column(name = "user_extid", length = 36)
     private String userExtid;
 
     @OneToMany(mappedBy = "mixture", cascade = CascadeType.ALL, orphanRemoval = true)

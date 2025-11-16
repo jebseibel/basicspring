@@ -2,7 +2,6 @@ import { useQuery } from '@tanstack/react-query';
 import { saladApi } from '../services/api';
 import { Salad as SaladIcon, ArrowUpDown, ArrowUp, ArrowDown } from 'lucide-react';
 import { useState, useMemo } from 'react';
-import type { Salad } from '../types/api';
 
 type SortField = 'name' | 'description' | 'userExtid';
 type SortDirection = 'asc' | 'desc' | null;

@@ -27,4 +27,6 @@ public class RequestNutritionUpdate extends BaseRequest {
     private Integer fat;
     private Integer protein;
     private Integer sugar;
+    private Integer vitaminD;
+    private Integer vitaminE;
 }

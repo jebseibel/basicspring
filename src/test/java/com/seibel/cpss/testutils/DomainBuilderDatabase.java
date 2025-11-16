@@ -39,42 +39,6 @@ public class DomainBuilderDatabase extends DomainBuilderBase {
     }
 
     // ///////////////////////////////////////////////////////////////////
-    // Serving
-    public static Serving getServing() {
-        ServingDb item = getServingDb();
-        return new ServingMapper().toModel(item);
-    }
-
-    public static Serving getServing(ServingDb item) {
-        return new ServingMapper().toModel(item);
-    }
-
-    public static ServingDb getServingDb() {
-        return getServingDb(null, null, null, null, null, null, null, null, null, null);
-    }
-
-    public static ServingDb getServingDb(String code, String name) {
-        return getServingDb(code, name, null, null, null, null, null, null, null, null);
-    }
-
-    public static ServingDb getServingDb(String code, String name, String description,
-                                         Integer cup, Integer quarter, Integer tablespoon, Integer teaspoon, Integer gram, String notes, String extid) {
-        ServingDb item = new ServingDb();
-        item.setExtid(extid != null ? extid : UUID.randomUUID().toString());
-        item.setCode(code != null ? code : getCodeRandom("SRV_"));
-        item.setName(name != null ? name : getNameRandom("Serving_"));
-        item.setDescription(description != null ? description : getDescriptionRandom("Serving Description "));
-        item.setNotes(notes != null ? notes : getDescriptionRandom("Serving Notes "));
-        item.setCup(cup != null ? cup : 1);
-        item.setQuarter(quarter != null ? quarter : 4);
-        item.setTablespoon(tablespoon != null ? tablespoon : 16);
-        item.setTeaspoon(teaspoon != null ? teaspoon : 48);
-        item.setGram(gram != null ? gram : 240);
-        setBaseSyncFields(item);
-        return item;
-    }
-
-    // ///////////////////////////////////////////////////////////////////
     // Nutrition
     public static Nutrition getNutrition() {
         NutritionDb item = getNutritionDb();
@@ -86,15 +50,15 @@ public class DomainBuilderDatabase extends DomainBuilderBase {
     }
 
     public static NutritionDb getNutritionDb() {
-        return getNutritionDb(null, null, null, null, null, null, null, null, null);
+        return getNutritionDb(null, null, null, null, null, null, null, null, null, null);
     }
 
     public static NutritionDb getNutritionDb(String code, String name) {
-        return getNutritionDb(code, name, null, null, null, null, null, null, null);
+        return getNutritionDb(code, name, null, null, null, null, null, null, null, null);
     }
 
     public static NutritionDb getNutritionDb(String code, String name, String description,
-                                             Integer carbohydrate, Integer fat, Integer protein, Integer sugar, String notes, String extid) {
+                                             Integer carbohydrate, Integer fat, Integer protein, Integer sugar, Integer fiber, String notes, String extid) {
         NutritionDb item = new NutritionDb();
         item.setExtid(extid != null ? extid : UUID.randomUUID().toString());
         item.setCode(code != null ? code : getCodeRandom("NTR_"));
@@ -105,6 +69,7 @@ public class DomainBuilderDatabase extends DomainBuilderBase {
         item.setFat(fat != null ? fat : 10);
         item.setProtein(protein != null ? protein : 20);
         item.setSugar(sugar != null ? sugar : 5);
+        item.setFiber(fiber != null ? fiber : 8);
         setBaseSyncFields(item);
         return item;
     }
@@ -145,15 +110,15 @@ public class DomainBuilderDatabase extends DomainBuilderBase {
     }
 
     public static FoodDb getFoodDb() {
-        return getFoodDb(null, null, null, null, null, null, null, null, null, null);
+        return getFoodDb(null, null, null, null, null, null, null, null, null);
     }
 
     public static FoodDb getFoodDb(String code, String name) {
-        return getFoodDb(code, name, null, null, null, null, null, null, null, null);
+        return getFoodDb(code, name, null, null, null, null, null, null, null);
     }
 
     public static FoodDb getFoodDb(String code, String name, String category, String subcategory, String description,
-                                   FlavorDb flavor, NutritionDb nutrition, ServingDb serving, String notes,
+                                   FlavorDb flavor, NutritionDb nutrition, String notes,
                                    String extid) {
         FoodDb item = new FoodDb();
         item.setExtid(extid != null ? extid : UUID.randomUUID().toString());
@@ -163,9 +128,13 @@ public class DomainBuilderDatabase extends DomainBuilderBase {
         item.setSubcategory(subcategory != null ? subcategory : getNameRandom("SubCat_"));
         item.setDescription(description != null ? description : getDescriptionRandom("Food Description "));
         item.setNotes(notes != null ? notes : getDescriptionRandom("Food Notes "));
-        item.setFlavor(flavor != null ? flavor : getFlavorDb());
-        item.setNutrition(nutrition != null ? nutrition : getNutritionDb());
-        item.setServing(serving != null ? serving : getServingDb());
+        // Only set flavor and nutrition if explicitly provided, not by default
+        if (flavor != null) {
+            item.setFlavor(flavor);
+        }
+        if (nutrition != null) {
+            item.setNutrition(nutrition);
+        }
 
         setBaseSyncFields(item);
         return item;

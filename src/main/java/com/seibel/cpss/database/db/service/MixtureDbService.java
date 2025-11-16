@@ -162,7 +162,7 @@ public class MixtureDbService extends BaseDbService {
 
     public List<Mixture> findAll() {
         try {
-            List<MixtureDb> all = repository.findAll();
+            List<MixtureDb> all = repository.findAllWithIngredients();
             return mapper.toModelList(all);
 
         } catch (Exception e) {

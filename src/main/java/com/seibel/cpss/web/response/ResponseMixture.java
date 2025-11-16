@@ -1,5 +1,6 @@
 package com.seibel.cpss.web.response;
 
+import com.seibel.cpss.common.enums.ActiveEnum;
 import lombok.Builder;
 import lombok.Data;
 
@@ -14,6 +15,9 @@ public class ResponseMixture {
     private String description;
     private String userExtid;
     private List<MixtureIngredientResponse> ingredients;
+    private ResponseNutrition totalNutrition;
+    private Integer totalGrams;
+    private ActiveEnum active;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 

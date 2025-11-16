@@ -26,6 +26,9 @@ public class NutritionDb extends BaseFoodDb {
     @Column(name = "sugar", nullable = false)
     private Integer sugar;
 
+    @Column(name = "fiber")
+    private Integer fiber;
+
     @Column(name = "vitamin_d")
     private Integer vitaminD;
 

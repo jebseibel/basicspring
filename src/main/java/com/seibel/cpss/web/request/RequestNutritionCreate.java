@@ -40,4 +40,7 @@ public class RequestNutritionCreate extends BaseRequest {
 
     @NotNull(message = "The sugar value is required.")
     private Integer sugar;
+
+    private Integer vitaminD;
+    private Integer vitaminE;
 }

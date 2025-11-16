@@ -40,6 +40,8 @@ export interface Nutrition {
     fat: number;
     protein: number;
     sugar: number;
+    vitaminD: number;
+    vitaminE: number;
 }
 
 export interface NutritionRequest {
@@ -53,6 +55,8 @@ export interface NutritionRequest {
     fat: number;
     protein: number;
     sugar: number;
+    vitaminD: number;
+    vitaminE: number;
 }
 
 export interface Flavor {
@@ -153,18 +157,35 @@ export interface SaladRequest {
 }
 
 // Mixture Types
+export interface MixtureIngredient {
+    extid: string;
+    foodExtid: string;
+    foodName: string;
+    grams: number;
+}
+
 export interface Mixture {
     extid: string;
     name: string;
     description?: string;
     userExtid: string;
+    ingredients: MixtureIngredient[];
+    totalNutrition?: Nutrition;
+    totalGrams?: number;
+    active?: string;
     createdAt: string;
     updatedAt: string;
+}
+
+export interface MixtureIngredientRequest {
+    foodExtid: string;
+    grams: number;
 }
 
 export interface MixtureRequest {
     name: string;
     description?: string;
+    ingredients: MixtureIngredientRequest[];
 }
 
 // Authentication

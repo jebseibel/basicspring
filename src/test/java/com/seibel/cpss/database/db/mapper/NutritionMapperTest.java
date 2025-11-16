@@ -39,6 +39,7 @@ class NutritionMapperTest {
         assertEquals(db.getFat(), domain.getFat());
         assertEquals(db.getProtein(), domain.getProtein());
         assertEquals(db.getSugar(), domain.getSugar());
+        assertEquals(db.getFiber(), domain.getFiber());
         assertEquals(db.getCreatedAt(), domain.getCreatedAt());
         assertEquals(db.getUpdatedAt(), domain.getUpdatedAt());
         assertEquals(db.getDeletedAt(), domain.getDeletedAt());
@@ -63,6 +64,7 @@ class NutritionMapperTest {
         assertEquals(domain.getFat(), db.getFat());
         assertEquals(domain.getProtein(), db.getProtein());
         assertEquals(domain.getSugar(), db.getSugar());
+        assertEquals(domain.getFiber(), db.getFiber());
         assertEquals(domain.getCreatedAt(), db.getCreatedAt());
         assertEquals(domain.getUpdatedAt(), db.getUpdatedAt());
         assertEquals(domain.getDeletedAt(), db.getDeletedAt());
