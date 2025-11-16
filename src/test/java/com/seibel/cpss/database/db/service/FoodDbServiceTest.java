@@ -4,7 +4,6 @@ import com.seibel.cpss.common.domain.Food;
 import com.seibel.cpss.common.enums.ActiveEnum;
 import com.seibel.cpss.database.db.entity.FoodDb;
 import com.seibel.cpss.database.db.exceptions.DatabaseFailureException;
-import com.seibel.cpss.database.db.mapper.FlavorMapper;
 import com.seibel.cpss.database.db.mapper.FoodMapper;
 import com.seibel.cpss.database.db.mapper.NutritionMapper;
 import com.seibel.cpss.database.db.repository.FoodRepository;
@@ -32,9 +31,6 @@ class FoodDbServiceTest {
 
     @Mock
     private FoodMapper mapper;
-
-    @Mock
-    private FlavorMapper flavorMapper;
 
     @Mock
     private NutritionMapper nutritionMapper;

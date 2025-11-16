@@ -13,7 +13,10 @@ public class ResponseFood {
     private String subcategory;
     private String description;
     private String notes;
-    private ResponseFlavor flavor;
+    private Integer crunch;
+    private Integer punch;
+    private Integer sweet;
+    private Integer savory;
     private ResponseNutrition nutrition;
     private Integer typicalServingGrams;
     private Boolean foundation;

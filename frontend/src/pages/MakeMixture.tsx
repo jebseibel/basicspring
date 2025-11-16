@@ -205,11 +205,21 @@ export default function MakeMixture() {
                                                 className="block w-full rounded-md border-gray-300 shadow-sm focus:border-purple-500 focus:ring-purple-500 sm:text-sm border px-3 py-2"
                                             >
                                                 <option value="">Select food...</option>
-                                                {mixableFoods.map((food) => (
-                                                    <option key={food.extid} value={food.extid}>
-                                                        {food.name}
-                                                    </option>
-                                                ))}
+                                                {mixableFoods.map((food) => {
+                                                    // Disable if this food is already selected in another ingredient
+                                                    const isAlreadySelected = ingredients.some(
+                                                        (ing, idx) => idx !== index && ing.foodExtid === food.extid
+                                                    );
+                                                    return (
+                                                        <option
+                                                            key={food.extid}
+                                                            value={food.extid}
+                                                            disabled={isAlreadySelected}
+                                                        >
+                                                            {food.name}
+                                                        </option>
+                                                    );
+                                                })}
                                             </select>
                                         </div>
                                         <div className="flex items-center gap-2">

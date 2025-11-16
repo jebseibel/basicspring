@@ -11,6 +11,9 @@ export default function Foods() {
   const [sortDirection, setSortDirection] = useState<SortDirection>(null);
   const [mixableFilter, setMixableFilter] = useState<'all' | 'mixable' | 'non-mixable'>('all');
   const [foundationFilter, setFoundationFilter] = useState<'all' | 'foundation'>('all');
+  const [categoryFilter, setCategoryFilter] = useState<string>('all');
+
+  const categories = ['Cheese', 'Dried Crunch', 'Dried Fruit', 'Fresh Fruit', 'Nuts', 'Vegetables'];
 
   const { data: foods, isLoading, error } = useQuery({
     queryKey: ['foods'],
@@ -38,6 +41,11 @@ export default function Foods() {
       filtered = filtered.filter(food => food.foundation === true);
     }
 
+    // Apply category filter
+    if (categoryFilter !== 'all') {
+      filtered = filtered.filter(food => food.category === categoryFilter);
+    }
+
     // Then apply sorting
     if (!sortField || !sortDirection) return filtered;
 
@@ -57,7 +65,7 @@ export default function Foods() {
       if (aValue > bValue) return sortDirection === 'asc' ? 1 : -1;
       return 0;
     });
-  }, [foods, sortField, sortDirection, mixableFilter, foundationFilter]);
+  }, [foods, sortField, sortDirection, mixableFilter, foundationFilter, categoryFilter]);
 
   const handleSort = (field: SortField) => {
     if (sortField === field) {
@@ -102,11 +110,40 @@ export default function Foods() {
 
   return (
     <div className="px-4 py-6 sm:px-0">
-      <div className="flex items-center justify-between mb-6">
-        <h1 className="text-3xl font-bold text-gray-900 flex items-center">
+      <div className="mb-6">
+        <h1 className="text-3xl font-bold text-gray-900 flex items-center mb-3">
           <Apple className="h-8 w-8 mr-3 text-green-600" />
           Food Items
         </h1>
+
+        {/* Category Filter Buttons */}
+        <div className="flex items-center gap-2 mb-4">
+          <span className="text-sm font-medium text-gray-700">Categories:</span>
+          <button
+            onClick={() => setCategoryFilter('all')}
+            className={`px-3 py-1 text-sm rounded-md ${
+              categoryFilter === 'all'
+                ? 'bg-green-600 text-white'
+                : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+            }`}
+          >
+            All
+          </button>
+          {categories.map((category) => (
+            <button
+              key={category}
+              onClick={() => setCategoryFilter(category)}
+              className={`px-3 py-1 text-sm rounded-md ${
+                categoryFilter === category
+                  ? 'bg-green-600 text-white'
+                  : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+              }`}
+            >
+              {category}
+            </button>
+          ))}
+        </div>
+
         <div className="flex items-center gap-4">
           <div className="flex items-center gap-2">
             <input

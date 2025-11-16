@@ -6,7 +6,6 @@ import com.seibel.cpss.service.FoodService;
 import com.seibel.cpss.service.MixtureService;
 import com.seibel.cpss.web.request.RequestMixtureCreate;
 import com.seibel.cpss.web.request.RequestMixtureUpdate;
-import com.seibel.cpss.web.response.ResponseFlavor;
 import com.seibel.cpss.web.response.ResponseNutrition;
 import com.seibel.cpss.web.response.ResponseMixture;
 import lombok.RequiredArgsConstructor;
@@ -28,7 +27,6 @@ public class MixtureController {
 
     private final FoodService foodService;
     private final MixtureService mixtureService;
-    private final FlavorConverter flavorConverter;
     private final NutritionConverter nutritionConverter;
     private final MixtureConverter mixtureConverter;
 

@@ -52,4 +52,9 @@ public class FoodService extends BaseService {
         requireNonNull(active, "active");
         return dbService.findByActive(active);
     }
+
+    public List<Food> findByExtidIn(List<String> extids) throws DatabaseFailureException {
+        requireNonNull(extids, "extids");
+        return dbService.findByExtidIn(extids);
+    }
 }

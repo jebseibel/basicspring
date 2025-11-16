@@ -16,11 +16,11 @@ public class RequestSaladUpdate extends BaseRequest {
     @Size(max = 500)
     private String description;
 
-    private List<SaladIngredientRequest> ingredients;
+    private List<SaladIngredientRequest> foodIngredients;
 
     @Data
     public static class SaladIngredientRequest {
         private String foodExtid;
-        private Double quantity;
+        private Integer grams;
     }
 }

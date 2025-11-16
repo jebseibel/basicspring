@@ -1,9 +1,12 @@
 package com.seibel.cpss.database.db.service;
 
 import com.seibel.cpss.common.domain.Salad;
+import com.seibel.cpss.common.domain.SaladFoodIngredient;
 import com.seibel.cpss.common.enums.ActiveEnum;
 import com.seibel.cpss.database.db.entity.SaladDb;
+import com.seibel.cpss.database.db.entity.SaladFoodIngredientDb;
 import com.seibel.cpss.database.db.exceptions.DatabaseFailureException;
+import com.seibel.cpss.database.db.mapper.SaladFoodIngredientMapper;
 import com.seibel.cpss.database.db.mapper.SaladMapper;
 import com.seibel.cpss.database.db.repository.SaladRepository;
 import lombok.NonNull;
@@ -12,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -21,11 +25,13 @@ public class SaladDbService extends BaseDbService {
 
     private final SaladRepository repository;
     private final SaladMapper mapper;
+    private final SaladFoodIngredientMapper ingredientMapper;
 
-    public SaladDbService(SaladRepository repository, SaladMapper mapper) {
+    public SaladDbService(SaladRepository repository, SaladMapper mapper, SaladFoodIngredientMapper ingredientMapper) {
         super("SaladDb");
         this.repository = repository;
         this.mapper = mapper;
+        this.ingredientMapper = ingredientMapper;
     }
 
     @Transactional
@@ -40,6 +46,24 @@ public class SaladDbService extends BaseDbService {
             salad.setActive(ActiveEnum.ACTIVE);
 
             SaladDb saladDb = mapper.toDb(salad);
+
+            // Handle food ingredients
+            if (salad.getFoodIngredients() != null && !salad.getFoodIngredients().isEmpty()) {
+                List<SaladFoodIngredientDb> ingredientDbs = new ArrayList<>();
+                for (SaladFoodIngredient ingredient : salad.getFoodIngredients()) {
+                    ingredient.setExtid(UUID.randomUUID().toString());
+                    ingredient.setCreatedAt(now);
+                    ingredient.setUpdatedAt(now);
+                    ingredient.setActive(ActiveEnum.ACTIVE);
+                    ingredient.setSaladId(null); // Will be set by cascade
+
+                    SaladFoodIngredientDb ingredientDb = ingredientMapper.toDb(ingredient);
+                    ingredientDb.setSalad(saladDb);
+                    ingredientDbs.add(ingredientDb);
+                }
+                saladDb.setFoodIngredients(ingredientDbs);
+            }
+
             SaladDb saved = repository.save(saladDb);
 
             log.info(createdMessage(extid));
@@ -60,9 +84,28 @@ public class SaladDbService extends BaseDbService {
         }
 
         try {
+            LocalDateTime now = LocalDateTime.now();
             record.setName(salad.getName());
             record.setDescription(salad.getDescription());
-            record.setUpdatedAt(LocalDateTime.now());
+            record.setUpdatedAt(now);
+
+            // Handle food ingredients update - clear and replace
+            if (salad.getFoodIngredients() != null) {
+                record.getFoodIngredients().clear();
+
+                List<SaladFoodIngredientDb> ingredientDbs = new ArrayList<>();
+                for (SaladFoodIngredient ingredient : salad.getFoodIngredients()) {
+                    ingredient.setExtid(UUID.randomUUID().toString());
+                    ingredient.setCreatedAt(now);
+                    ingredient.setUpdatedAt(now);
+                    ingredient.setActive(ActiveEnum.ACTIVE);
+
+                    SaladFoodIngredientDb ingredientDb = ingredientMapper.toDb(ingredient);
+                    ingredientDb.setSalad(record);
+                    ingredientDbs.add(ingredientDb);
+                }
+                record.getFoodIngredients().addAll(ingredientDbs);
+            }
 
             SaladDb updated = repository.save(record);
             log.info(updatedMessage(extid));
@@ -119,7 +162,7 @@ public class SaladDbService extends BaseDbService {
 
     public List<Salad> findAll() {
         try {
-            List<SaladDb> all = repository.findAll();
+            List<SaladDb> all = repository.findAllWithIngredients();
             return mapper.toModelList(all);
 
         } catch (Exception e) {

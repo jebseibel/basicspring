@@ -5,7 +5,6 @@ import com.seibel.cpss.common.enums.ActiveEnum;
 import com.seibel.cpss.common.util.CodeGenerator;
 import com.seibel.cpss.database.db.entity.FoodDb;
 import com.seibel.cpss.database.db.exceptions.DatabaseFailureException;
-import com.seibel.cpss.database.db.mapper.FlavorMapper;
 import com.seibel.cpss.database.db.mapper.FoodMapper;
 import com.seibel.cpss.database.db.mapper.NutritionMapper;
 import com.seibel.cpss.database.db.repository.FoodRepository;
@@ -22,15 +21,13 @@ public class FoodDbService extends BaseDbService {
 
     private final FoodRepository repository;
     private final FoodMapper mapper;
-    private final FlavorMapper flavorMapper;
     private final NutritionMapper nutritionMapper;
 
     public FoodDbService(FoodRepository repository, FoodMapper mapper,
-                         FlavorMapper flavorMapper, NutritionMapper nutritionMapper) {
+                         NutritionMapper nutritionMapper) {
         super("FoodDb");
         this.repository = repository;
         this.mapper = mapper;
-        this.flavorMapper = flavorMapper;
         this.nutritionMapper = nutritionMapper;
     }
 
@@ -113,6 +110,12 @@ public class FoodDbService extends BaseDbService {
     public List<Food> findByActive(ActiveEnum active) {
         List<Food> results = mapper.toModelList(repository.findByActive(active));
         log.info(foundByActiveMessage(active.toString(), results.size()));
+        return results;
+    }
+
+    public List<Food> findByExtidIn(List<String> extids) throws DatabaseFailureException {
+        List<Food> results = mapper.toModelList(repository.findByExtidIn(extids));
+        log.debug("Found {} foods by extid list", results.size());
         return results;
     }
 }

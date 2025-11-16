@@ -4,12 +4,6 @@ import type {
     FoodRequest,
     Nutrition,
     NutritionRequest,
-    Flavor,
-    FlavorRequest,
-    Serving,
-    ServingRequest,
-    Profile,
-    ProfileRequest,
     Company,
     CompanyRequest,
     Salad,
@@ -75,30 +69,6 @@ export const nutritionApi = {
     create: (nutrition: NutritionRequest) => apiClient.post<Nutrition>('/nutrition', nutrition),
     update: (extid: string, nutrition: NutritionRequest) => apiClient.put<Nutrition>(`/nutrition/${extid}`, nutrition),
     delete: (extid: string) => apiClient.delete(`/nutrition/${extid}`),
-};
-
-export const flavorApi = {
-    getAll: () => apiClient.get<Flavor[]>('/flavor'),
-    getById: (extid: string) => apiClient.get<Flavor>(`/flavor/${extid}`),
-    create: (flavor: FlavorRequest) => apiClient.post<Flavor>('/flavor', flavor),
-    update: (extid: string, flavor: FlavorRequest) => apiClient.put<Flavor>(`/flavor/${extid}`, flavor),
-    delete: (extid: string) => apiClient.delete(`/flavor/${extid}`),
-};
-
-export const servingApi = {
-    getAll: () => apiClient.get<Serving[]>('/serving'),
-    getById: (extid: string) => apiClient.get<Serving>(`/serving/${extid}`),
-    create: (serving: ServingRequest) => apiClient.post<Serving>('/serving', serving),
-    update: (extid: string, serving: ServingRequest) => apiClient.put<Serving>(`/serving/${extid}`, serving),
-    delete: (extid: string) => apiClient.delete(`/serving/${extid}`),
-};
-
-export const profileApi = {
-    getAll: () => apiClient.get<Profile[]>('/profile'),
-    getById: (extid: string) => apiClient.get<Profile>(`/profile/${extid}`),
-    create: (profile: ProfileRequest) => apiClient.post<Profile>('/profile', profile),
-    update: (extid: string, profile: ProfileRequest) => apiClient.put<Profile>(`/profile/${extid}`, profile),
-    delete: (extid: string) => apiClient.delete(`/profile/${extid}`),
 };
 
 export const companyApi = {

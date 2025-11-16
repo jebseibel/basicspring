@@ -1,8 +1,11 @@
 package com.seibel.cpss.service;
 
+import com.seibel.cpss.common.domain.Food;
 import com.seibel.cpss.common.domain.Salad;
+import com.seibel.cpss.common.domain.SaladFoodIngredient;
 import com.seibel.cpss.common.exceptions.ResourceNotFoundException;
 import com.seibel.cpss.common.exceptions.ServiceException;
+import com.seibel.cpss.common.exceptions.ValidationException;
 import com.seibel.cpss.database.db.exceptions.DatabaseFailureException;
 import com.seibel.cpss.database.db.service.SaladDbService;
 import lombok.extern.slf4j.Slf4j;
@@ -17,10 +20,12 @@ import java.util.List;
 public class SaladService extends BaseService {
 
     private final SaladDbService dbService;
+    private final FoodService foodService;
 
-    public SaladService(SaladDbService dbService) {
+    public SaladService(SaladDbService dbService, FoodService foodService) {
         super(Salad.class.getSimpleName());
         this.dbService = dbService;
+        this.foodService = foodService;
     }
 
     @Transactional
@@ -28,6 +33,7 @@ public class SaladService extends BaseService {
         requireNonNull(salad, "Salad");
         requireNonBlank(salad.getName(), "name");
         requireNonBlank(salad.getUserExtid(), "userExtid");
+        validateFoundationCount(salad);
         log.info("create(): {}", salad.getName());
 
         try {
@@ -42,6 +48,8 @@ public class SaladService extends BaseService {
     public Salad update(String extid, Salad salad) {
         requireNonBlank(extid, "extid");
         requireNonNull(salad, "Salad");
+        requireNonBlank(salad.getName(), "name");
+        validateFoundationCount(salad);
         log.info("update(): extid={}, {}", extid, salad.getName());
 
         try {
@@ -106,5 +114,46 @@ public class SaladService extends BaseService {
             log.error("Failed to retrieve all salads", e);
             throw new ServiceException("Unable to retrieve salads", e);
         }
+    }
+
+    /**
+     * Validates that a salad has between 1 and 3 foundation ingredients.
+     * Foundation ingredients are those with foundation=true.
+     *
+     * @param salad the salad to validate
+     * @throws ValidationException if the foundation count is not between 1 and 3
+     */
+    private void validateFoundationCount(Salad salad) {
+        if (salad.getFoodIngredients() == null || salad.getFoodIngredients().isEmpty()) {
+            throw new ValidationException("Salad must have at least one ingredient");
+        }
+
+        // Collect all food extids that need to be fetched
+        List<String> foodExtids = salad.getFoodIngredients().stream()
+                .map(SaladFoodIngredient::getFoodExtid)
+                .distinct()
+                .toList();
+
+        // Fetch all foods in a single query to avoid N+1
+        List<Food> foods;
+        try {
+            foods = foodService.findByExtidIn(foodExtids);
+        } catch (DatabaseFailureException e) {
+            log.error("Failed to lookup foods for foundation validation", e);
+            throw new ServiceException("Unable to validate salad ingredients", e);
+        }
+
+        // Count foundation ingredients
+        long foundationCount = foods.stream()
+                .filter(food -> Boolean.TRUE.equals(food.getFoundation()))
+                .count();
+
+        if (foundationCount < 1 || foundationCount > 3) {
+            throw new ValidationException(
+                String.format("Salad must have between 1 and 3 foundation ingredients, but has %d", foundationCount)
+            );
+        }
+
+        log.debug("Salad has {} foundation ingredients - validation passed", foundationCount);
     }
 }

@@ -110,16 +110,15 @@ public class DomainBuilderDatabase extends DomainBuilderBase {
     }
 
     public static FoodDb getFoodDb() {
-        return getFoodDb(null, null, null, null, null, null, null, null, null);
+        return getFoodDb(null, null, null, null, null, null, null, null);
     }
 
     public static FoodDb getFoodDb(String code, String name) {
-        return getFoodDb(code, name, null, null, null, null, null, null, null);
+        return getFoodDb(code, name, null, null, null, null, null, null);
     }
 
     public static FoodDb getFoodDb(String code, String name, String category, String subcategory, String description,
-                                   FlavorDb flavor, NutritionDb nutrition, String notes,
-                                   String extid) {
+                                   NutritionDb nutrition, String notes, String extid) {
         FoodDb item = new FoodDb();
         item.setExtid(extid != null ? extid : UUID.randomUUID().toString());
         item.setCode(code != null ? code : getCodeRandom("FD_"));
@@ -128,10 +127,7 @@ public class DomainBuilderDatabase extends DomainBuilderBase {
         item.setSubcategory(subcategory != null ? subcategory : getNameRandom("SubCat_"));
         item.setDescription(description != null ? description : getDescriptionRandom("Food Description "));
         item.setNotes(notes != null ? notes : getDescriptionRandom("Food Notes "));
-        // Only set flavor and nutrition if explicitly provided, not by default
-        if (flavor != null) {
-            item.setFlavor(flavor);
-        }
+        // Only set nutrition if explicitly provided, not by default
         if (nutrition != null) {
             item.setNutrition(nutrition);
         }
@@ -140,40 +136,5 @@ public class DomainBuilderDatabase extends DomainBuilderBase {
         return item;
     }
 
-    // ///////////////////////////////////////////////////////////////////
-    // Flavor
-    public static Flavor getFlavor() {
-        FlavorDb item = getFlavorDb();
-        return new FlavorMapper().toModel(item);
-    }
-
-    public static Flavor getFlavor(FlavorDb item) {
-        return new FlavorMapper().toModel(item);
-    }
-
-    public static FlavorDb getFlavorDb() {
-        return getFlavorDb(null, null, null, null, null, null, null, null, null, null);
-    }
-
-    public static FlavorDb getFlavorDb(String code, String name) {
-        return getFlavorDb(code, name, null, null, null, null, null, null, null, null);
-    }
-
-    public static FlavorDb getFlavorDb(String code, String name, String description,
-                                       String usage, Integer crunch, Integer punch, Integer sweet, Integer savory, String notes, String extid) {
-        FlavorDb item = new FlavorDb();
-        item.setExtid(extid != null ? extid : UUID.randomUUID().toString());
-        item.setCode(code != null ? code : getCodeRandom("FLV_"));
-        item.setName(name != null ? name : getNameRandom("Flavor_"));
-        item.setDescription(description != null ? description : getDescriptionRandom("Flavor Description "));
-        item.setNotes(notes != null ? notes : getDescriptionRandom("Flavor Notes "));
-        item.setHowtouse(usage != null ? usage : getVersionRandom("Usage"));
-        item.setCrunch(crunch != null ? crunch : 3);
-        item.setPunch(punch != null ? punch : 3);
-        item.setSweet(sweet != null ? sweet : 3);
-        item.setSavory(savory != null ? savory : 3);
-        setBaseSyncFields(item);
-        return item;
-    }
 }
 

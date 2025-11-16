@@ -19,7 +19,10 @@ public class Food extends BaseDomain {
     private String subcategory;
     private String description;
     private String notes;
-    private Flavor flavor;
+    private Integer crunch;
+    private Integer punch;
+    private Integer sweet;
+    private Integer savory;
     private Nutrition nutrition;
     private Integer typicalServingGrams;
     private Boolean foundation;

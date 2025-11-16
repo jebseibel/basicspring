@@ -170,6 +170,9 @@ export default function Mixtures() {
                         <Blend className="h-8 w-8 mr-3 text-purple-600" />
                         Mixtures
                     </h1>
+                    <p className="mt-1 text-sm text-gray-600">
+                        Mixtures are to be used in salads and other things like yogurts for nutritional value.
+                    </p>
                     <div className="flex items-center gap-4 mt-3">
                         <span className="text-sm font-medium text-gray-700">Show:</span>
                         <div className="flex items-center gap-3">
@@ -402,31 +405,31 @@ export default function Mixtures() {
                                                                     <div className="flex justify-between">
                                                                         <span className="text-gray-600">Carbs:</span>
                                                                         <span className="font-medium text-gray-900">
-                                                                            {Math.round((mixture.totalNutrition.carbohydrate / mixture.totalGrams) * 100)}g
+                                                                            {Math.round(((mixture.totalNutrition.carbohydrate || 0) / (mixture.totalGrams || 1)) * 100)}g
                                                                         </span>
                                                                     </div>
                                                                     <div className="flex justify-between">
                                                                         <span className="text-gray-600">Fat:</span>
                                                                         <span className="font-medium text-gray-900">
-                                                                            {Math.round((mixture.totalNutrition.fat / mixture.totalGrams) * 100)}g
+                                                                            {Math.round(((mixture.totalNutrition.fat || 0) / (mixture.totalGrams || 1)) * 100)}g
                                                                         </span>
                                                                     </div>
                                                                     <div className="flex justify-between">
                                                                         <span className="text-gray-600">Protein:</span>
                                                                         <span className="font-medium text-gray-900">
-                                                                            {Math.round((mixture.totalNutrition.protein / mixture.totalGrams) * 100)}g
+                                                                            {Math.round(((mixture.totalNutrition.protein || 0) / (mixture.totalGrams || 1)) * 100)}g
                                                                         </span>
                                                                     </div>
                                                                     <div className="flex justify-between">
                                                                         <span className="text-gray-600">Fiber:</span>
                                                                         <span className="font-medium text-gray-900">
-                                                                            {Math.round(((mixture.totalNutrition.fiber || 0) / mixture.totalGrams) * 100)}g
+                                                                            {Math.round(((mixture.totalNutrition.fiber || 0) / (mixture.totalGrams || 1)) * 100)}g
                                                                         </span>
                                                                     </div>
                                                                     <div className="flex justify-between">
                                                                         <span className="text-gray-600">Sugar:</span>
                                                                         <span className="font-medium text-gray-900">
-                                                                            {Math.round((mixture.totalNutrition.sugar / mixture.totalGrams) * 100)}g
+                                                                            {Math.round(((mixture.totalNutrition.sugar || 0) / (mixture.totalGrams || 1)) * 100)}g
                                                                         </span>
                                                                     </div>
                                                                 </div>
@@ -466,7 +469,7 @@ export default function Mixtures() {
                                                                             <div className="flex justify-between">
                                                                                 <span className="text-gray-600">Vitamin D:</span>
                                                                                 <span className="font-medium text-gray-900">
-                                                                                    {mixture.totalNutrition.vitaminD || 0}μg
+                                                                                    {mixture.totalNutrition.vitaminD || 0}mg
                                                                                 </span>
                                                                             </div>
                                                                             <div className="flex justify-between">
@@ -487,7 +490,7 @@ export default function Mixtures() {
                                                                             <div className="flex justify-between">
                                                                                 <span className="text-gray-600">Vitamin D:</span>
                                                                                 <span className="font-medium text-gray-900">
-                                                                                    {Math.round(((mixture.totalNutrition.vitaminD || 0) / mixture.totalGrams) * 100)}μg
+                                                                                    {Math.round(((mixture.totalNutrition.vitaminD || 0) / mixture.totalGrams) * 100)}mg
                                                                                 </span>
                                                                             </div>
                                                                             <div className="flex justify-between">

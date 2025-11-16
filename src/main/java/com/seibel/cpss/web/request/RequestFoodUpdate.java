@@ -26,7 +26,10 @@ public class RequestFoodUpdate extends BaseRequest {
     @Size(max = 1000)
     private String notes;
 
-    private String flavorExtid;
+    private Integer crunch;
+    private Integer punch;
+    private Integer sweet;
+    private Integer savory;
     private String nutritionExtid;
     private Integer typicalServingGrams;
     private Boolean foundation;

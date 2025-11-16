@@ -12,6 +12,7 @@ import java.util.Optional;
 public interface FoodRepository extends ListCrudRepository<FoodDb, Long> {
     Optional<FoodDb> findByExtid(String extid);
     List<FoodDb> findByActive(ActiveEnum active);
+    List<FoodDb> findByExtidIn(List<String> extids);
     boolean existsByExtid(String extid);
     Optional<FoodDb> findByCode(String code);
     Optional<FoodDb> findByName(String name);

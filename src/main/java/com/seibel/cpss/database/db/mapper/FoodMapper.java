@@ -1,10 +1,8 @@
 package com.seibel.cpss.database.db.mapper;
 
 import com.seibel.cpss.common.domain.Food;
-import com.seibel.cpss.database.db.entity.FlavorDb;
 import com.seibel.cpss.database.db.entity.FoodDb;
 import com.seibel.cpss.database.db.entity.NutritionDb;
-import com.seibel.cpss.database.db.repository.FlavorRepository;
 import com.seibel.cpss.database.db.repository.NutritionRepository;
 import org.springframework.stereotype.Component;
 
@@ -15,18 +13,12 @@ import java.util.stream.Collectors;
 @Component
 public class FoodMapper {
 
-    private final FlavorRepository flavorRepository;
     private final NutritionRepository nutritionRepository;
-    private final FlavorMapper flavorMapper;
     private final NutritionMapper nutritionMapper;
 
-    public FoodMapper(FlavorRepository flavorRepository,
-                      NutritionRepository nutritionRepository,
-                      FlavorMapper flavorMapper,
+    public FoodMapper(NutritionRepository nutritionRepository,
                       NutritionMapper nutritionMapper) {
-        this.flavorRepository = flavorRepository;
         this.nutritionRepository = nutritionRepository;
-        this.flavorMapper = flavorMapper;
         this.nutritionMapper = nutritionMapper;
     }
 
@@ -43,6 +35,10 @@ public class FoodMapper {
         food.setSubcategory(item.getSubcategory());
         food.setDescription(item.getDescription());
         food.setNotes(item.getNotes());
+        food.setCrunch(item.getCrunch());
+        food.setPunch(item.getPunch());
+        food.setSweet(item.getSweet());
+        food.setSavory(item.getSavory());
         food.setTypicalServingGrams(item.getTypicalServingGrams());
         food.setFoundation(item.getFoundation());
         food.setMixable(item.getMixable());
@@ -52,9 +48,6 @@ public class FoodMapper {
         food.setActive(item.getActive());
 
         // Convert entity relationships to domain models
-        if (item.getFlavor() != null) {
-            food.setFlavor(flavorMapper.toModel(item.getFlavor()));
-        }
         if (item.getNutrition() != null) {
             food.setNutrition(nutritionMapper.toModel(item.getNutrition()));
         }
@@ -75,6 +68,10 @@ public class FoodMapper {
         foodDb.setSubcategory(item.getSubcategory());
         foodDb.setDescription(item.getDescription());
         foodDb.setNotes(item.getNotes());
+        foodDb.setCrunch(item.getCrunch());
+        foodDb.setPunch(item.getPunch());
+        foodDb.setSweet(item.getSweet());
+        foodDb.setSavory(item.getSavory());
         foodDb.setTypicalServingGrams(item.getTypicalServingGrams());
         foodDb.setFoundation(item.getFoundation());
         foodDb.setMixable(item.getMixable());
@@ -84,10 +81,6 @@ public class FoodMapper {
         foodDb.setActive(item.getActive());
 
         // Convert domain models to entity relationships (lookup by code)
-        if (item.getFlavor() != null) {
-            FlavorDb flavorDb = flavorRepository.findByCode(item.getFlavor().getCode()).orElse(null);
-            foodDb.setFlavor(flavorDb);
-        }
         if (item.getNutrition() != null) {
             NutritionDb nutritionDb = nutritionRepository.findByCode(item.getNutrition().getCode()).orElse(null);
             foodDb.setNutrition(nutritionDb);

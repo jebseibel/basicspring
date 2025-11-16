@@ -1,10 +1,8 @@
 package com.seibel.cpss.database.db.mapper;
 
 import com.seibel.cpss.common.domain.Food;
-import com.seibel.cpss.database.db.entity.FlavorDb;
 import com.seibel.cpss.database.db.entity.FoodDb;
 import com.seibel.cpss.database.db.entity.NutritionDb;
-import com.seibel.cpss.database.db.repository.FlavorRepository;
 import com.seibel.cpss.database.db.repository.NutritionRepository;
 import com.seibel.cpss.testutils.DomainBuilderDatabase;
 import org.junit.jupiter.api.BeforeEach;
@@ -25,11 +23,7 @@ import static org.mockito.ArgumentMatchers.anyString;
 class FoodMapperTest {
 
     @Mock
-    private FlavorRepository flavorRepository;
-    @Mock
     private NutritionRepository nutritionRepository;
-    @Mock
-    private FlavorMapper flavorMapper;
     @Mock
     private NutritionMapper nutritionMapper;
 
@@ -37,17 +31,12 @@ class FoodMapperTest {
 
     @BeforeEach
     void setUp() {
-        mapper = new FoodMapper(flavorRepository, nutritionRepository,
-                                flavorMapper, nutritionMapper);
+        mapper = new FoodMapper(nutritionRepository, nutritionMapper);
 
         // Setup default mock behavior with lenient stubbings
-        FlavorDb flavorDb = DomainBuilderDatabase.getFlavorDb();
         NutritionDb nutritionDb = DomainBuilderDatabase.getNutritionDb();
 
-        org.mockito.Mockito.lenient().when(flavorRepository.findByCode(anyString())).thenReturn(Optional.of(flavorDb));
         org.mockito.Mockito.lenient().when(nutritionRepository.findByCode(anyString())).thenReturn(Optional.of(nutritionDb));
-
-        org.mockito.Mockito.lenient().when(flavorMapper.toModel(flavorDb)).thenReturn(DomainBuilderDatabase.getFlavor(flavorDb));
         org.mockito.Mockito.lenient().when(nutritionMapper.toModel(nutritionDb)).thenReturn(DomainBuilderDatabase.getNutrition(nutritionDb));
     }
 

@@ -9,7 +9,6 @@ import Mixtures from './pages/Mixtures';
 import MakeMixture from './pages/MakeMixture';
 import Foods from './pages/Foods';
 import Nutrition from './pages/Nutrition';
-import Flavors from './pages/Flavors';
 
 // Create a client
 const queryClient = new QueryClient({
@@ -42,7 +41,6 @@ function App() {
                         <Route path="mixtures/edit/:extid" element={<MakeMixture />} />
                         <Route path="foods" element={<Foods />} />
                         <Route path="nutrition" element={<Nutrition />} />
-                        <Route path="flavors" element={<Flavors />} />
                         <Route path="profiles" element={<div className="p-6">Profiles page coming soon...</div>} />
                         <Route path="companies" element={<div className="p-6">Companies page coming soon...</div>} />
                     </Route>

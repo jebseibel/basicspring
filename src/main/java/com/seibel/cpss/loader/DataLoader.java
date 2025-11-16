@@ -1,20 +1,16 @@
 package com.seibel.cpss.loader;
 
-import com.seibel.cpss.common.domain.Flavor;
 import com.seibel.cpss.common.domain.Food;
 import com.seibel.cpss.common.domain.Nutrition;
 import com.seibel.cpss.common.domain.Mixture;
 import com.seibel.cpss.common.domain.MixtureIngredient;
-import com.seibel.cpss.database.db.entity.FlavorDb;
 import com.seibel.cpss.database.db.entity.FoodDb;
 import com.seibel.cpss.database.db.entity.NutritionDb;
 import com.seibel.cpss.database.db.entity.MixtureDb;
-import com.seibel.cpss.database.db.repository.FlavorRepository;
 import com.seibel.cpss.database.db.repository.FoodRepository;
 import com.seibel.cpss.database.db.repository.NutritionRepository;
 import com.seibel.cpss.database.db.repository.MixtureRepository;
 import com.seibel.cpss.database.db.repository.MixtureIngredientRepository;
-import com.seibel.cpss.database.db.service.FlavorDbService;
 import com.seibel.cpss.database.db.service.FoodDbService;
 import com.seibel.cpss.database.db.service.NutritionDbService;
 import com.seibel.cpss.database.db.service.MixtureDbService;
@@ -37,13 +33,11 @@ import java.util.stream.Collectors;
 public class DataLoader implements CommandLineRunner {
 
     private final FoodDbService foodDbService;
-    private final FlavorDbService flavorDbService;
     private final NutritionDbService nutritionDbService;
     private final MixtureDbService mixtureDbService;
 
     // Repositories needed for linking relationships
     private final FoodRepository foodRepository;
-    private final FlavorRepository flavorRepository;
     private final NutritionRepository nutritionRepository;
     private final MixtureRepository mixtureRepository;
     private final MixtureIngredientRepository mixtureIngredientRepository;
@@ -61,20 +55,16 @@ public class DataLoader implements CommandLineRunner {
     );
 
     public DataLoader(FoodDbService foodDbService,
-                      FlavorDbService flavorDbService,
                       NutritionDbService nutritionDbService,
                       MixtureDbService mixtureDbService,
                       FoodRepository foodRepository,
-                      FlavorRepository flavorRepository,
                       NutritionRepository nutritionRepository,
                       MixtureRepository mixtureRepository,
                       MixtureIngredientRepository mixtureIngredientRepository) {
         this.foodDbService = foodDbService;
-        this.flavorDbService = flavorDbService;
         this.nutritionDbService = nutritionDbService;
         this.mixtureDbService = mixtureDbService;
         this.foodRepository = foodRepository;
-        this.flavorRepository = flavorRepository;
         this.nutritionRepository = nutritionRepository;
         this.mixtureRepository = mixtureRepository;
         this.mixtureIngredientRepository = mixtureIngredientRepository;
@@ -94,8 +84,7 @@ public class DataLoader implements CommandLineRunner {
 
             log.info("No existing data found. Loading from CSV files...");
 
-            // Load in order: Flavor -> Nutrition -> Food -> Link relationships -> Mixtures (with ingredients)
-            loadFlavors();
+            // Load in order: Nutrition -> Food -> Link relationships -> Mixtures (with ingredients)
             loadNutrition();
             loadFoods();
             linkFoodRelationships();
@@ -108,35 +97,6 @@ public class DataLoader implements CommandLineRunner {
             log.error("FATAL: Data loading failed", e);
             throw new RuntimeException("Failed to load initial data", e);
         }
-    }
-
-    private void loadFlavors() throws IOException {
-        log.info("Loading Flavors...");
-        int count = 0;
-
-        for (String category : CATEGORIES) {
-            String filePath = DATA_PATH + "20-flavor-" + category + ".csv";
-            List<Map<String, String>> records = CsvParser.parse(filePath);
-
-            for (Map<String, String> record : records) {
-                Flavor flavor = new Flavor();
-                // Note: code is provided in CSV but will be auto-generated if null/empty
-                flavor.setCode(record.get("code"));
-                flavor.setName(record.get("name"));
-                flavor.setDescription(record.get("description"));
-                flavor.setNotes(record.get("notes"));
-                flavor.setHowtouse(record.get("howtouse"));
-                flavor.setCrunch(parseInteger(record.get("crunch")));
-                flavor.setPunch(parseInteger(record.get("punch")));
-                flavor.setSweet(parseInteger(record.get("sweet")));
-                flavor.setSavory(parseInteger(record.get("savory")));
-
-                flavorDbService.create(flavor);
-                count++;
-            }
-        }
-
-        log.info("Loaded {} flavor profiles", count);
     }
 
     private void loadNutrition() throws IOException {
@@ -196,28 +156,17 @@ public class DataLoader implements CommandLineRunner {
     }
 
     /**
-     * Links Food entities with their corresponding Flavor, Nutrition, and Serving entities
+     * Links Food entities with their corresponding Nutrition entities
      * by matching on the 'name' field.
      */
     private void linkFoodRelationships() {
         log.info("Linking Food relationships...");
 
         List<FoodDb> allFoods = foodRepository.findAll();
-        int linkedFlavors = 0;
         int linkedNutrition = 0;
 
         for (FoodDb food : allFoods) {
             boolean updated = false;
-
-            // Link Flavor by name
-            Optional<FlavorDb> flavor = flavorRepository.findByName(food.getName());
-            if (flavor.isPresent()) {
-                food.setFlavor(flavor.get());
-                linkedFlavors++;
-                updated = true;
-            } else {
-                log.warn("No flavor profile found for food: {}", food.getName());
-            }
 
             // Link Nutrition by name
             Optional<NutritionDb> nutrition = nutritionRepository.findByName(food.getName());
@@ -234,8 +183,7 @@ public class DataLoader implements CommandLineRunner {
             }
         }
 
-        log.info("Linked {} flavors, {} nutrition profiles to food items",
-                linkedFlavors, linkedNutrition);
+        log.info("Linked {} nutrition profiles to food items", linkedNutrition);
     }
 
     private void loadMixtures() throws IOException {
@@ -299,13 +247,11 @@ public class DataLoader implements CommandLineRunner {
 
     private void logSummary() {
         long foods = foodRepository.count();
-        long flavors = flavorRepository.count();
         long nutrition = nutritionRepository.count();
         long mixtures = mixtureRepository.count();
 
         log.info("=== Data Load Summary ===");
         log.info("Foods:     {}", foods);
-        log.info("Flavors:   {}", flavors);
         log.info("Nutrition: {}", nutrition);
         log.info("Mixtures:  {}", mixtures);
         log.info("========================");

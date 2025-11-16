@@ -1,7 +1,6 @@
 package com.seibel.cpss.web.controller;
 
 import com.seibel.cpss.common.domain.Food;
-import com.seibel.cpss.service.FlavorService;
 import com.seibel.cpss.service.FoodService;
 import com.seibel.cpss.service.NutritionService;
 import com.seibel.cpss.web.request.RequestFoodCreate;
@@ -21,7 +20,6 @@ import java.util.List;
 public class FoodController {
 
     private final FoodService foodService;
-    private final FlavorService flavorService;
     private final NutritionService nutritionService;
     private final FoodConverter converter;
 
@@ -60,9 +58,7 @@ public class FoodController {
 @RequiredArgsConstructor
 class FoodConverter {
 
-    private final FlavorService flavorService;
     private final NutritionService nutritionService;
-    private final FlavorConverter flavorConverter;
     private final NutritionConverter nutritionConverter;
 
     Food toDomain(RequestFoodCreate request) {
@@ -73,7 +69,10 @@ class FoodConverter {
                 .subcategory(request.getSubcategory())
                 .description(request.getDescription())
                 .notes(request.getNotes())
-                .flavor(request.getFlavorExtid() != null ? flavorService.findByExtid(request.getFlavorExtid()) : null)
+                .crunch(request.getCrunch())
+                .punch(request.getPunch())
+                .sweet(request.getSweet())
+                .savory(request.getSavory())
                 .nutrition(request.getNutritionExtid() != null ? nutritionService.findByExtid(request.getNutritionExtid()) : null)
                 .typicalServingGrams(request.getTypicalServingGrams())
                 .foundation(request.getFoundation())
@@ -90,7 +89,10 @@ class FoodConverter {
                 .subcategory(request.getSubcategory())
                 .description(request.getDescription())
                 .notes(request.getNotes())
-                .flavor(request.getFlavorExtid() != null ? flavorService.findByExtid(request.getFlavorExtid()) : null)
+                .crunch(request.getCrunch())
+                .punch(request.getPunch())
+                .sweet(request.getSweet())
+                .savory(request.getSavory())
                 .nutrition(request.getNutritionExtid() != null ? nutritionService.findByExtid(request.getNutritionExtid()) : null)
                 .typicalServingGrams(request.getTypicalServingGrams())
                 .foundation(request.getFoundation())
@@ -107,7 +109,10 @@ class FoodConverter {
                 .subcategory(item.getSubcategory())
                 .description(item.getDescription())
                 .notes(item.getNotes())
-                .flavor(item.getFlavor() != null ? flavorConverter.toResponse(item.getFlavor()) : null)
+                .crunch(item.getCrunch())
+                .punch(item.getPunch())
+                .sweet(item.getSweet())
+                .savory(item.getSavory())
                 .nutrition(item.getNutrition() != null ? nutritionConverter.toResponse(item.getNutrition()) : null)
                 .typicalServingGrams(item.getTypicalServingGrams())
                 .foundation(item.getFoundation())
@@ -126,7 +131,10 @@ class FoodConverter {
                 request.getSubcategory() == null &&
                 request.getDescription() == null &&
                 request.getNotes() == null &&
-                request.getFlavorExtid() == null &&
+                request.getCrunch() == null &&
+                request.getPunch() == null &&
+                request.getSweet() == null &&
+                request.getSavory() == null &&
                 request.getNutritionExtid() == null &&
                 request.getTypicalServingGrams() == null &&
                 request.getFoundation() == null &&

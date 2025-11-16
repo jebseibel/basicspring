@@ -11,15 +11,9 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class Flavor extends BaseDomain {
-
-    private String code;
-    private String name;
-    private String description;
-    private String notes;
-    private String howtouse;
-    private Integer crunch;
-    private Integer punch;
-    private Integer sweet;
-    private Integer savory;
+public class SaladFoodIngredient extends BaseDomain {
+    private Long saladId;
+    private String foodExtid;
+    private Food food;
+    private Integer grams;
 }

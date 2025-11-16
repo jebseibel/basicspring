@@ -2,6 +2,7 @@ package com.seibel.cpss.database.db.mapper;
 
 import com.seibel.cpss.common.domain.Salad;
 import com.seibel.cpss.database.db.entity.SaladDb;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -9,7 +10,10 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Component
+@RequiredArgsConstructor
 public class SaladMapper {
+
+    private final SaladFoodIngredientMapper ingredientMapper;
 
     public Salad toModel(SaladDb item) {
         if (Objects.isNull(item)) {
@@ -26,6 +30,11 @@ public class SaladMapper {
         salad.setUpdatedAt(item.getUpdatedAt());
         salad.setDeletedAt(item.getDeletedAt());
         salad.setActive(item.getActive());
+
+        // Map food ingredients
+        if (item.getFoodIngredients() != null) {
+            salad.setFoodIngredients(ingredientMapper.toModelList(item.getFoodIngredients()));
+        }
 
         return salad;
     }
@@ -45,6 +54,9 @@ public class SaladMapper {
         saladDb.setUpdatedAt(item.getUpdatedAt());
         saladDb.setDeletedAt(item.getDeletedAt());
         saladDb.setActive(item.getActive());
+
+        // Note: foodIngredients are not mapped here to avoid circular dependency
+        // They are handled in SaladDbService where the relationship is set explicitly
 
         return saladDb;
     }

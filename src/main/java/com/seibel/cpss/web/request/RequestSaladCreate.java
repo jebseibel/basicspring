@@ -20,14 +20,14 @@ public class RequestSaladCreate extends BaseRequest {
     private String description;
 
     @NotEmpty(message = "At least one ingredient is required.")
-    private List<SaladIngredientRequest> ingredients;
+    private List<SaladIngredientRequest> foodIngredients;
 
     @Data
     public static class SaladIngredientRequest {
         @NotEmpty(message = "Food extid is required.")
         private String foodExtid;
 
-        @NotNull(message = "Quantity is required.")
-        private Double quantity;
+        @NotNull(message = "Grams is required.")
+        private Integer grams;
     }
 }

@@ -9,9 +9,15 @@ export interface Food {
     notes?: string;
     foundation?: boolean;
     mixable?: boolean;
-    flavor?: Flavor;
+    // Flavor properties are now directly on Food
+    crunch?: number;
+    punch?: number;
+    sweet?: number;
+    savory?: number;
+    // Nutrition is still nested
     nutrition?: Nutrition;
-    serving?: Serving;
+    // Serving is now just a number (grams)
+    typicalServingGrams?: number;
 }
 
 export interface FoodRequest {
@@ -23,98 +29,40 @@ export interface FoodRequest {
     notes?: string;
     foundation?: boolean;
     mixable?: boolean;
-    flavorExtid?: string;
+    crunch?: number;
+    punch?: number;
+    sweet?: number;
+    savory?: number;
     nutritionExtid?: string;
-    servingExtid?: string;
+    typicalServingGrams?: number;
 }
 
 export interface Nutrition {
-    extid: string;
-    code: string;
-    name: string;
-    category?: string;
-    subcategory?: string;
+    extid?: string;
+    code?: string;
+    name?: string;
     description?: string;
-    notes?: string;
-    carbohydrate: number;
-    fat: number;
-    protein: number;
-    sugar: number;
-    vitaminD: number;
-    vitaminE: number;
+    calories?: number;
+    carbohydrate?: number;
+    fat?: number;
+    protein?: number;
+    sugar?: number;
+    fiber?: number;
+    vitaminD?: number;
+    vitaminE?: number;
 }
 
 export interface NutritionRequest {
     code: string;
     name: string;
-    category?: string;
-    subcategory?: string;
     description?: string;
-    notes?: string;
-    carbohydrate: number;
-    fat: number;
-    protein: number;
-    sugar: number;
-    vitaminD: number;
-    vitaminE: number;
-}
-
-export interface Flavor {
-    extid: string;
-    code: string;
-    name: string;
-    category?: string;
-    subcategory?: string;
-    description?: string;
-    notes?: string;
-    howtouse?: string;
-    crunch: number;
-    punch: number;
-    sweet: number;
-    savory: number;
-}
-
-export interface FlavorRequest {
-    code: string;
-    name: string;
-    category?: string;
-    subcategory?: string;
-    description?: string;
-    notes?: string;
-    howtouse?: string;
-    crunch: number;
-    punch: number;
-    sweet: number;
-    savory: number;
-}
-
-export interface Serving {
-    extid: string;
-    code: string;
-    name: string;
-    category?: string;
-    subcategory?: string;
-    description?: string;
-    notes?: string;
-    cup: number;
-    quarter: number;
-    tablespoon: number;
-    teaspoon: number;
-    gram: number;
-}
-
-export interface ServingRequest {
-    code: string;
-    name: string;
-    category?: string;
-    subcategory?: string;
-    description?: string;
-    notes?: string;
-    cup: number;
-    quarter: number;
-    tablespoon: number;
-    teaspoon: number;
-    gram: number;
+    carbohydrate?: number;
+    fat?: number;
+    protein?: number;
+    sugar?: number;
+    fiber?: number;
+    vitaminD?: number;
+    vitaminE?: number;
 }
 
 export interface Profile {
@@ -142,11 +90,31 @@ export interface CompanyRequest {
 }
 
 // Salad Types
+export interface SaladFoodIngredient {
+    extid: string;
+    foodExtid: string;
+    foodName?: string;
+    grams: number;
+}
+
+export interface SaladFoodIngredientRequest {
+    foodExtid: string;
+    grams: number;
+}
+
 export interface Salad {
     extid: string;
     name: string;
     description?: string;
     userExtid: string;
+    foodIngredients: SaladFoodIngredient[];
+    totalNutrition?: Nutrition;
+    totalCrunch?: number;
+    totalPunch?: number;
+    totalSweet?: number;
+    totalSavory?: number;
+    totalGrams?: number;
+    active?: string;
     createdAt: string;
     updatedAt: string;
 }
@@ -154,6 +122,7 @@ export interface Salad {
 export interface SaladRequest {
     name: string;
     description?: string;
+    foodIngredients: SaladFoodIngredientRequest[];
 }
 
 // Mixture Types

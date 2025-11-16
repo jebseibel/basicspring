@@ -1,6 +1,8 @@
 package com.seibel.cpss.database.db.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -18,9 +20,25 @@ public class FoodDb extends BaseFoodDb {
     @Column(name = "subcategory", length = 32, nullable = false)
     private String subcategory;
 
-    @OneToOne
-    @JoinColumn(name = "flavor_id", referencedColumnName = "id")
-    private FlavorDb flavor;
+    @Min(1)
+    @Max(5)
+    @Column(name = "crunch")
+    private Integer crunch;
+
+    @Min(1)
+    @Max(5)
+    @Column(name = "punch")
+    private Integer punch;
+
+    @Min(1)
+    @Max(5)
+    @Column(name = "sweet")
+    private Integer sweet;
+
+    @Min(1)
+    @Max(5)
+    @Column(name = "savory")
+    private Integer savory;
 
     @OneToOne
     @JoinColumn(name = "nutrition_id", referencedColumnName = "id")
