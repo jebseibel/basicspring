@@ -117,11 +117,11 @@ public class SaladService extends BaseService {
     }
 
     /**
-     * Validates that a salad has between 1 and 3 foundation ingredients.
+     * Validates that a salad has at least 1 foundation ingredient.
      * Foundation ingredients are those with foundation=true.
      *
      * @param salad the salad to validate
-     * @throws ValidationException if the foundation count is not between 1 and 3
+     * @throws ValidationException if the foundation count is less than 1
      */
     private void validateFoundationCount(Salad salad) {
         if (salad.getFoodIngredients() == null || salad.getFoodIngredients().isEmpty()) {
@@ -148,10 +148,8 @@ public class SaladService extends BaseService {
                 .filter(food -> Boolean.TRUE.equals(food.getFoundation()))
                 .count();
 
-        if (foundationCount < 1 || foundationCount > 3) {
-            throw new ValidationException(
-                String.format("Salad must have between 1 and 3 foundation ingredients, but has %d", foundationCount)
-            );
+        if (foundationCount < 1) {
+            throw new ValidationException("Salad must have at least one foundation ingredient");
         }
 
         log.debug("Salad has {} foundation ingredients - validation passed", foundationCount);

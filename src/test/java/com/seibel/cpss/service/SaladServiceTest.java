@@ -123,19 +123,19 @@ class SaladServiceTest {
             service.create(salad);
         });
 
-        assertEquals("Salad must have between 1 and 3 foundation ingredients, but has 0", exception.getMessage());
+        assertEquals("Salad must have at least one foundation ingredient", exception.getMessage());
         verify(dbService, never()).create(any(Salad.class));
     }
 
     @Test
-    void create_shouldFail_withFourFoundationIngredients() throws DatabaseFailureException {
+    void create_shouldSucceed_withFourFoundationIngredients() throws DatabaseFailureException {
         // Arrange
         Salad salad = createTestSalad();
         salad.setFoodIngredients(List.of(
             createIngredient("food-1", true),   // 1 foundation
             createIngredient("food-2", true),   // 2 foundation
             createIngredient("food-3", true),   // 3 foundation
-            createIngredient("food-4", true)    // 4 foundation - too many!
+            createIngredient("food-4", true)    // 4 foundation - now allowed!
         ));
 
         when(foodService.findByExtidIn(anyList())).thenReturn(List.of(
@@ -145,13 +145,14 @@ class SaladServiceTest {
             createFood("food-4", true)
         ));
 
-        // Act & Assert
-        ValidationException exception = assertThrows(ValidationException.class, () -> {
-            service.create(salad);
-        });
+        when(dbService.create(any(Salad.class))).thenReturn(salad);
 
-        assertEquals("Salad must have between 1 and 3 foundation ingredients, but has 4", exception.getMessage());
-        verify(dbService, never()).create(any(Salad.class));
+        // Act
+        Salad result = service.create(salad);
+
+        // Assert
+        assertNotNull(result);
+        verify(dbService, times(1)).create(salad);
     }
 
     @Test
@@ -228,7 +229,7 @@ class SaladServiceTest {
             service.update(extid, salad);
         });
 
-        assertEquals("Salad must have between 1 and 3 foundation ingredients, but has 0", exception.getMessage());
+        assertEquals("Salad must have at least one foundation ingredient", exception.getMessage());
         verify(dbService, never()).update(any(), any(Salad.class));
     }
 

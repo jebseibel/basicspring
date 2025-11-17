@@ -208,8 +208,8 @@ Calculate calories: (carbs × 4) + (protein × 4) + (fat × 9)
 - Ensures every salad has a proper base before adding toppings
 
 ### Validation Rule
-- ✓ Salads must have **between 1 and 3 foundation ingredients**
-- Flexible range: some people want simple (1 base), others want variety (2-3 bases)
+- ✓ Salads must have **at least 1 foundation ingredient**
+- Ensures every salad has a proper base before adding toppings
 - Enforced on both salad creation and update
 
 ### Implementation Details
@@ -218,25 +218,27 @@ Calculate calories: (carbs × 4) + (protein × 4) + (fat × 9)
 - Runs during `create()` and `update()` operations
 - **Optimized N+1 Query Fix**: Uses batch query `findByExtidIn()` instead of individual lookups
 - Counts `foundation=true` items from all food ingredients
-- Throws `ValidationException` if count < 1 or > 3
+- Throws `ValidationException` if count < 1
 - Error messages:
   - "Salad must have at least one ingredient"
-  - "Salad must have between 1 and 3 foundation ingredients, but has X"
+  - "Salad must have at least one foundation ingredient"
 
 **Testing** (✓ Completed):
-- ✓ Unit tests for validation logic (9 tests, all passing)
-  - Valid cases: 1, 2, 3 foundation ingredients
-  - Invalid cases: 0, 4+ foundation ingredients, null/empty lists
+- ✓ Unit tests for validation logic (tests passing)
+  - Valid cases: 1+ foundation ingredients
+  - Invalid cases: 0 foundation ingredients, null/empty lists
   - Update operations with validation
   - Error message verification
   - Updated to use `findByExtidIn()` mocking
 - ⏳ Integration tests with actual salad creation (pending)
 
-**Frontend** (⏳ Not Started):
-- UI guidance to select 1-3 foundation items first
-- Visual feedback showing foundation count (e.g., "2 of 3 bases selected")
-- Prevent submission if foundation count invalid
+**Frontend** (✓ Completed):
+- UI guidance to select at least 1 foundation item
+- Visual feedback showing foundation count (e.g., "1 of 1 required")
+- Prevent submission if foundation count invalid (< 1)
 - Clear error messages from backend validation
+- Foundation foods marked with 🥬 emoji and highlighted in green
+- "BASE" badge on foundation ingredient rows
 
 ### Foundation Foods (from CSV data)
 **Vegetables:**
@@ -316,11 +318,34 @@ Calculate calories: (carbs × 4) + (protein × 4) + (fat × 9)
    - File: `src/test/java/com/seibel/cpss/service/SaladServiceTest.java`
    - Status: 101 tests passing, BUILD SUCCESSFUL
 
-### Frontend - NOT STARTED ⏳
-9. ⏳ Update frontend types
-10. ⏳ Update SaladBuilder.tsx (similar to Mixtures.tsx)
-11. ⏳ Implement frontend foundation selection UI
-12. ⏳ Create salad create/edit pages
+### Frontend - COMPLETED ✓
+9. ✓ Update frontend types
+10. ✓ Update SaladBuilder.tsx (similar to Mixtures.tsx)
+11. ✓ Implement frontend foundation selection UI
+12. ✓ Create salad create/edit pages
+
+#### Frontend Implementation Details
+**Salads.tsx** (List/View Page):
+- ✓ Full salad listing with sorting (name, description)
+- ✓ Filter tabs: All Salads / System Salads / My Salads
+- ✓ Expandable rows showing ingredients, nutrition, and flavor
+- ✓ Actions: "Make It My Own", Edit, Delete
+- ✓ Nutrition display with expandable micronutrients
+- ✓ Flavor profile display (crunch, punch, sweet, savory)
+
+**SaladBuilder.tsx** (Create/Edit Page):
+- ✓ Create and edit functionality with React Query
+- ✓ Foundation ingredient validation UI:
+  - Prominent banner showing foundation count (1+ required)
+  - Visual indicators: 🥬 emoji, green highlighting, "BASE" badge
+  - Prevents submission if < 1 foundation ingredient
+- ✓ Dynamic ingredient management:
+  - Add/remove ingredients
+  - Prevent duplicate food selection
+  - Grams input with validation (min 1g)
+  - Total weight calculation
+- ✓ Error handling and loading states
+- ✓ Navigation and routing
 
 ### Known Limitations
 - **Note**: Current implementation only supports food ingredients (no mixture ingredients yet)

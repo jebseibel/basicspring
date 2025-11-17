@@ -165,32 +165,31 @@ export default function SaladBuilder() {
 
             {/* Foundation Indicator - Prominent Banner */}
             <div className={`mb-4 p-4 rounded-lg border-2 shadow-sm ${
-                foundationCount >= 1 && foundationCount <= 3
+                foundationCount >= 1
                     ? 'bg-green-50 border-green-300'
                     : 'bg-amber-50 border-amber-300'
             }`}>
                 <div className="flex items-start">
                     <AlertCircle className={`h-6 w-6 mt-0.5 mr-3 flex-shrink-0 ${
-                        foundationCount >= 1 && foundationCount <= 3
+                        foundationCount >= 1
                             ? 'text-green-600'
                             : 'text-amber-600'
                     }`} />
                     <div className="flex-1">
                         <h4 className={`text-base font-bold ${
-                            foundationCount >= 1 && foundationCount <= 3
+                            foundationCount >= 1
                                 ? 'text-green-900'
                                 : 'text-amber-900'
                         }`}>
                             Foundation Ingredients: {foundationCount} of 1 required
                         </h4>
                         <p className={`text-sm mt-1 ${
-                            foundationCount >= 1 && foundationCount <= 3
+                            foundationCount >= 1
                                 ? 'text-green-700'
                                 : 'text-amber-700'
                         }`}>
                             {foundationCount === 0 && 'You must add at least 1 foundation ingredient (base greens marked with 🥬 like lettuce, spinach, tomatoes, cucumber, etc.)'}
-                            {foundationCount >= 1 && foundationCount <= 3 && '✓ Foundation requirement met! You can now add other ingredients or save your salad.'}
-                            {foundationCount > 3 && 'Too many foundation ingredients! Maximum is 3.'}
+                            {foundationCount >= 1 && '✓ Foundation requirement met! You can now add other ingredients or save your salad.'}
                         </p>
                     </div>
                 </div>
@@ -335,7 +334,6 @@ export default function SaladBuilder() {
                                 ingredients.length === 0 ||
                                 ingredients.some(ing => !ing.foodExtid || !ing.grams || ing.grams < 1) ||
                                 foundationCount < 1 ||
-                                foundationCount > 3 ||
                                 createSaladMutation.isPending ||
                                 updateSaladMutation.isPending
                             }

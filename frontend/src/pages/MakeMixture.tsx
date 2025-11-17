@@ -87,7 +87,7 @@ export default function MakeMixture() {
     };
 
     const handleSaveMixture = () => {
-        if (!mixtureName.trim() || ingredients.length === 0) {
+        if (!mixtureName.trim() || ingredients.length < 3) {
             return;
         }
 
@@ -269,7 +269,7 @@ export default function MakeMixture() {
                             onClick={handleSaveMixture}
                             disabled={
                                 !mixtureName.trim() ||
-                                ingredients.length === 0 ||
+                                ingredients.length < 3 ||
                                 ingredients.some(ing => !ing.foodExtid || !ing.grams || ing.grams < 1) ||
                                 createMixtureMutation.isPending ||
                                 updateMixtureMutation.isPending
