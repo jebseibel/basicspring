@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { foodApi } from '../services/api';
-import { Apple, ArrowUpDown, ArrowUp, ArrowDown } from 'lucide-react';
+import { Apple, ArrowUpDown, ArrowUp, ArrowDown, Blend } from 'lucide-react';
 import { useState, useMemo } from 'react';
 
 type SortField = 'name' | 'category' | 'subcategory' | 'description';
@@ -237,10 +237,10 @@ export default function Foods() {
                     {food.description || '-'}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    {food.foundation ? '✓' : '-'}
+                    {food.foundation ? '🥬' : '-'}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    {food.mixable ? '✓' : '-'}
+                    {food.mixable ? <Blend className="h-4 w-4 text-purple-600" /> : '-'}
                   </td>
                 </tr>
               ))
